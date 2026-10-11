@@ -603,12 +603,13 @@ ls viz_IB2d | tail -3                       # the newest frames
 \end{frame}
 
 % 25
-\begin{frame}{When a job stops early}
+\begin{frame}{When a job will not start, or stops early}
 \small
 \begin{tabular}{@{}L{0.36\textwidth}L{0.60\textwidth}@{}}
 \toprule
 What you see & What to do \\
 \midrule
+\code{sbatch: error: Unable to open file job.slurm} & you are in a different folder: \code{cd} to the folder that holds the script, then submit again \\
 the \code{.out} file reports a cancellation \emph{due to time limit} & raise \code{--time}, or restart from the last restart file \\
 the job was killed for memory, or a PETSc error appears at the end & some PETSc errors mean the job ran out of memory: raise \code{--mem-per-cpu} or use more nodes \\
 \code{Time step size change encountered} & the flow became faster than \code{DT} allows; see slide 16 \\
@@ -618,7 +619,7 @@ the job waits in the queue for a long time & check the reason with \code{squeue 
 \end{tabular}
 \vspace{3mm}
 
-Always read the end of both \code{IB2d.log} and the \code{.out} file first: the last lines usually name the problem.
+Always read the end of both \code{IB2d.log} and the \code{.out} file first: the last lines usually name the problem. \code{sacct -u \$USER -S today} lists today's jobs with their state (\code{COMPLETED}, \code{TIMEOUT}, \code{FAILED}) and exit code.
 \sourcecredit{Partly adapted from the course's ``Debugging tips'' slides (2019--2020).}
 \end{frame}
 

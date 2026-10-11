@@ -8,7 +8,7 @@ The theory behind these tools is in the companion series **[Fluid Dynamics and I
 
 ## Status (October 2026): being rewritten
 
-The consolidated LaTeX version covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. The examples and the build commands were tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). The Puma job scripts follow the UA HPC documentation and are being checked on Puma. Chapters are added here as they are drafted.
+The consolidated LaTeX version covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. The examples and the build commands were tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). Example IB/01 has also been built and run on Puma with the commands in chapters 1-3 (4 min 14 s on 4 cores); the other job scripts follow the same pattern. Chapters are added here as they are drafted.
 
 | Part | Chapters | State |
 |---|---|---|
