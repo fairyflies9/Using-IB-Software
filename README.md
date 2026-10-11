@@ -8,7 +8,7 @@ The theory behind these tools is in the companion series **[Fluid Dynamics and I
 
 ## Status (October 2026): being rewritten
 
-The consolidated LaTeX version covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. Every command and example in it was tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). Chapters are added here as they are drafted.
+The consolidated LaTeX version covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. The examples and the build commands were tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). The Puma job scripts follow the UA HPC documentation and are being checked on Puma. Chapters are added here as they are drafted.
 
 | Part | Chapters | State |
 |---|---|---|
@@ -48,6 +48,14 @@ The files in `examples/` must keep Unix line endings: IBAMR stops with `Illegal 
 Material in these tutorials was developed with many students and colleagues over the years; individual decks credit their contributors and sources.
 
 Claude (Anthropic) was used to organize, combine, and format more than twelve years (2013–2026) of the instructor's tutorial notes from courses and workshops at several universities.
+
+## License
+
+- **Slides, text and figures:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE). You may share and adapt them for any purpose, as long as you give credit.
+- **Example code and scripts:** [BSD 3-Clause](LICENSE-CODE).
+- **Exceptions:** files that carry their own copyright notice or credit another author keep their original terms. The example programs adapted from IBAMR keep IBAMR's BSD 3-Clause notice, figures from other sources are credited where they appear, and the papers in `papers/` are under their publishers' licenses.
+
+To credit these tutorials, cite: L. A. Miller, *Using IB Software*, https://github.com/fairyflies9/Using-IB-Software.
 
 ## Feedback
 
