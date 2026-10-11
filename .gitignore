@@ -1,0 +1,31 @@
+# Operating-system and editor files
+.DS_Store
+~$*
+*~
+
+# LaTeX by-products (the compiled PDFs are kept)
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# Example builds and simulation output
+build/
+build-*/
+viz_IB2d/
+viz_IB3d/
+hier_data_IB2d/
+hier_data_IB3d/
+restart_IB2d/
+restart_IB3d/
+run_*/
+*.out
+*.o
+main2d
+main3d
