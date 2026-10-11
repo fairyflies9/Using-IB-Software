@@ -32,7 +32,7 @@ In the course versions these were three separate folders (`TetherForceFullPlate2
 | `IBFE_Mesh2D_128.mat` | The plate's mesh: 101 nodes and 130 triangles, in libMesh's MATLAB mesh format |
 | `CMakeLists.txt` | Build instructions for CMake |
 | `job.slurm` | Batch script for Puma |
-| `extras/` | A MATLAB script and a Triangle `.poly` file from the course versions. They describe a different rectangle and are not used (see `extras/README.md`). |
+| `extras/` | A MATLAB script (with a Python version) and a Triangle `.poly` file from the course versions. They describe a different rectangle and are not used (see `extras/README.md`). |
 
 ## The physics
 

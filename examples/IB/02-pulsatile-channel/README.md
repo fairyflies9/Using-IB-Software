@@ -21,6 +21,7 @@ Fluid pulses through a straight channel whose walls are rows of Lagrangian point
 | `channel.target` | every point is a target point, stiffness 2.048 × 10⁶ |
 | `channel.spring`, `channel.beam` | springs and beams along each wall with stiffness 10⁻¹⁰ |
 | `Channel_Flow.m` | MATLAB script by Nick Battista (2013) that writes the four structure files |
+| `channel_flow.py` | Python version of the same script: `python3 channel_flow.py` (add `--plot` to see the points). The four files it writes are identical to the ones in this folder. |
 | `CMakeLists.txt` | Build instructions for CMake |
 | `job.slurm` | Batch script for Puma |
 

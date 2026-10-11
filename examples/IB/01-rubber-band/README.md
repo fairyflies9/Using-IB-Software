@@ -20,6 +20,7 @@ An elastic band made of 644 Lagrangian points joined by springs starts as an ell
 | `rubber_band_512.vertex` | 644 points: the first line is the count, then one `x y` pair per line |
 | `rubber_band_512.spring` | 644 springs: the count, then `i j stiffness rest_length`, with indices starting at 0 |
 | `generate_mesh2d.m` | MATLAB or Octave script that writes the two structure files |
+| `generate_mesh2d.py` | Python version of the same script (standard library only): `python3 generate_mesh2d.py`. Its `.spring` file is identical to the one in this folder; in its `.vertex` file a few dozen of the 1288 coordinates differ in the last digit, by about 10⁻¹⁷. Sine and cosine round slightly differently in different math libraries, so which coordinates differ depends on the computer. That is the size of ordinary round-off error. |
 | `CMakeLists.txt` | Build instructions for CMake |
 | `job.slurm` | Batch script for Puma |
 | `job_array.slurm`, `params.txt` | A three-run viscosity sweep as a Slurm job array |
