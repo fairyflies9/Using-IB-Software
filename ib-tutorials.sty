@@ -1,0 +1,207 @@
+% =====================================================================
+% ib-tutorials.sty -- shared Beamer style for the "Using IB Software" decks
+% (the same style, with a different disclosure line, is used by the
+% "Fluid Dynamics and IBM Theory" series).
+%
+% Ported from the UF Animal Sciences 2026 talk (presentation.sty), which is
+% itself a port of pmichaillat/latex-presentation: grayscale palette,
+% lowercase small-caps titles, RubineRed alerts, Helvetica text with CM math,
+% no navigation symbols, no footline.
+%
+% Additions for lecture decks: subtitle/institute on the title page, a
+% \maketutorialtitle layout matching the talk's opening slide (with the AI-use
+% disclosure built in), alert/example block colours, and the shared callout
+% boxes (punchbox, homebox).
+%
+% Load from any deck with
+%   \makeatletter\def\input@path{{./}{../}}\makeatother
+%   \usepackage{ib-tutorials}
+% so the file is found both from the repository root (Overleaf) and from the
+% deck's own folder.
+% =====================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ib-tutorials}[2026/10/11 Using IB Software Beamer style]
+
+% ---- Text fonts: Helvetica stand-in for Source Sans Pro, CM math ----
+\usefonttheme{professionalfonts}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[scaled=0.98]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\DeclareRobustCommand{\sbseries}{\bfseries}
+\DeclareTextFontCommand{\textsb}{\sbseries}
+\urlstyle{same}
+
+% ---- Theme ----
+\usetheme{Boadilla}
+\usecolortheme[]{seagull}
+\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+
+% ---- Margins and spacing ----
+\setbeamersize{text margin left=5mm, text margin right=5mm}
+\RequirePackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% ---- Fonts and shapes ----
+\setbeamerfont{title}{size=\huge, shape=\scshape}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{frametitle}{shape=\scshape}
+\setbeamertemplate{frametitle}{\vskip3mm\MakeLowercase{\insertframetitle}}
+\setbeamertemplate{frametitle continuation}{[\insertcontinuationcount]}
+% Sub-items inherit the frame's current size (the talk used \normalsize, which
+% made sub-items larger than main items in \small or \footnotesize frames).
+\setbeamerfont{itemize/enumerate subbody}{size=}
+\setbeamerfont{itemize/enumerate subsubbody}{size=}
+\setbeamerfont{block title}{series=\sbseries,size=\normalsize}
+\setbeamerfont{button}{size=\footnotesize}
+
+% ---- Colours (dvipsnames values, so no class option is required) ----
+\providecolor{RubineRed}{cmyk}{0,1,0.13,0}
+\providecolor{OliveGreen}{cmyk}{0.64,0,0.95,0.40}
+\providecolor{NavyBlue}{cmyk}{0.94,0.54,0,0}
+\providecolor{Red}{cmyk}{0,1,1,0}
+\colorlet{BlackGray}{black!85}
+\colorlet{DarkGray}{black!62}
+\colorlet{LightGray}{gray!30}
+% Semantic names for figures and inline emphasis
+\colorlet{ibfeink}{BlackGray}
+\colorlet{ibfemuted}{DarkGray}
+\colorlet{ibfeaccent}{RubineRed}
+\colorlet{ibfepanel}{LightGray}
+
+\setbeamercolor{title}{fg=BlackGray}
+\setbeamercolor{subtitle}{fg=BlackGray}
+\setbeamercolor{frametitle}{fg=BlackGray}
+\setbeamercolor{normal text}{fg=BlackGray}
+\setbeamercolor{structure}{fg=DarkGray}
+\setbeamercolor{itemize item}{fg=DarkGray}
+\setbeamercolor{itemize subitem}{fg=DarkGray}
+\setbeamercolor{itemize subsubitem}{fg=DarkGray}
+\setbeamercolor{enumerate item}{fg=DarkGray}
+\setbeamercolor{enumerate subitem}{fg=DarkGray}
+\setbeamercolor{enumerate subsubitem}{fg=DarkGray}
+\setbeamercolor{block title}{fg=BlackGray,bg=LightGray}
+\setbeamercolor{block body}{fg=BlackGray,bg=LightGray!45}
+\setbeamercolor{block title alerted}{fg=RubineRed,bg=LightGray}
+\setbeamercolor{block body alerted}{fg=BlackGray,bg=LightGray!45}
+\setbeamercolor{block title example}{fg=OliveGreen,bg=LightGray}
+\setbeamercolor{block body example}{fg=BlackGray,bg=LightGray!45}
+\setbeamercolor{alerted text}{fg=RubineRed}
+\setbeamercolor{footline}{fg=DarkGray}
+\setbeamercolor{button}{fg=DarkGray, bg=white}
+\setbeamercolor{caption}{fg=DarkGray}
+
+\AtBeginDocument{%
+  \hypersetup{linkcolor=BlackGray,citecolor=BlackGray,urlcolor=NavyBlue}}
+
+% ---- Lists ----
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textendash}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+\setbeamertemplate{enumerate item}[default]
+
+% ---- Text alerts (as in the talk) ----
+\NewDocumentCommand{\al}{o m}{\IfNoValueTF{#1}{\textcolor{RubineRed}{#2}}{\textcolor<#1>{RubineRed}{#2}}}
+\NewDocumentCommand{\alg}{o m}{\IfNoValueTF{#1}{\textcolor{OliveGreen}{#2}}{\textcolor<#1>{OliveGreen}{#2}}}
+\NewDocumentCommand{\alr}{o m}{\IfNoValueTF{#1}{\textcolor{Red}{#2}}{\textcolor<#1>{Red}{#2}}}
+\NewDocumentCommand{\alb}{o m}{\IfNoValueTF{#1}{\textcolor{NavyBlue}{#2}}{\textcolor<#1>{NavyBlue}{#2}}}
+% Emphasis macros used throughout the tutorial decks
+\providecommand{\hi}[1]{\textcolor{RubineRed}{#1}}
+\providecommand{\warn}[1]{\textcolor{RubineRed}{\textbf{#1}}}
+\providecommand{\soft}[1]{\textcolor{DarkGray}{#1}}
+
+% ---- Figures and tables ----
+\RequirePackage{booktabs}
+\RequirePackage{multirow}
+\setbeamerfont{caption}{size=\footnotesize}
+\setbeamertemplate{caption}{\centering\usebeamerfont{caption}\usebeamercolor[fg]{caption}\insertcaption\par}
+
+% ---- Blocks ----
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+% ---- Callout boxes (talk versions) ----
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins}
+\newtcolorbox{punchbox}{enhanced,colback=LightGray!40,colframe=DarkGray,
+  boxrule=0pt,leftrule=2.2pt,arc=1pt,left=6pt,right=5pt,top=3pt,bottom=3pt,
+  before skip=6pt,after skip=4pt,before upper=\raggedright}
+\newtcolorbox{homebox}{enhanced,colback=RubineRed!6,colframe=RubineRed,
+  boxrule=0pt,leftrule=2.6pt,arc=1pt,left=7pt,right=6pt,top=4pt,bottom=4pt,
+  before skip=4pt,after skip=2pt}
+
+% ---- Title page (talk layout; subtitle and institute added) ----
+\setbeamertemplate{title page}{%
+  {\usebeamerfont{title}\usebeamercolor[fg]{title}\MakeLowercase{\inserttitle}\par}%
+  {\color{BlackGray}\rule{\textwidth}{1.5pt}\par}%
+  \ifx\beamer@subtitle\@empty\else\vspace{2mm}{\usebeamerfont{subtitle}\insertsubtitle\par}\fi
+  \vspace{8mm}%
+  {\usebeamerfont{author}\insertauthor\par}%
+  \ifx\beamer@institute\@empty\else\vspace{2mm}{\usebeamerfont{institute}\insertinstitute\par}\fi
+  \ifx\beamer@date\@empty\else\vspace{5mm}{\usebeamerfont{date}\insertdate\par}\fi
+  \vfill}
+
+% AI-use disclosure shown on every tutorial title slide
+\newcommand{\aidisclosure}{Claude (Anthropic) was used to organize, combine, and format more than twelve years (2013--2026) of the instructor's tutorial notes from courses and workshops at several universities.}
+
+% \maketutorialtitle[<image path>]  -- place inside \begin{frame}[plain]...\end{frame}
+% Mirrors slide 1 of the UF talk: lowercase small-caps title and rule on the
+% left, optional image on the right, venue line in \date, disclosure at the foot.
+\newcommand{\maketutorialtitle}[1][]{%
+  \vspace*{3mm}\par
+  \begin{columns}[c,onlytextwidth]
+  \if\relax\detokenize{#1}\relax
+    \begin{column}{\textwidth}
+  \else
+    \begin{column}{0.58\textwidth}
+  \fi
+    {\LARGE\scshape\color{BlackGray}\MakeLowercase{\inserttitle}\par}
+    {\color{BlackGray}\rule{\linewidth}{1.5pt}\par}
+    \ifx\beamer@subtitle\@empty\else\vspace{2mm}{\large\insertsubtitle\par}\fi
+    \vspace{7mm}
+    {\large\insertauthor\par}
+    \ifx\beamer@institute\@empty\else\vspace{3pt}{\insertinstitute\par}\fi
+    \ifx\beamer@date\@empty\else\vspace{6pt}{\footnotesize\insertdate\par}\fi
+  \end{column}
+  \if\relax\detokenize{#1}\relax\else
+    \begin{column}{0.40\textwidth}\centering
+      \includegraphics[width=\linewidth,height=0.70\textheight,keepaspectratio]{#1}
+    \end{column}
+  \fi
+  \end{columns}
+  \vskip 0pt plus 1filll
+  {\centering\tiny\color{DarkGray}\aidisclosure\par}}
+
+% \maketutorialtitlepanel{<any content>} -- same layout as \maketutorialtitle,
+% but the right column holds arbitrary content (an equation box, an image plus
+% its credit line, ...). Place inside \begin{frame}[plain]...\end{frame}.
+\newcommand{\maketutorialtitlepanel}[1]{%
+  \vspace*{3mm}\par
+  \begin{columns}[c,onlytextwidth]
+    \begin{column}{0.58\textwidth}
+      {\LARGE\scshape\color{BlackGray}\MakeLowercase{\inserttitle}\par}
+      {\color{BlackGray}\rule{\linewidth}{1.5pt}\par}
+      \ifx\beamer@subtitle\@empty\else\vspace{2mm}{\large\insertsubtitle\par}\fi
+      \vspace{7mm}{\large\insertauthor\par}
+      \ifx\beamer@institute\@empty\else\vspace{3pt}{\insertinstitute\par}\fi
+      \ifx\beamer@date\@empty\else\vspace{6pt}{\footnotesize\insertdate\par}\fi
+    \end{column}
+    \begin{column}{0.40\textwidth}\centering #1\end{column}
+  \end{columns}
+  \vskip 0pt plus 1filll
+  {\centering\tiny\color{DarkGray}\aidisclosure\par}}
+
+% ---- Section heading slide text (talk) ----
+\newcommand*{\heading}[1]{\LARGE\scshape\color{BlackGray}\MakeLowercase{#1}}
+
+% ---- Footline: none, as in the talk ----
+\setbeamertemplate{footline}{}
+
+% ---- Pictogram shortcuts ----
+\providecommand{\up}{\textuparrow\,}
+\providecommand{\down}{\textdownarrow\,}
+\providecommand{\so}{{$\Rightarrow\,$}}
+
+\endinput
