@@ -27,6 +27,14 @@ Material in these tutorials was developed with many students and colleagues over
 
 Claude (Anthropic) was used to organize, combine, and format more than twelve years (2013–2026) of the instructor's tutorial notes from courses and workshops at several universities.
 
+## License
+
+- **Slides, text and figures:** [Creative Commons Attribution 4.0 International (CC BY 4.0)](LICENSE). You may share and adapt them for any purpose, as long as you give credit.
+- **Example code and scripts:** [BSD 3-Clause](LICENSE-CODE).
+- **Exceptions:** files that carry their own copyright notice or credit another author keep their original terms. The example programs adapted from IBAMR keep IBAMR's BSD 3-Clause notice, figures from other sources are credited where they appear, and the papers in `papers/` are under their publishers' licenses.
+
+To credit these tutorials, cite: L. A. Miller, *Using IB Software*, https://github.com/fairyflies9/Using-IB-Software.
+
 ## Feedback
 
 Please let me know if you find any issues or have suggestions for extensions. You can open an issue on this repository.
