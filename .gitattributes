@@ -1,0 +1,7 @@
+# Example files keep Unix (LF) line endings in every checkout, including on
+# Windows: IBAMR's input parser stops with "Illegal character token in input"
+# when a file has Windows (CRLF) line endings. Binary files are detected and
+# left alone.
+examples/** text=auto eol=lf
+*.sh text eol=lf
+*.slurm text eol=lf

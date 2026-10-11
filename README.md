@@ -4,22 +4,44 @@ Hands-on tutorials for immersed boundary software, with **IB2d**, **IBAMR** (inc
 
 The theory behind these tools is in the companion series **[Fluid Dynamics and IBM Theory](https://github.com/equiphysics/Fluid-Dynamics-and-IBM-Theory)**.
 
-## Status (October 2026): being updated
+> **This is the `master-tutorial` branch, a work in progress.** It holds the new, consolidated version of the tutorials while it is being written. The `main` branch keeps the original lectures until this version is finished and reviewed.
 
-A consolidated, corrected LaTeX version of these tutorials is in progress. It covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases (0.16–0.19). Until it is finished, the existing lectures below are available as they are. Some of them describe clusters that have since been retired and the older Makefile build, so check commands against the current IBAMR documentation at <https://ibamr.github.io>.
+## Status (October 2026): being rewritten
+
+The consolidated LaTeX version covers installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. Every command and example in it was tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). Chapters are added here as they are drafted.
+
+| Part | Chapters | State |
+|---|---|---|
+| I · Getting set up | [1 Computing on Puma](1-Getting-Set-Up/1-Computing-Environment-UA-HPC.pdf), [2 Installing IBAMR with autoibamr](1-Getting-Set-Up/2-Installing-IBAMR-with-autoibamr.pdf), [3 Building and running an IBAMR application](1-Getting-Set-Up/3-Building-and-Running-IBAMR.pdf) | drafted |
+| VI · Planktos | [34 What is Planktos?](Planktos/Planktos-1-What-is-Planktos.pdf), [35 Using Planktos](Planktos/Planktos-2-Using-Planktos.pdf) | existing decks |
+| 0, II–V, VII, appendices | IB2d, IBAMR fundamentals, IBFE, VisIt, the examples guide, helper codes | in progress |
 
 ## Contents
 
 | Folder | What it contains |
 |---|---|
-| [Planktos/](Planktos/) | **What is Planktos?** and **Using Planktos** (LaTeX + PDF, 2026) |
-| [IBAMR Lectures/](IBAMR%20Lectures/) | Getting an HPC account and running a first simulation, IB method overview, structure files, boundary conditions, target points and springs, upstream examples, ConstraintIB, adding mass |
-| [IBFE Lectures/](IBFE%20Lectures/) | Getting started with IBFE, making and moving meshes, 3D flow past objects, active tension, two boundaries, a walk through a main file, advection–diffusion, and a Gmsh tutorial |
-| [Data Visualizationand Analysis/](Data%20Visualizationand%20Analysis/) | VisIt lectures: plotting IBAMR data, 3D visualization, finite element boundaries, VisIt on a cluster |
-| [ib2d Lectures/](ib2d%20Lectures/) | Introduction to IB2d and an IB2d practical |
-| [Examples/](Examples/) | Example codes from UNC and University of Arizona courses |
-| [MATLAB codes/](MATLAB%20codes/) | Small MATLAB exercises (heat equation, stiff ODEs, IB geometry and springs) |
-| [Old files/](Old%20files/) | Earlier versions kept for reference |
+| [1-Getting-Set-Up/](1-Getting-Set-Up/) | Chapters 1–3 (LaTeX + PDF) |
+| [Planktos/](Planktos/) | **What is Planktos?** and **Using Planktos** (LaTeX + PDF) |
+| [examples/IB/](examples/IB/) | Immersed boundary examples, each with a CMake build, a Puma job script and a README: [01 rubber band](examples/IB/01-rubber-band/), [02 pulsatile channel](examples/IB/02-pulsatile-channel/) |
+| [examples/IBFE/](examples/IBFE/) | Immersed boundary finite element examples: [01 tethered plate](examples/IBFE/01-tethered-plate/) |
+| [examples/legacy/](examples/legacy/) | The course example codes as they were, from UNC and the University of Arizona. They use the old Makefile build; the folders above replace them one by one. |
+| [originals/](originals/) | The original lectures (IBAMR, IBFE, VisIt, IB2d), the MATLAB exercises, and older files, kept unchanged for reference |
+| [pictures/](pictures/) | Figures used by the LaTeX decks |
+| [papers/](papers/) | Open-access papers referred to in the tutorials |
+| `ib-tutorials.sty` | The shared slide style |
+
+### Building the slides
+
+Each deck compiles on its own with `pdflatex`, from the repository root or from its own folder, for example:
+
+```bash
+cd 1-Getting-Set-Up
+pdflatex 3-Building-and-Running-IBAMR.tex
+```
+
+### Line endings
+
+The files in `examples/` must keep Unix line endings: IBAMR stops with `Illegal character token in input` when an input file has Windows line endings. The `.gitattributes` file makes Git check them out that way on every system, including Windows.
 
 ## Credits
 

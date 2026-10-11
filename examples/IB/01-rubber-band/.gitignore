@@ -1,0 +1,8 @@
+build/
+viz_IB2d/
+hier_data_IB2d/
+restart_IB2d/
+*.log
+*.out
+run_*/
+sweep-*.out
