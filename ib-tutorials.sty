@@ -41,6 +41,15 @@
 \setbeamersize{text margin left=5mm, text margin right=5mm}
 \RequirePackage{microtype}
 \DisableLigatures[f]{encoding = *, family = * }
+% Typewriter text must print exactly as typed, so ``--'' stays two hyphens
+% instead of becoming an en dash. microtype allows only one ligature rule
+% (used above for f-ligatures), so this switches off ligatures in each
+% typewriter font as it is selected. pdfLaTeX only; other engines skip it.
+\ifdefined\pdfnoligatures
+  \AddToHook{selectfont}{%
+    \edef\ibt@curfam{\f@family}\edef\ibt@ttfam{\ttdefault}%
+    \ifx\ibt@curfam\ibt@ttfam\pdfnoligatures\font\fi}
+\fi
 
 % ---- Fonts and shapes ----
 \setbeamerfont{title}{size=\huge, shape=\scshape}
@@ -146,6 +155,15 @@
 % AI-use disclosure shown on every tutorial title slide
 \newcommand{\aidisclosure}{Claude (Anthropic) was used to organize, combine, and format more than twelve years (2013--2026) of the instructor's tutorial notes from courses and workshops at several universities.}
 
+% The disclosure is pinned 2.5 mm above the bottom edge of the slide, so a
+% tall title block can never push its second line off the page.
+\RequirePackage{tikz}
+\newcommand{\ibt@disclosure}{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south,text width=0.92\paperwidth,align=center,inner sep=0pt,
+          font=\tiny,text=DarkGray] at ([yshift=2.5mm]current page.south) {\aidisclosure};
+  \end{tikzpicture}}
+
 % \maketutorialtitle[<image path>]  -- place inside \begin{frame}[plain]...\end{frame}
 % Mirrors slide 1 of the UF talk: lowercase small-caps title and rule on the
 % left, optional image on the right, venue line in \date, disclosure at the foot.
@@ -171,8 +189,7 @@
     \end{column}
   \fi
   \end{columns}
-  \vskip 0pt plus 1filll
-  {\centering\tiny\color{DarkGray}\aidisclosure\par}}
+  \ibt@disclosure}
 
 % \maketutorialtitlepanel{<any content>} -- same layout as \maketutorialtitle,
 % but the right column holds arbitrary content (an equation box, an image plus
@@ -190,8 +207,7 @@
     \end{column}
     \begin{column}{0.40\textwidth}\centering #1\end{column}
   \end{columns}
-  \vskip 0pt plus 1filll
-  {\centering\tiny\color{DarkGray}\aidisclosure\par}}
+  \ibt@disclosure}
 
 % ---- Section heading slide text (talk) ----
 \newcommand*{\heading}[1]{\LARGE\scshape\color{BlackGray}\MakeLowercase{#1}}
