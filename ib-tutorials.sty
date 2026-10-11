@@ -50,6 +50,21 @@
     \edef\ibt@curfam{\f@family}\edef\ibt@ttfam{\ttdefault}%
     \ifx\ibt@curfam\ibt@ttfam\pdfnoligatures\font\fi}
 \fi
+% Quotes in code must paste as straight quotes: the T1 typewriter font prints
+% ' and ` as curly quotes, which the shell and Python reject when a command
+% is copied from the PDF. \code{...} (inline code) and every listing print
+% them straight.
+\ExplSyntaxOn
+\tl_new:N \l__ibt_code_tl
+\NewDocumentCommand \code { m }
+  {
+    \tl_set:Nn \l__ibt_code_tl {#1}
+    \tl_replace_all:Nnn \l__ibt_code_tl { ' } { \textquotesingle }
+    \tl_replace_all:Nnn \l__ibt_code_tl { ` } { \textasciigrave }
+    \texttt { \l__ibt_code_tl }
+  }
+\ExplSyntaxOff
+\AtBeginDocument{\@ifpackageloaded{listings}{\lstset{upquote=true}}{}}
 
 % ---- Fonts and shapes ----
 \setbeamerfont{title}{size=\huge, shape=\scshape}

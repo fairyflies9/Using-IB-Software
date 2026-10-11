@@ -629,7 +629,7 @@ Check both temporal convergence and collision resolution. A step can be statisti
 \end{alertblock}
 \end{column}
 \end{columns}
-\source{Adapted from the \texttt{Swarm.apply\_agent\_model} and \texttt{motion.Euler\_brownian\_motion} docstrings (commit \texttt{a1c2128}); scheme: Kloeden \& Platen (1992), \S10.2. A \texttt{'D'} property may replace \texttt{'cov'}; it is converted as \(\texttt{cov}=2D\).}
+\source{Adapted from the \texttt{Swarm.apply\_agent\_model} and \texttt{motion.Euler\_brownian\_motion} docstrings (commit \texttt{a1c2128}); scheme: Kloeden \& Platen (1992), \S10.2. A \code{'D'} property may replace \code{'cov'}; it is converted as \(\texttt{cov}=2D\).}
 \end{frame}
 
 % ----- 18. Advance and history -----
@@ -1042,7 +1042,7 @@ s.shared_props.update({"R": 2/3, "diam": 1e-4})
 \texttt{sliding} & Project motion along the boundary, recursively using remaining displacement. \\
 \texttt{sticky} & Stop at the first point of intersection for that time step. \\
 \texttt{None} & Ignore immersed meshes. \\
-\texttt{'default'} & Use the Swarm's \texttt{ib\_condition} (default \texttt{'sliding'}). \\
+\code{'default'} & Use the Swarm's \texttt{ib\_condition} (default \code{'sliding'}). \\
 \bottomrule
 \end{tabular}
 \vspace{0.5em}
