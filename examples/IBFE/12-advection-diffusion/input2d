@@ -1,0 +1,340 @@
+// IBFE/12 advection-diffusion: input file for IBAMR 0.16.0 or newer.
+//
+// The half-tethered plate of example IBFE/01 (1.0 by 0.0312, 130 triangles)
+// stirs a passive scalar T (a temperature or a concentration) in a periodic
+// box of fluid.
+//
+// This file must have Unix (LF) line endings. A file saved with Windows (CRLF)
+// line endings stops with "Illegal character token in input". Older course
+// versions ended every line with // to hide the extra character.
+
+// structure
+MESH_FILENAME = "IBFE_Mesh2D_128.mat"     // libMesh MATLAB-format mesh of the plate
+SHEAR_MODULUS = 10.0                      // shear modulus mu of the neo-Hookean plate
+KAPPA_S       = 1.0e6                     // stiffness of the tether force
+
+// physical parameters
+MU  = 0.01                                // fluid viscosity
+RHO = 1.0                                 // fluid density
+L   = 2.0                                 // width of the square domain
+KAPPA = 1.0e-6                            // temperature diffusion coefficient
+
+// grid spacing parameters
+MAX_LEVELS = 2                                 // maximum number of levels in locally refined grid
+REF_RATIO  = 4                                 // refinement ratio between levels
+N = 32                                         // actual    number of grid cells on coarsest grid level
+NFINEST = (REF_RATIO^(MAX_LEVELS - 1))*N       // effective number of grid cells on finest   grid level
+DX0 = L/N                                      // mesh width on coarsest grid level
+DX  = L/NFINEST                                // mesh width on finest   grid level
+// MFAC and ELEM_TYPE are used by examples that build their mesh in the program
+// (for example IBAMR's IBFE/explicit/ex2). They have no effect on a mesh read
+// from a file, like this one. Its element size was chosen when it was made.
+MFAC = 2.0                                     // ratio of Lagrangian mesh width to Cartesian mesh width
+ELEM_TYPE = "TRI3"                             // type of element to use for structure discretization
+PK1_DEV_QUAD_ORDER = "FIFTH"                   // quadrature order for the deviatoric stress
+PK1_DIL_QUAD_ORDER = "THIRD"                   // quadrature order for the dilational stress
+
+// solver parameters
+IB_DELTA_FUNCTION          = "IB_4"            // the type of smoothed delta function to use for Lagrangian-Eulerian interaction
+SPLIT_FORCES               = TRUE              // whether to split interior and boundary forces
+USE_JUMP_CONDITIONS        = FALSE             // whether to impose pressure jumps at fluid-structure interfaces
+USE_CONSISTENT_MASS_MATRIX = TRUE              // whether to use a consistent or lumped mass matrix
+IB_POINT_DENSITY           = 2.0               // approximate density of IB quadrature points for Lagrangian-Eulerian interaction
+SOLVER_TYPE                = "STAGGERED"       // the fluid solver to use (STAGGERED or COLLOCATED)
+START_TIME                 = 0.0e0             // initial simulation time
+END_TIME                   = 4.0               // final simulation time
+GROW_DT                    = 2.0e0             // growth factor for timesteps
+NUM_CYCLES                 = 1                 // number of cycles of fixed-point iteration
+CONVECTIVE_TS_TYPE         = "ADAMS_BASHFORTH" // convective time stepping type
+CONVECTIVE_OP_TYPE         = "PPM"             // convective differencing discretization type
+CONVECTIVE_FORM            = "ADVECTIVE"       // how to compute the convective terms
+NORMALIZE_PRESSURE         = FALSE             // whether to explicitly force the pressure to have mean zero
+CFL_MAX                    = 0.3               // maximum CFL number
+DT                         = 1e-3              // maximum timestep size
+ERROR_ON_DT_CHANGE         = TRUE              // whether to emit an error message if the time step size changes
+VORTICITY_TAGGING          = TRUE              // whether to tag cells for refinement based on vorticity thresholds
+TAG_BUFFER                 = 1                 // size of tag buffer used by grid generation algorithm
+REGRID_CFL_INTERVAL        = 0.5               // regrid whenever any material point could have moved 0.5 meshwidths since previous regrid
+OUTPUT_U                   = TRUE
+OUTPUT_P                   = TRUE
+OUTPUT_F                   = TRUE
+OUTPUT_OMEGA               = TRUE
+OUTPUT_DIV_U               = TRUE
+ENABLE_LOGGING             = TRUE
+// The advection-diffusion solver: "SEMI_IMPLICIT" or "PREDICTOR_CORRECTOR". To use
+// PREDICTOR_CORRECTOR, also turn on init_convective_time_stepping_type in the
+// INSStaggeredHierarchyIntegrator block below (see README.md).
+ADV_DIFF_SOLVER_TYPE        = "SEMI_IMPLICIT"   // the advection-diffusion solver to use (PREDICTOR_CORRECTOR or SEMI_IMPLICIT)
+ADV_DIFF_NUM_CYCLES         = 2                 // number of cycles of fixed-point iteration
+ADV_DIFF_CONVECTIVE_TS_TYPE = "MIDPOINT_RULE"   // convective time stepping type
+ADV_DIFF_CONVECTIVE_OP_TYPE = "PPM"             // convective differencing discretization type
+ADV_DIFF_CONVECTIVE_FORM    = "ADVECTIVE"       // how to compute the convective terms
+DT_MAX                      = 0.1               // maximum timestep size
+
+// collocated solver parameters
+PROJECTION_METHOD_TYPE = "PRESSURE_UPDATE"
+SECOND_ORDER_PRESSURE_UPDATE = TRUE
+
+// The domain is periodic in both directions (periodic_dimension = 1, 1 below),
+// so IBAMR ignores these boundary conditions. They are used only if you turn
+// periodicity off. Each side d has a*u + b*(normal stress) = g, and IBAMR
+// accepts only (a, b) = (1, 0) for a velocity condition or (0, 1) for a
+// traction condition.
+VelocityBcCoefs_0 {
+   acoef_function_0 = "1.0"
+   acoef_function_1 = "1.0"
+   acoef_function_2 = "1.0"
+   acoef_function_3 = "1.0"
+
+   bcoef_function_0 = "0.0"
+   bcoef_function_1 = "0.0"
+   bcoef_function_2 = "0.0"
+   bcoef_function_3 = "0.0"
+
+   gcoef_function_0 = "0.0"
+   gcoef_function_1 = "0.0"
+   gcoef_function_2 = "0.0"
+   gcoef_function_3 = "0.0"
+}
+
+VelocityBcCoefs_1 {
+   acoef_function_0 = "1.0"
+   acoef_function_1 = "1.0"
+   acoef_function_2 = "1.0"
+   acoef_function_3 = "1.0"
+
+   bcoef_function_0 = "0.0"
+   bcoef_function_1 = "0.0"
+   bcoef_function_2 = "0.0"
+   bcoef_function_3 = "0.0"
+
+   gcoef_function_0 = "0.0"
+   gcoef_function_1 = "0.0"
+   gcoef_function_2 = "0.0"
+   gcoef_function_3 = "0.0"
+}
+
+// Initial T. In a periodic box the right side (x = 1) touches the left side
+// (x = -1), so the initial T must take the same value on both. This choice
+// goes from 0 at the plate's left end (x = -0.5) through 0.5 at its middle
+// to 1 at its right end (x = 0.5), and back to 0.5 at x = 1 and x = -1.
+// (L = L makes the domain width available inside the formula.)
+TemperatureInitialConditions {
+   L = L
+   function = "0.5 + 0.5*sin(2*PI*X_0/L)"
+   // The course versions used the next line. It matches the formula above at
+   // x = -0.5, 0 and 0.5, but it is not periodic: it jumps from 1.5 to -0.5
+   // where the box wraps around.
+   //function = "0.5+X_0"
+   // Other course choices. They jump where the box wraps around in y
+   // (T = 1 at y = -1 but 0 at y = 1):
+   //function = "0.5*(tanh(80.0*(-X_1-0.15))+1)"
+   //function = "(0.5*(tanh(80.0*(-X_1-0.15))+1))*(0.5*(tanh(80.0*(X_0+0.115))+1))*(0.5*(tanh(80.0*(-X_0+0.115))+1))"
+   //function = "0.5"
+}
+
+// Boundary conditions for T, used only if you turn periodicity off (as with
+// the velocity above): a*T + b*(dT/dn) = g on each side. Here T is held at its
+// initial value on all four sides (a = 1, b = 0). The course versions used
+// g = 0.5+X_0 with the initial T = 0.5+X_0.
+TemperatureBcCoefs {
+   L = L
+
+   acoef_function_0 = "1.0"
+   acoef_function_1 = "1.0"
+   acoef_function_2 = "1.0"
+   acoef_function_3 = "1.0"
+
+   bcoef_function_0 = "0.0"
+   bcoef_function_1 = "0.0"
+   bcoef_function_2 = "0.0"
+   bcoef_function_3 = "0.0"
+
+   gcoef_function_0 = "0.5 + 0.5*sin(2*PI*X_0/L)"
+   gcoef_function_1 = "0.5 + 0.5*sin(2*PI*X_0/L)"
+   gcoef_function_2 = "0.5 + 0.5*sin(2*PI*X_0/L)"
+   gcoef_function_3 = "0.5 + 0.5*sin(2*PI*X_0/L)"
+}
+
+IBHierarchyIntegrator {
+   start_time          = START_TIME
+   end_time            = END_TIME
+   grow_dt             = GROW_DT
+   num_cycles          = NUM_CYCLES
+   regrid_cfl_interval = REGRID_CFL_INTERVAL
+   dt_max              = DT
+   error_on_dt_change  = ERROR_ON_DT_CHANGE
+   enable_logging      = ENABLE_LOGGING
+}
+
+IBFEMethod {
+   IB_delta_fcn               = IB_DELTA_FUNCTION
+   split_forces               = SPLIT_FORCES
+   use_jump_conditions        = USE_JUMP_CONDITIONS
+   use_consistent_mass_matrix = USE_CONSISTENT_MASS_MATRIX
+   IB_point_density           = IB_POINT_DENSITY
+}
+
+INSCollocatedHierarchyIntegrator {
+   mu                            = MU
+   rho                           = RHO
+   start_time                    = START_TIME
+   end_time                      = END_TIME
+   grow_dt                       = GROW_DT
+   convective_time_stepping_type = CONVECTIVE_TS_TYPE
+   convective_op_type            = CONVECTIVE_OP_TYPE
+   convective_difference_form    = CONVECTIVE_FORM
+   normalize_pressure            = NORMALIZE_PRESSURE
+   cfl                           = CFL_MAX
+   dt_max                        = DT
+   using_vorticity_tagging       = VORTICITY_TAGGING
+   vorticity_rel_thresh          = 0.125
+   tag_buffer                    = TAG_BUFFER
+   output_U                      = OUTPUT_U
+   output_P                      = OUTPUT_P
+   output_F                      = OUTPUT_F
+   output_Omega                  = OUTPUT_OMEGA
+   output_Div_U                  = OUTPUT_DIV_U
+   enable_logging                = ENABLE_LOGGING
+   projection_method_type        = PROJECTION_METHOD_TYPE
+   use_2nd_order_pressure_update = SECOND_ORDER_PRESSURE_UPDATE
+}
+
+INSStaggeredHierarchyIntegrator {
+   mu                            = MU
+   rho                           = RHO
+   start_time                    = START_TIME
+   end_time                      = END_TIME
+   grow_dt                       = GROW_DT
+   convective_time_stepping_type = CONVECTIVE_TS_TYPE
+   convective_op_type            = CONVECTIVE_OP_TYPE
+   convective_difference_form    = CONVECTIVE_FORM
+   normalize_pressure            = NORMALIZE_PRESSURE
+   cfl                           = CFL_MAX
+   dt_max                        = DT
+   using_vorticity_tagging       = VORTICITY_TAGGING
+   vorticity_rel_thresh          = 0.25,0.125
+   tag_buffer                    = TAG_BUFFER
+   output_U                      = OUTPUT_U
+   output_P                      = OUTPUT_P
+   output_F                      = OUTPUT_F
+   output_Omega                  = OUTPUT_OMEGA
+   output_Div_U                  = OUTPUT_DIV_U
+   enable_logging                = ENABLE_LOGGING
+// With CONVECTIVE_TS_TYPE = "ADAMS_BASHFORTH" the first time step of the fluid
+// solver takes two cycles, but the PREDICTOR_CORRECTOR solver for T can take
+// only one. Remove the // from the next line when you use PREDICTOR_CORRECTOR.
+// init_convective_time_stepping_type = "FORWARD_EULER"
+}
+
+// settings for ADV_DIFF_SOLVER_TYPE = "PREDICTOR_CORRECTOR"
+AdvectorExplicitPredictorPatchOps {
+   limiter_type = "MC_LIMITED"
+}
+
+AdvDiffPredictorCorrectorHierarchyIntegrator {
+   start_time                 = START_TIME
+   end_time                   = END_TIME
+   grow_dt                    = GROW_DT
+   convective_difference_form = ADV_DIFF_CONVECTIVE_FORM
+   cfl                        = CFL_MAX
+   dt_max                     = DT_MAX
+   tag_buffer                 = TAG_BUFFER
+   enable_logging             = ENABLE_LOGGING
+
+   AdvDiffPredictorCorrectorHyperbolicPatchOps {
+      compute_init_velocity  = TRUE
+      compute_half_velocity  = TRUE
+      compute_final_velocity = FALSE
+      extrap_type = "LINEAR"
+   }
+
+   HyperbolicLevelIntegrator {
+      cfl                      = CFL_MAX
+      cfl_init                 = CFL_MAX
+      lag_dt_computation       = TRUE
+      use_ghosts_to_compute_dt = FALSE
+   }
+}
+
+// settings for ADV_DIFF_SOLVER_TYPE = "SEMI_IMPLICIT"
+AdvDiffSemiImplicitHierarchyIntegrator {
+   start_time                    = START_TIME
+   end_time                      = END_TIME
+   grow_dt                       = GROW_DT
+   num_cycles                    = ADV_DIFF_NUM_CYCLES
+   convective_time_stepping_type = ADV_DIFF_CONVECTIVE_TS_TYPE
+   convective_op_type            = ADV_DIFF_CONVECTIVE_OP_TYPE
+   convective_difference_form    = ADV_DIFF_CONVECTIVE_FORM
+   cfl                           = CFL_MAX
+   dt_max                        = DT_MAX
+   tag_buffer                    = TAG_BUFFER
+   enable_logging                = ENABLE_LOGGING
+}
+
+Main {
+   solver_type = SOLVER_TYPE
+
+// log file parameters
+   log_file_name               = "IB2d.log"
+   log_all_nodes               = FALSE
+
+// visualization dump parameters: VisIt files for the fluid and T, ExodusII for the plate
+   viz_writer                  = "VisIt","ExodusII"
+   viz_dump_interval           = 100
+   viz_dump_dirname            = "viz_IB2d"
+   visit_number_procs_per_file = 1
+
+// restart dump parameters
+   restart_dump_interval       = 0
+   restart_dump_dirname        = "restart_IB2d"
+
+// hierarchy data dump parameters (set data_dump_interval > 0 to save data for post-processing)
+   data_dump_interval          = 0
+   data_dump_dirname           = "hier_data_IB2d"
+
+// timer dump parameters
+   timer_dump_interval         = 0
+}
+
+CartesianGeometry {
+   domain_boxes = [ (0,0),(N - 1,N - 1) ]
+   x_lo = -.5*L,-.5*L
+   x_up = .5*L,.5*L
+   periodic_dimension = 1,1
+}
+
+GriddingAlgorithm {
+   max_levels = MAX_LEVELS
+   ratio_to_coarser {
+      level_1 = REF_RATIO,REF_RATIO
+      level_2 = REF_RATIO,REF_RATIO
+      level_3 = REF_RATIO,REF_RATIO
+      level_4 = REF_RATIO,REF_RATIO
+      level_5 = REF_RATIO,REF_RATIO
+   }
+   largest_patch_size {
+      level_0 = 512,512  // all finer levels will use same values as level_0
+   }
+   smallest_patch_size {
+      level_0 =   8,  8  // all finer levels will use same values as level_0
+   }
+   efficiency_tolerance = 0.85e0  // min % of tag cells in new patch level
+   combine_efficiency   = 0.85e0  // chop box if sum of volumes of smaller boxes < efficiency * vol of large box
+}
+
+StandardTagAndInitialize {
+   tagging_method = "GRADIENT_DETECTOR"
+}
+
+LoadBalancer {
+   bin_pack_method     = "SPATIAL"
+   max_workload_factor = 1
+}
+
+TimerManager{
+   print_exclusive = FALSE
+   print_total     = TRUE
+   print_threshold = 0.1
+   timer_list      = "IBAMR::*::*","IBTK::*::*","*::*::*"
+}

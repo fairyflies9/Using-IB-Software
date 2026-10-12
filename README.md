@@ -22,8 +22,8 @@ The consolidated LaTeX version covers installing IBAMR with autoibamr, building 
 |---|---|
 | [1-Getting-Set-Up/](1-Getting-Set-Up/) | Chapters 1–3 (LaTeX + PDF) |
 | [Planktos/](Planktos/) | **What is Planktos?** and **Using Planktos** (LaTeX + PDF) |
-| [examples/IB/](examples/IB/) | Immersed boundary examples, each with a CMake build, a Puma job script and a README: [01 rubber band](examples/IB/01-rubber-band/), [02 pulsatile channel](examples/IB/02-pulsatile-channel/) |
-| [examples/IBFE/](examples/IBFE/) | Immersed boundary finite element examples: [01 tethered plate](examples/IBFE/01-tethered-plate/) |
+| [examples/IB/](examples/IB/) | Immersed boundary examples, each with a CMake build, a Puma job script and a README: [01 rubber band](examples/IB/01-rubber-band/), [02 pulsatile channel](examples/IB/02-pulsatile-channel/), [03 tethered beam](examples/IB/03-tethered-beam/), [04 moving cylinders](examples/IB/04-moving-cylinders/), [06 growing springs](examples/IB/06-growing-springs/), [07 moving plates](examples/IB/07-moving-plates/), [08 glycocalyx 3D](examples/IB/08-glycocalyx-3d/) |
+| [examples/IBFE/](examples/IBFE/) | Immersed boundary finite element examples: [01 tethered plate](examples/IBFE/01-tethered-plate/), [05 gmsh triangle](examples/IBFE/05-gmsh-triangle/), [06 active tension](examples/IBFE/06-active-tension/), [08 plate hits circle](examples/IBFE/08-plate-hits-circle/), [10 flow tank plate 3D](examples/IBFE/10-flow-tank-plate-3d/), [12 advection–diffusion](examples/IBFE/12-advection-diffusion/) |
 | [examples/legacy/](examples/legacy/) | The course example codes as they were, from UNC and the University of Arizona. They use the old Makefile build; the folders above replace them one by one. |
 | [originals/](originals/) | The original lectures (IBAMR, IBFE, VisIt, IB2d), the MATLAB exercises, and older files, kept unchanged for reference |
 | [pictures/](pictures/) | Figures used by the LaTeX decks |

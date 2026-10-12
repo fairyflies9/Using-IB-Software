@@ -1,0 +1,6 @@
+build/
+viz_IB3d/
+hier_data_IB3d/
+restart_IB3d/
+*.log
+*.out
