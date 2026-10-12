@@ -347,10 +347,20 @@ UMORF & fossils from the University of Michigan Museum of Paleontology & \url{ht
 \begin{punchbox}
 \small Scan with a ruler or a calibration object in view, so that the scale can be checked. Shiny, dark, wet or translucent surfaces confuse optical scanners: dust them with powder, or use CT.
 \end{punchbox}
-\vspace{2mm}
-\small The output is a raw surface: expect holes where the scanner could not see, floating fragments, and a few million triangles. The repair step (slides 18--20) is not optional.
 \end{column}
 \end{columns}
+\end{frame}
+
+% 14b
+\begin{frame}{Scanning: what you get back}
+\begin{itemize}
+  \item The output is a \al{raw surface}: expect holes where the scanner could not see, floating fragments, duplicated and noisy patches, and a few million triangles. The repair step (slides 18--20) is not optional.
+  \item Scanners export OBJ or PLY (with colors) or STL; CT gives DICOM slices that 3D Slicer segments into a surface and exports as STL.
+  \item Keep the scanner's units when you export, and write them down: STL files do not carry them.
+  \item A scan of a live or preserved animal is a snapshot of one posture; for a moving organism (a swimming jellyfish, a flapping wing) you will still prescribe the motion in the simulation (chapters 9a, 19 and 21).
+\end{itemize}
+\vspace{2mm}
+\small 3D Scanner App (iPhone and iPad): \url{https://apps.apple.com/us/app/3d-scanner-app/id1419913995}. Polycam: \url{https://poly.cam}. Scaniverse: \url{https://scaniverse.com}. 3D Slicer: \url{https://www.slicer.org}.
 \end{frame}
 
 % 15
@@ -359,7 +369,7 @@ UMORF & fossils from the University of Michigan Museum of Paleontology & \url{ht
 \begin{column}{0.5\textwidth}
 \small Many overlapping photographs are matched into a point cloud and then a surface.
 \begin{itemize}
-  \item Software: Autodesk ReCap Photo (education access), Meshroom (free; \url{https://alicevision.org}), RealityCapture, Polycam, and the phone apps above.
+  \item Software: Autodesk ReCap Photo (education access; \url{https://www.autodesk.com/products/recap}), Meshroom (free; \url{https://alicevision.org}), RealityCapture, Polycam, and the phone apps above.
   \item From the 2022 course tutorial: \al{50 to 100 photos} with \al{60--80\% overlap}, at two or three heights all around the object; manual focus and fixed exposure; even, diffuse light; a matte background that does not move.
   \item Afterwards: slice away the background and the table, fill the holes, then smooth and reduce (slides 18--20).
 \end{itemize}
@@ -385,7 +395,7 @@ UMORF & fossils from the University of Michigan Museum of Paleontology & \url{ht
   \item \al{FreeCAD} and \al{Blender} (free): FreeCAD for parametric parts, Blender for sculpting organic shapes and for editing meshes.
   \item \al{SolidWorks}: if your institution has a license.
 \end{itemize}
-From the 2018 two-coral lecture: \al{draw in real units} (meters, to match the input file), and place the object where it will sit in the fluid box, so that no coordinate mapping is needed later.
+From the 2018 two-coral lecture: \al{draw in real units} (meters are recommended, to match the input file), and place the object where it will sit in the fluid box, so that no coordinate mapping is needed later.
 \end{column}
 \begin{column}{0.47\textwidth}
 \centering
@@ -489,7 +499,7 @@ gmsh & Reclassify and Remesh an STL (Mesh $\to$ Reclassify 2D) & free, \url{http
 \small
 \begin{itemize}
   \item \al{gmsh} (free): tetrahedra from a closed STL, a \code{.geo} script or a STEP file. Text format 2.2 is what IBFE reads.
-  \item \al{Coreform Cubit}: tetrahedra \emph{and} hexahedra, Exodus output, a free Learn edition with a limit on mesh size; the successor of Trelis and Bolt. SALOME, TetGen and Triangle: chapter 18.
+  \item \al{Coreform Cubit}: tetrahedra \emph{and} hexahedra, Exodus output, a free Learn edition with a limit on mesh size; the successor of Trelis and Bolt. SALOME, TetGen (\code{.poly}) and Triangle (2D): chapter 18.
 \end{itemize}
 \begin{lstlisting}[style=geo,basicstyle=\ttfamily\tiny\color{BlackGray}]
 // coral.geo: mesh a repaired STL with gmsh
@@ -522,7 +532,7 @@ gmsh -3 -format msh22 coral.geo -o coral.msh
   \item A \al{text} file: MSH 2.2 (or MSH 4 text) or Exodus.
   \item One \al{physical volume} (gmsh) or block (Cubit) holding the volume elements; once any physical group exists, gmsh saves only what is in groups (IBFE/05).
   \item Elements with \al{positive Jacobians}, or IBAMR stops (``the Jacobian of each element must be positive''); gmsh's Reverse mesh fixes an inverted surface.
-  \item Element size about $\Delta x$; no slivers: gmsh's \emph{Optimize 3D}, or remesh the surface first.
+  \item Element size about $\Delta x$; no slivers: gmsh's \emph{Optimize 3D} or \emph{Netgen optimize}, or remesh the surface first.
   \item Units and position matching \code{input3d}: measure the bounding box.
   \item A short run (\code{END\_TIME} a few steps) before the long one.
 \end{enumerate}
@@ -546,13 +556,15 @@ gmsh -3 -format msh22 coral.geo -o coral.msh
   \item \al{Write them}: the MATLAB and Python generators in every example (an ellipse, a line, a row of circles) are 30-line scripts; copy and change one.
   \item \al{Draw them}: MeshmerizeMe turns an SVG drawing (Inkscape, Illustrator) into IB2d and IBAMR files (chapter 4f; Senter et al.\ 2021).
   \item \al{Trace them}: from a photograph with Inkscape's Trace Bitmap, then MeshmerizeMe.
-  \item \al{Cut them}: a section of a 3D model (Blender, MeshLab) gives a 2D outline.
+  \item \al{Cut them}: a section through a 3D model (Blender or MeshLab) gives the outline of a 2D model.
 \end{itemize}
 \end{column}
 \begin{column}{0.43\textwidth}
 \begin{punchbox}
 \small Whatever makes the points, check the spacing against $\Delta x$ (chapter 5) and look at the result before running: \code{test\_IB2d\_IBAMR\_Geometry.m} in \code{examples/support} (and its Python version) plots the points and springs of any structure file.
 \end{punchbox}
+\vspace{1mm}
+{\scriptsize MeshmerizeMe: D. M. Senter et al., Bioinspiration \& Biomimetics 16:016008 (2021); \url{https://github.com/dmsenter89/MeshmerizeMe}.}
 \end{column}
 \end{columns}
 \end{frame}
@@ -580,7 +592,7 @@ MATLAB, Python & & for numbers rather than pictures: forces, averages, convergen
 \begin{frame}{A worked path: the scanned coral}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.5\textwidth}
-The 2024 workshop followed one coral from a scan to a flow:
+\small The 2024 workshop followed one coral from a scan to a flow:
 \begin{enumerate}
   \item a scanned coral surface, with holes and noise (STL);
   \item Meshmixer: Make Solid, Smooth, Reduce (previous slides);
@@ -592,7 +604,7 @@ The 2024 workshop followed one coral from a scan to a flow:
 \end{column}
 \begin{column}{0.47\textwidth}
 \centering
-\includegraphics[width=0.8\linewidth]{cfd-coral-flow-ansys-2019.png}\\
+\includegraphics[width=0.66\linewidth]{cfd-coral-flow-ansys-2019.png}\\
 {\tiny Velocity magnitude around the smoothed coral in a flow tank (ANSYS Fluent, 2019). The geometry work is the same for IBFE.}
 \end{column}
 \end{columns}
