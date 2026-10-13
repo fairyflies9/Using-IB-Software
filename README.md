@@ -15,7 +15,7 @@ The consolidated LaTeX version covers the software landscape and the path from a
 | 0 · Front matter | [0.1 About these notes](0-Front-Matter/0-1-About-These-Notes.pdf), [0.2 Roadmap and how to use](0-Front-Matter/0-2-Roadmap-and-How-to-Use.pdf) | drafted |
 | I · Getting set up | [1 Computing on Puma](1-Getting-Set-Up/1-Computing-Environment-UA-HPC.pdf), [1b Choosing software and building geometries](1-Getting-Set-Up/1b-Choosing-Software-and-Building-Geometries.pdf), [2 Installing IBAMR with autoibamr](1-Getting-Set-Up/2-Installing-IBAMR-with-autoibamr.pdf), [3 Building and running an IBAMR application](1-Getting-Set-Up/3-Building-and-Running-IBAMR.pdf) | drafted |
 | VI · Planktos | [34 What is Planktos?](Planktos/Planktos-1-What-is-Planktos.pdf), [35 Using Planktos](Planktos/Planktos-2-Using-Planktos.pdf) | existing decks |
-| III · IBAMR fundamentals | [5 The immersed boundary method and numerical considerations](3-IBAMR-Fundamentals/5-The-IB-Method-and-Numerical-Considerations.pdf) | drafted; chapters 6–16 in progress |
+| III · IBAMR fundamentals | [5 The immersed boundary method and numerical considerations](3-IBAMR-Fundamentals/5-The-IB-Method-and-Numerical-Considerations.pdf), [6 Structure files](3-IBAMR-Fundamentals/6-Structure-Files.pdf) | drafted; chapters 7–16 in progress |
 | II, IV, V, VII, appendices | IB2d, IBFE, VisIt, the examples guide, helper codes | in progress |
 
 ## Contents
