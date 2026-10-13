@@ -128,6 +128,7 @@ Block & What it sets & Slides\\
 the output keys (\code{viz\_dump\_interval}, \code{data\_dump\_interval}) & how often frames and data files are written, in time steps & \ref{fr:outputs}\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 \small The physical constants at the top of the file (\code{MU}, \code{RHO}, the stiffnesses) are chapter 8a; the structure blocks (\code{IBStandardInitializer}) are chapter 6; the solver keys (\code{DELTA\_FUNCTION}, \code{CFL\_MAX}, \code{DT}) are chapter 5.
 \end{frame}
@@ -240,6 +241,7 @@ $(0,1)$ & normal & \code{TRACTION}: $-p + 2\mu\,\partial u_n/\partial n = g$; \c
 $(0,1)$ & tangential & \code{TRACTION}: $\mu(\partial u_t/\partial n + \partial u_n/\partial t) = g$; \code{PSEUDO\_TRACTION}: $\mu\,\partial u_t/\partial n = g$ & a free-slip (shear-free) wall or open side with $g = 0$; a prescribed shear stress\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 \small ``Normal'' means the component along the axis the side faces: $u_0$ ($x$) on sides 0 and 1, $u_1$ ($y$) on sides 2 and 3, $u_2$ ($z$) on sides 4 and 5 (numbering on slide \ref{fr:numbering}). The other components are tangential there. For the normal component with $(0,1)$ the velocity itself gets $\partial u_n/\partial n = 0$ (the source sets $\alpha = 0$, $\beta = 1$, $\gamma = 0$ for it) and $g$ goes into the pressure condition instead (slide \ref{fr:pressure}).
 \vspace{1mm}
@@ -561,6 +563,7 @@ Name(s) & Meaning\\
 any numeric key in the block (\code{U\_FLOW = 0.1}, \code{f = 5}, \code{N = 32}) & a constant (slide \ref{fr:blockconst})\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 
 \small The 2013--2020 lectures listed \code{t}, \code{X\_0}, \code{X\_1}, \code{X\_2}; the rest is from the source. The normal vector is not available as a variable; you know it from the side number.
@@ -1327,6 +1330,7 @@ IBFE/01, 05, 06, 08, 12 & 32 & 2 & 128 & two levels: the finite-element mesh car
 IBFE/10 (3D) & 16 & 3 & $512 \times 256 \times 256$ & \code{N} counts the short directions\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 
 \small A ratio of 2 with more levels gives a gentler nesting and more regrid work; a ratio of 4 with fewer levels is what every example here uses. The number of levels is the real cost lever: each level is another full set of patches, ghost cells and solver sweeps.
@@ -1482,6 +1486,7 @@ IBFE/01, 05, 06, 08, 12 & \code{512, 512} & \code{8, 8}\\
 IBFE/10 & \code{256, 256, 256} & \code{8, 8, 8}\\
 \bottomrule
 \end{tabular}
+
 \vspace{1mm}
 
 \scriptsize The smallest patch must divide the coarsest box: $32 \times 32$ on IB/03's $32^2$ coarsest grid is one patch; $4^3$ on $4 \times 4 \times 32$ gives eight. A largest patch bigger than the grid (the IBFE $512^2$ on a $128^2$ finest grid) is simply no limit.
@@ -1637,6 +1642,7 @@ IBFE/05, 08 & 128 & $L/128$ & $5\times10^{-4}$\\
 IBFE/10 (3D) & 256 & $1/16$ & $10^{-4}$\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 
 \footnotesize So: start from the nearest example's \code{DT}, halve it if the structure explodes, and let \code{CFL\_MAX} catch the rest. \code{DT} is passed to the integrator as \code{dt\_max}; the integrator may take smaller steps, never larger ones.
@@ -1734,6 +1740,7 @@ a structure point on or outside the box (chapter 6's tests) & stops at start-up 
 Windows line endings in the input file & stops: \code{Illegal character token in input} (chapter 3)\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 \small The muParser errors print the whole offending expression under \code{in:}, so they are easy to find. ``Position'' counts characters from 0 in that string.
 \end{frame}
@@ -1754,6 +1761,7 @@ a misspelled key: \code{gcoef\_functoin\_1} for the outflow side & runs. The log
 a traction condition on the outlet ($a = 0$, $b = 1$, $g = 0$ for both components) & runs, no warning; a valid open outlet (slides \ref{fr:traction}, \ref{fr:open}). Remember \code{normalize\_pressure = FALSE}\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 \begin{punchbox}
 \small \al{Always read the log file after the first short run.} The warnings go to the log, not to the terminal, and the first one is on line 28 of a file that will have thousands.
@@ -1886,6 +1894,7 @@ Recording & Date & Course\\
 \code{Lecture 4 - Boundary conditions, domain sizes, etc..mp4} & 2020-05-15 & 2020 Zoom lectures\\
 \bottomrule
 \end{tabular}
+
 \vspace{2mm}
 
 \small The 2020 recording follows the 2020 Lecture 4 deck that this chapter is built on (both parts); the 2018 recordings follow the 2017 ``4 -- IBAMR Tutorial: Boundary Conditions'' deck, which lacks Part II.
