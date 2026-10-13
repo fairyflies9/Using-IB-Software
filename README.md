@@ -15,7 +15,8 @@ The consolidated LaTeX version covers the software landscape and the path from a
 | 0 · Front matter | [0.1 About these notes](0-Front-Matter/0-1-About-These-Notes.pdf), [0.2 Roadmap and how to use](0-Front-Matter/0-2-Roadmap-and-How-to-Use.pdf) | drafted |
 | I · Getting set up | [1 Computing on Puma](1-Getting-Set-Up/1-Computing-Environment-UA-HPC.pdf), [1b Choosing software and building geometries](1-Getting-Set-Up/1b-Choosing-Software-and-Building-Geometries.pdf), [2 Installing IBAMR with autoibamr](1-Getting-Set-Up/2-Installing-IBAMR-with-autoibamr.pdf), [3 Building and running an IBAMR application](1-Getting-Set-Up/3-Building-and-Running-IBAMR.pdf) | drafted |
 | VI · Planktos | [34 What is Planktos?](Planktos/Planktos-1-What-is-Planktos.pdf), [35 Using Planktos](Planktos/Planktos-2-Using-Planktos.pdf) | existing decks |
-| II–V, VII, appendices | IB2d, IBAMR fundamentals, IBFE, VisIt, the examples guide, helper codes | in progress |
+| III · IBAMR fundamentals | [5 The immersed boundary method and numerical considerations](3-IBAMR-Fundamentals/5-The-IB-Method-and-Numerical-Considerations.pdf) | drafted; chapters 6–16 in progress |
+| II, IV, V, VII, appendices | IB2d, IBFE, VisIt, the examples guide, helper codes | in progress |
 
 ## Contents
 
@@ -23,6 +24,7 @@ The consolidated LaTeX version covers the software landscape and the path from a
 |---|---|
 | [0-Front-Matter/](0-Front-Matter/) | Chapters 0.1 and 0.2: about these notes (provenance, contributors, the list of lecture videos) and the roadmap (LaTeX + PDF) |
 | [1-Getting-Set-Up/](1-Getting-Set-Up/) | Chapters 1, 1b, 2 and 3 (LaTeX + PDF) |
+| [3-IBAMR-Fundamentals/](3-IBAMR-Fundamentals/) | Part III, starting with chapter 5 (LaTeX + PDF) |
 | [Planktos/](Planktos/) | **What is Planktos?** and **Using Planktos** (LaTeX + PDF) |
 | [examples/IB/](examples/IB/) | Immersed boundary examples, each with a CMake build, a Puma job script and a README: [01 rubber band](examples/IB/01-rubber-band/), [02 pulsatile channel](examples/IB/02-pulsatile-channel/), [03 tethered beam](examples/IB/03-tethered-beam/), [04 moving cylinders](examples/IB/04-moving-cylinders/), [06 growing springs](examples/IB/06-growing-springs/), [07 moving plates](examples/IB/07-moving-plates/), [08 glycocalyx 3D](examples/IB/08-glycocalyx-3d/) |
 | [examples/IBFE/](examples/IBFE/) | Immersed boundary finite element examples: [01 tethered plate](examples/IBFE/01-tethered-plate/), [05 gmsh triangle](examples/IBFE/05-gmsh-triangle/), [06 active tension](examples/IBFE/06-active-tension/), [08 plate hits circle](examples/IBFE/08-plate-hits-circle/), [10 flow tank plate 3D](examples/IBFE/10-flow-tank-plate-3d/), [12 advection–diffusion](examples/IBFE/12-advection-diffusion/) |
