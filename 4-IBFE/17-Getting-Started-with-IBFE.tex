@@ -615,29 +615,39 @@ The 2014 and 2020 text: ``The goal here is to spin the beam about its center for
 \end{frame}
 
 % 19
-\begin{frame}[fragile]{The fourth 2014 example: a sinusoidal body force (not in the archive)}
+\begin{frame}[fragile]{The fourth 2014 example: a sinusoidal body force on the plate's ends}
 \label{fr:sinus}
 \scriptsize
-The 2014 deck's slide 15, ``\code{Example\_IBFE\_SinusoidalForce2D}'': ``Here I define a body force that is sinusoidally forcing our plate. The forced elements lie between $-0.25$ to $0.25$ on the horizontal axis of the reference configuration.'' The code was never on a slide, and the folder is in none of the archives (the 2018 and later decks dropped the slide). The crosswalk's check of the code that was once attached found the opposite region, \code{abs(s(0)) > 0.25}, forced.
-
-\medskip
-A reconstruction, in the example's signature, that does what the text says:
+The 2014 deck's slide 15, ``\code{Example\_IBFE\_SinusoidalForce2D}'': ``Here I define a body force that is sinusoidally forcing our plate. The forced elements lie between $-0.25$ to $0.25$ on the horizontal axis of the reference configuration.'' The code was never on a slide, and the 2018 and later decks dropped it; the folder survives as \code{Example\_IBFE\_SinusoidalForce2D\_2016-11.zip} in the course's 2016-11 example set, and its \code{main.C} (2017-02-09) forces the \emph{outer} quarters, \code{abs(s(0)) > .25}, not the middle half the slide describes:
 \begin{lstlisting}[style=cpptiny]
-// a vertical body force A sin(2 pi f t) on the middle half of the plate (reference |x| < 0.25)
-void sinusoidal_force_function(VectorValue<double>& F, const TensorValue<double>& /*FF*/, const libMesh::Point& /*X*/,
+static const double mu = 10.0;
+static double kappa_s = 3.0e1;          // the force amplitude, per unit reference area
+static const double freq = 0.5;         // half a cycle per unit time
+static const double PI = acos(-1);
+void sinusoidal_force_function(VectorValue<double>& F, const TensorValue<double>& /*FF*/, const libMesh::Point& X,
                                const libMesh::Point& s, Elem* const /*elem*/,
-                               const std::vector<const std::vector<double>*>& /*var_data*/,
-                               const std::vector<const std::vector<VectorValue<double> >*>& /*grad_var_data*/,
-                               double time, void* /*ctx*/)
+                               const vector<NumericVector<double>*>& /*system_data*/, double time, void* /*ctx*/)   // the 2016 signature
 {
-    const double A = 1.0e3, f = 1.0;
-    F.zero();
-    if (std::abs(s(0)) < 0.25) F(1) = A * std::sin(2.0 * PI * f * time);
+  if(abs(s(0)) >.25){
+  libMesh::Point s_dump;
+  s_dump(0)=0;
+  s_dump(1)=1;                          // a unit vector up
+  F = kappa_s*sin(2*PI*time*freq)*s_dump;
+} else{
+  F.zero();
+ }
+    return;
 }
 \end{lstlisting}
+\end{frame}
+
+% 19b
+\begin{frame}{The fourth 2014 example (2): what the code does, and how to run it today}
+\label{fr:sinus2}
+\footnotesize
 \begin{itemize}
-  \item Register it in place of \code{target\_force\_function}: only one body force function can be registered per part (the header: ``It is \emph{NOT} possible to register multiple body force functions with this class''), so a plate that is both tethered and shaken needs both terms in one function.
-  \item The amplitude $A$ is per unit reference volume; with the plate's volume $0.031$ and $\kappa_s = 10^6$ as the scale, $10^3$ gives a visible wobble without tearing. Exercise 2 (slide \ref{fr:exercises}) is to run it.
+  \item A vertical force $30\sin(\pi t)$ per unit reference area on the two ends, nothing on the middle: the ends flap up and down and the free middle follows through the material law. The variable names are the tether's (\code{kappa\_s}, \code{s\_dump}) reused for an amplitude and a direction; the slide's ``between $-0.25$ and $0.25$'' is the complement of what the code does.
+  \item The plate has no tether here, so this is the one course example where the plate is free and driven by a body force alone; chapter 19 returns to it. To run it today: the nine-argument signature, \code{std::abs}, and \code{LagBodyForceFcnData} as on slide \ref{fr:register}; only one body force function can be registered per part (the header: ``It is \emph{NOT} possible to register multiple body force functions with this class''), so a plate that is both tethered and shaken needs both terms in one function. Exercise 2 (slide \ref{fr:exercises}) is to run it.
 \end{itemize}
 \end{frame}
 
@@ -1148,7 +1158,7 @@ The old programs compile against the 0.16.0--0.19.0 headers only after all of th
 \footnotesize
 \begin{enumerate}
   \item Translate the plate to the left at $0.3$ for one second (the 2014 slide 10), then release it. Where is its centre at $t = 2$? Compare with FULL's drift after release.
-  \item Add the sinusoidal body force of slide \ref{fr:sinus} (a new \code{MOTION = "SHAKE"} case, with \code{A} and \code{f} in the input) and run it for four periods. Which part of the plate moves most, and why is it not the forced part alone?
+  \item Add the sinusoidal body force of slide \ref{fr:sinus} (a new \code{MOTION = "SHAKE"} case, with the amplitude and frequency in the input) and run it for four periods, once on the ends as the 2016 code does and once on the middle half as the 2014 slide says. Which part of the plate moves most, and why is it not the forced part alone?
   \item Repeat FULL with \code{KAPPA\_S = 1e4} and \code{1e2}. At which stiffness does the plate stop following the target, and what does the vorticity look like then?
   \item Repeat HALF with \code{SHEAR\_MODULUS = 1} and watch the run stop. Read chapter 16's slide on \code{Time step size change encountered}, then find the largest \code{DT} that reaches $t = 4$.
   \item Make the same plate in gmsh (chapter 18), run FULL with \code{MESH\_FILENAME} set to it, and compare the centre positions of slide \ref{fr:numbers}. Then halve the element size and compare again.
