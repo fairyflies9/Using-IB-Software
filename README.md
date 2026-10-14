@@ -64,7 +64,6 @@ Claude (Anthropic) was used to organize, combine, and format more than twelve ye
 To credit these tutorials, cite: L. A. Miller, *Using IB Software*, https://github.com/fairyflies9/Using-IB-Software.
 
 The author also directs [EquiPhysics](https://equiphysics.org), a nonprofit that brings horse lovers to mathematics; these tutorials are shared there too.
-
 ## Feedback
 
 Please let me know if you find any issues or have suggestions for extensions. You can open an issue on this repository.
