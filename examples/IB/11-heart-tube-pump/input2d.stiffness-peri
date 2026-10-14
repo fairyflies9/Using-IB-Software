@@ -1,0 +1,273 @@
+// IB/11 heart-tube pump: input file for IBAMR 0.16.0 or newer.
+//
+// An elastic tube (springs, beams, fixed ends) closes a loop with a rigid
+// racetrack and sits in a rigid pericardium, all target points. A short
+// piece of the tube a quarter of the way along is squeezed once per period;
+// the squeeze is not in the middle, so the fluid goes round the loop
+// (Liebau's valveless pump). ACTUATION chooses how the squeeze is made:
+//   TARGET_VP       moving target points (input2d)
+//   FORCE_VP        an applied sinusoidal force, a spring force function of
+//                   your own (input2d.force-vp)
+//   FORCE_PERI      an applied force that travels along the tube as a
+//                   Gaussian wave: peristalsis (input2d.force-peri; on the
+//                   stiffer tube heart_tube_stiff_512 with DT = 2.5e-5)
+//   STIFFNESS_PERI  a travelling wave of spring stiffness with a short rest
+//                   length, the 2014 code's peristalsis (this file)
+//   TARGET_PERI     a travelling wave of target points (input2d.target-peri)
+// The driving structure must be listed FIRST in structure_names (the update
+// functions ask for structure 0, and the target modes for 0 and 1).
+// 121 passive marker points inside the tube show where the fluid goes.
+//
+// This file must have Unix (LF) line endings. A file saved with Windows (CRLF)
+// line endings stops with "Illegal character token in input". The course
+// version ended every line with // to hide the extra character.
+
+// how the pump is driven
+ACTUATION = "STIFFNESS_PERI"
+
+// physical parameters
+L = 1.0                                   // length of the computational (fluid) domain (m)
+D = 0.1                                   // diameter of the tube (m)
+FRE = 1.0                                 // pumping frequency (Hz); also used by the update functions
+PERI_WIDTH = 0.025                        // peristalsis (FORCE_PERI, STIFFNESS_PERI): width of the travelling Gaussian packet (m)
+PERI_SPEED = 1.3                          // its speed, in lengths of the driven piece per period
+RHO = 1000.0                              // fluid mass density (kg / m^3)
+WO = 10.0                                 // desired Womersley number
+PI = 4.0*atan(1)                          // calculate PI
+MU = 2.0*PI*FRE*RHO*D*D/(4.0*WO*WO)       // fluid dynamic viscosity (N s / m^2) to yield the desired Wo: 1.57
+
+// grid spacing parameters
+MAX_LEVELS = 4                            // maximum number of levels in locally refined grid
+REF_RATIO  = 4                            // refinement ratio between levels
+N = 8                                     // actual    number of grid cells on coarsest grid level
+NFINEST = (REF_RATIO^(MAX_LEVELS - 1))*N  // effective number of grid cells on finest   grid level
+DX = (1.0*L)/NFINEST                      // Cartesian mesh width (m)
+
+// solver parameters
+DELTA_FUNCTION      = "IB_4"
+SOLVER_TYPE         = "STAGGERED"              // the fluid solver to use (STAGGERED or COLLOCATED)
+START_TIME          = 0.0e0                    // initial simulation time
+END_TIME            = 2.0                      // final simulation time (s): two pumping periods; the course version used 10.0
+GROW_DT             = 2.0e0                    // growth factor for timesteps
+NUM_CYCLES          = 1                        // number of cycles of fixed-point iteration
+CONVECTIVE_TS_TYPE  = "ADAMS_BASHFORTH"        // convective time stepping type
+CONVECTIVE_OP_TYPE  = "PPM"                    // convective differencing discretization type
+CONVECTIVE_FORM     = "ADVECTIVE"              // how to compute the convective terms
+NORMALIZE_PRESSURE  = TRUE                     // whether to explicitly force the pressure to have mean zero
+CFL_MAX             = 0.3                      // maximum CFL number
+DT                  = 5.0e-5                   // maximum timestep size (s); the course version used 1.0e-5 (see README.md)
+ERROR_ON_DT_CHANGE  = TRUE                     // whether to emit an error message if the time step size changes
+VORTICITY_TAGGING   = TRUE                     // whether to tag cells for refinement based on vorticity thresholds
+TAG_BUFFER          = 2                        // size of tag buffer used by grid generation algorithm
+REGRID_CFL_INTERVAL = 0.5                      // regrid whenever any material point could have moved 0.5 meshwidths since previous regrid
+OUTPUT_U            = TRUE
+OUTPUT_P            = TRUE
+OUTPUT_F            = FALSE
+OUTPUT_OMEGA        = TRUE
+OUTPUT_DIV_U        = TRUE
+ENABLE_LOGGING      = TRUE
+
+// output intervals, in time steps: 50 VisIt frames and 50 X/F data files per run
+VIZ_INTERVAL        = int(END_TIME/(50*DT))
+DATA_INTERVAL       = int(END_TIME/(50*DT))
+
+// collocated solver parameters
+PROJECTION_METHOD_TYPE = "PRESSURE_UPDATE"
+SECOND_ORDER_PRESSURE_UPDATE = TRUE
+
+IBHierarchyIntegrator {
+   start_time          = START_TIME
+   end_time            = END_TIME
+   grow_dt             = GROW_DT
+   num_cycles          = NUM_CYCLES
+   regrid_cfl_interval = REGRID_CFL_INTERVAL
+   dt_max              = DT
+   error_on_dt_change  = ERROR_ON_DT_CHANGE
+   tag_buffer          = TAG_BUFFER
+   enable_logging      = ENABLE_LOGGING
+}
+
+IBMethod {
+   delta_fcn      = DELTA_FUNCTION
+   enable_logging = ENABLE_LOGGING
+}
+
+// The structures. Their order sets their structure numbers: the driving
+// pieces come first (structures 0 and 1), then the tube, the pericardium,
+// the racetrack and the markers.
+IBStandardInitializer {
+   max_levels = MAX_LEVELS
+   structure_names = "peri_kwave_512", "heart_tube_512", "heart_peri_512", "heart_race_512", "markers_512"
+   peri_kwave_512 {
+      level_number = MAX_LEVELS - 1        // put the structure on the finest grid level
+   }
+   heart_tube_512 {
+      level_number = MAX_LEVELS - 1
+   }
+   heart_peri_512 {
+      level_number = MAX_LEVELS - 1
+   }
+   heart_race_512 {
+      level_number = MAX_LEVELS - 1
+   }
+   markers_512 {
+      level_number = MAX_LEVELS - 1
+   }
+}
+
+INSCollocatedHierarchyIntegrator {
+   mu                            = MU
+   rho                           = RHO
+   start_time                    = START_TIME
+   end_time                      = END_TIME
+   grow_dt                       = GROW_DT
+   convective_time_stepping_type = CONVECTIVE_TS_TYPE
+   convective_op_type            = CONVECTIVE_OP_TYPE
+   convective_difference_form    = CONVECTIVE_FORM
+   normalize_pressure            = NORMALIZE_PRESSURE
+   cfl                           = CFL_MAX
+   dt_max                        = DT
+   using_vorticity_tagging       = VORTICITY_TAGGING
+   vorticity_abs_thresh          = 0.1
+   tag_buffer                    = TAG_BUFFER
+   output_U                      = OUTPUT_U
+   output_P                      = OUTPUT_P
+   output_F                      = OUTPUT_F
+   output_Omega                  = OUTPUT_OMEGA
+   output_Div_U                  = OUTPUT_DIV_U
+   enable_logging                = ENABLE_LOGGING
+   projection_method_type        = PROJECTION_METHOD_TYPE
+   use_2nd_order_pressure_update = SECOND_ORDER_PRESSURE_UPDATE
+}
+
+INSStaggeredHierarchyIntegrator {
+   mu                            = MU
+   rho                           = RHO
+   start_time                    = START_TIME
+   end_time                      = END_TIME
+   grow_dt                       = GROW_DT
+   convective_time_stepping_type = CONVECTIVE_TS_TYPE
+   convective_op_type            = CONVECTIVE_OP_TYPE
+   convective_difference_form    = CONVECTIVE_FORM
+   normalize_pressure            = NORMALIZE_PRESSURE
+   cfl                           = CFL_MAX
+   dt_max                        = DT
+   using_vorticity_tagging       = VORTICITY_TAGGING
+   vorticity_abs_thresh          = 0.1
+   tag_buffer                    = TAG_BUFFER
+   output_U                      = OUTPUT_U
+   output_P                      = OUTPUT_P
+   output_F                      = OUTPUT_F
+   output_Omega                  = OUTPUT_OMEGA
+   output_Div_U                  = OUTPUT_DIV_U
+   enable_logging                = ENABLE_LOGGING
+}
+
+Main {
+   solver_type = SOLVER_TYPE
+
+// log file parameters
+   log_file_name               = "IB2d.log"
+   log_all_nodes               = FALSE
+
+// visualization dump parameters
+   viz_writer                  = "VisIt","Silo"
+   viz_dump_interval           = VIZ_INTERVAL
+   viz_dump_dirname            = "viz_IB2d"
+   visit_number_procs_per_file = 1
+
+// restart dump parameters
+   restart_dump_interval       = 0
+   restart_dump_dirname        = "restart_IB2d"
+
+// hierarchy data dump parameters (the X.* and F.* files written by output_data)
+   data_dump_interval          = DATA_INTERVAL
+   data_dump_dirname           = "hier_data_IB2d"
+
+// timer dump parameters
+   timer_dump_interval         = 0
+}
+
+CartesianGeometry {
+   domain_boxes = [ (0,0) , (N - 1,N - 1) ]
+   x_lo = -0.5*L, -0.5*L                  // lower end of computational domain.
+   x_up =  0.5*L,  0.5*L                  // upper end of computational domain.
+   periodic_dimension = 0,0               // walls all round (no-slip, below)
+}
+
+GriddingAlgorithm {
+   allow_patches_smaller_than_minimum_size_to_prevent_overlaps = TRUE
+   max_levels = MAX_LEVELS
+   ratio_to_coarser {
+      level_1 = REF_RATIO,REF_RATIO
+      level_2 = REF_RATIO,REF_RATIO
+      level_3 = REF_RATIO,REF_RATIO
+      level_4 = REF_RATIO,REF_RATIO
+      level_5 = REF_RATIO,REF_RATIO
+   }
+   largest_patch_size {
+      level_0 = NFINEST, NFINEST          // all finer levels will use same values as level_0
+   }
+   smallest_patch_size {
+      level_0 =   8,  8                   // all finer levels will use same values as level_0
+   }
+   efficiency_tolerance = 0.85e0          // min % of tag cells in new patch level
+   combine_efficiency   = 0.85e0          // chop box if sum of volumes of smaller boxes < efficiency * vol of large box
+}
+
+StandardTagAndInitialize {
+   tagging_method = "GRADIENT_DETECTOR"
+}
+
+LoadBalancer {
+   bin_pack_method     = "SPATIAL"
+   max_workload_factor = 1
+}
+
+TimerManager{
+   print_exclusive = FALSE
+   print_total     = TRUE
+   print_threshold = 0.1
+   timer_list      = "IBAMR::*::*","IBTK::*::*","*::*::*"
+}
+
+VelocityInitialConditions {
+   function_0 = "0.0"                     // initial  conditions for the x-component of the velocity
+   function_1 = "0.0"                     // initial  conditions for the y-component of the velocity
+}
+
+// No-slip walls on all four sides: a = 1, b = 0, g = 0 for both components
+// (chapter 7). The loop is far from the walls, so they hardly matter.
+VelocityBcCoefs_0 {                       // boundary conditions for the x-component of the velocity
+   acoef_function_0 = "1.0"
+   acoef_function_1 = "1.0"
+   acoef_function_2 = "1.0"
+   acoef_function_3 = "1.0"
+
+   bcoef_function_0 = "0.0"
+   bcoef_function_1 = "0.0"
+   bcoef_function_2 = "0.0"
+   bcoef_function_3 = "0.0"
+
+   gcoef_function_0 = "0.0"
+   gcoef_function_1 = "0.0"
+   gcoef_function_2 = "0.0"
+   gcoef_function_3 = "0.0"
+}
+
+VelocityBcCoefs_1 {                       // boundary conditions for the y-component of the velocity
+   acoef_function_0 = "1.0"
+   acoef_function_1 = "1.0"
+   acoef_function_2 = "1.0"
+   acoef_function_3 = "1.0"
+
+   bcoef_function_0 = "0.0"
+   bcoef_function_1 = "0.0"
+   bcoef_function_2 = "0.0"
+   bcoef_function_3 = "0.0"
+
+   gcoef_function_0 = "0.0"
+   gcoef_function_1 = "0.0"
+   gcoef_function_2 = "0.0"
+   gcoef_function_3 = "0.0"
+}
