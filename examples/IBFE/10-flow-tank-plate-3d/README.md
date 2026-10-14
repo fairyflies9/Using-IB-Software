@@ -116,7 +116,7 @@ The mesh has a few very flat ("sliver") tetrahedra: 80 of its 11,481 elements ha
 
 ## History
 
-The flow tank was a UNC course example in 2017. That version (as its lecture slides show) used a tank from x = −16 to 16, moved the plate 7 units upstream with an initial coordinate mapping, and gave the plate a stiffer "stem" band (|z| < 0.25) and softer "leaf" parts. The UNC (2018) and University of Arizona (2020–2024) versions dropped the move (a 2020 slide says the feature "is not working as it used to in newer versions of IBAMR"), shifted the tank to −8 < x < 24 instead, and used the stem material everywhere. The changes for current IBAMR:
+The flow tank was a UNC course example in 2017. That version moved the plate 7 units upstream with an initial coordinate mapping and gave the plate a stiffer "stem" band (|z| < 0.25) and softer "leaf" parts. Its lecture slides describe a tank from x = −16 to 16, but the input file shipped with it already has the tank at −8 < x < 24 (the same `x_lo = -0.5*L`, `x_up = 1.5*L` as here), so the shifted plate stood one unit from the inflow face. That may be why the translation seemed "not working" later. The UNC (2018) and University of Arizona (2020–2024) versions dropped the move (a 2020 slide says the feature "is not working as it used to in newer versions of IBAMR"), shifted the tank to −8 < x < 24 instead, and used the stem material everywhere. The changes for current IBAMR:
 
 - A CMake build replaces the Makefile.
 - `main.cpp` starts IBAMR with `IBTKInit`, no longer includes the old configuration headers, and uses `libMesh::Order`, `std::make_unique` and `std::abs`.
