@@ -34,7 +34,8 @@ ap.add_argument("--fine", type=float, default=1.0, help="resolution factor: 1 = 
 ap.add_argument("--dxc", type=float, default=0.125, help="coarse cell size (cm) at --fine 1; the fine level is 4 times finer")
 ap.add_argument("--DT", type=float, default=1.0e-4, help="the time step of the input file (s); the target stiffness is sized for it")
 ap.add_argument("--kappa", type=float, default=None, help="target stiffness per point; default 0.2*RHO*DX^2/DT^2 with RHO 1.05")
-ap.add_argument("--kappa_spring", type=float, default=None, help="stiffness of the springs between neighbouring wall points; default half the target stiffness")
+ap.add_argument("--kappa_spring", type=float, default=None, help="stiffness of the springs between neighbouring wall points; default a quarter of the target stiffness (half with a single layer)")
+ap.add_argument("--layers", type=int, default=1, help="rows of points across the wall, one point spacing apart, from the lumen outward (1 = a single row, the shipped files; 5 = a wall two fine cells thick, joined by springs along, across and diagonally)")
 ap.add_argument("--margin", type=float, default=0.6, help="clear space (cm) between the vessel and the walls of the box on the closed sides")
 args = ap.parse_args()
 C = CASES[args.case]
@@ -184,18 +185,41 @@ def resample(a, ds):
     m = max(2, int(round(sarc[-1] / ds)) + 1)
     t = np.linspace(0, sarc[-1], m)
     return np.column_stack([np.interp(t, sarc, a[:, 0]), np.interp(t, sarc, a[:, 1])]), sarc[-1]
-walls = []
+# The wall is LAYERS rows of points: the lumen row, then rows one spacing further out along the wall's outward
+# normal (away from the lumen), so that the wall is a band LAYERS*ds thick with springs along, across and
+# diagonally between the rows: a connected elastic sheet rather than a single leaky row.
+ccw = (0.5 * (np.dot(P[:, 0], np.roll(P[:, 1], -1)) - np.dot(P[:, 1], np.roll(P[:, 0], -1)))) > 0   # loop orientation
+walls, rows_of = [], []
 for k, a in enumerate(arcs):
     r, L = resample(a, ds)
-    walls.append(r)
-    print("wall %d: %.2f cm, %d points" % (k, L, len(r)))
-X = np.vstack(walls)
+    t = np.gradient(r, axis=0); t /= np.linalg.norm(t, axis=1)[:, None]
+    nrm = np.column_stack([t[:, 1], -t[:, 0]]) if ccw else np.column_stack([-t[:, 1], t[:, 0]])   # outward for the walk's direction
+    rows = [r + j * ds * nrm for j in range(args.layers)]
+    walls.extend(rows); rows_of.append(rows)
+    print("wall %d: %.2f cm, %d points per row, %d rows" % (k, L, len(r), args.layers))
+# an outer row of a wall that meets a face at an angle runs past the face: those points are dropped (not clipped:
+# clipping piled them up on the face and the horse case blew up there at t = 0.11 s), and the springs below skip them
+ids_of = []     # per wall, per row: the global index of each point, or -1 where it was dropped
+pts = []
+for rows in rows_of:
+    ids_rows = []
+    for row in rows:
+        ids = []
+        for p in row:
+            if 0.5 * ds <= p[0] <= LX - 0.5 * ds and 0.5 * ds <= p[1] <= LY - 0.5 * ds:
+                ids.append(len(pts)); pts.append(p)
+            else:
+                ids.append(-1)
+        ids_rows.append(ids)
+    ids_of.append(ids_rows)
+X = np.array(pts)
+print("dropped %d outer-row points that fell outside the box" % (sum(len(r) for rows in rows_of for r in rows) - len(X)))
 r = X / DX
 on_face = np.abs(r - np.round(r)) < 1e-7
 X[on_face] += 1e-3 * DX
 RHO = 1.05
 kappa = args.kappa if args.kappa is not None else 0.2 * RHO * DX ** 2 / args.DT ** 2
-kappa_spring = args.kappa_spring if args.kappa_spring is not None else 0.5 * kappa
+kappa_spring = args.kappa_spring if args.kappa_spring is not None else (0.25 if args.layers > 1 else 0.5) * kappa
 name = args.case
 with open(name + ".vertex", "w", newline="\n") as f:
     f.write("%d\n" % len(X))
@@ -205,19 +229,27 @@ with open(name + ".target", "w", newline="\n") as f:
     f.write("%d\n" % len(X))
     for i in range(len(X)):
         f.write("%d %1.16e\n" % (i, kappa))
-# springs between neighbouring points along each wall (not across walls): they keep the rows of points from
-# stretching, bunching or opening gaps that fluid could leak through. Rest length = the spacing as written.
+# springs: along each row, across neighbouring rows, and on both diagonals between them (shear stiffness); never
+# between different walls. Rest length = the distance as written.
 springs = []
-off = 0
-for w in walls:
-    for i in range(len(w) - 1):
-        springs.append((off + i, off + i + 1, float(np.linalg.norm(X[off + i + 1] - X[off + i]))))
-    off += len(w)
+def link(i, j):
+    if i >= 0 and j >= 0:
+        springs.append((i, j, float(np.linalg.norm(X[j] - X[i]))))
+for ids_rows in ids_of:
+    n_r, n_l = len(ids_rows[0]), len(ids_rows)
+    for j in range(n_l):
+        for i in range(n_r - 1):
+            link(ids_rows[j][i], ids_rows[j][i + 1])
+        if j + 1 < n_l:
+            for i in range(n_r):
+                link(ids_rows[j][i], ids_rows[j + 1][i])
+                if i + 1 < n_r:
+                    link(ids_rows[j][i], ids_rows[j + 1][i + 1]); link(ids_rows[j][i + 1], ids_rows[j + 1][i])
 with open(name + ".spring", "w", newline="\n") as f:
     f.write("%d\n" % len(springs))
     for i, j, L in springs:
         f.write("%d %d %1.16e %1.16e\n" % (i, j, kappa_spring, L))
-print("springs: %d along the walls, stiffness %.1f (targets %.1f); %.1f target points per fine cell" % (len(springs), kappa_spring, kappa, DX / ds))
+print("springs: %d (along, across and diagonal), stiffness %.1f (targets %.1f); %d rows, wall %.3f cm thick; %.1f points per fine cell along the wall" % (len(springs), kappa_spring, kappa, args.layers, (args.layers - 1) * ds, DX / ds))
 inlet = bands[(0, "<")][0]
 geom = {"case": name, "LX": LX, "LY": LY, "NX": NX, "NY": NY, "DX_coarse": dxc, "DX": DX, "ds": ds, "D_inlet": D_in,
         "n_points": len(X), "n_springs": len(springs), "kappa_file": kappa, "kappa_spring": kappa_spring,
