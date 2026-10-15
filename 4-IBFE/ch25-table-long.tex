@@ -1,0 +1,23 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l l l l r r r L{0.3\textwidth}@{}}
+\toprule
+example & dim & input & \code{END\_TIME} & steps & time $t$ & wall & outcome \\
+\midrule
+ex0 & 2D & \code{input2d} & 2000*DT & 2000 & 3.90625 & 21 s & ran to the end \\
+ex1 & 2D & \code{input2d} & 2000*DT & 2000 & 3.90625 & 47 s & ran to the end \\
+ex2 & 2D & \code{input2d} & 2000*DT & 2000 & 7.8125 & 41 s & ran to the end \\
+ex2 & 3D & \code{input3d} & shipped & 100 & 0.390625 & 39 s & ran to the end \\
+ex3 & 2D & \code{input2d} & 2000*DT & 2000 & 37.5 & 37 s & ran to the end \\
+ex4 & 2D & \code{input2d} & 2000*DT & 2000 & 0.976562 & 21 s & ran to the end \\
+ex4 & 3D & \code{input3d} & shipped & 100 & 0.097656 & 13 s & ran to the end \\
+ex5 & 2D & \code{input2d} & 2000*DT & 5 & 0.007812 & 0 s & time-step change abort (slide \ref{fr:dt}) \\
+ex6 & 2D & \code{input2d} & 2000*DT & 14 & 0.004035 & 1 s & time-step change abort (slide \ref{fr:dt}) \\
+ex8 & 2D & \code{input2d} & 2000*DT & 2000 & 0.833333 & 25 s & ran to the end \\
+ex9 & 2D & \code{input2d} & shipped & 0 & -- & 0 s & mesh-dimension assertion (slide \ref{fr:fail}) \\
+ex10 & 2D & \code{input2d} & shipped & 10450 & 52.25 & 1801 s & stopped at the cap \\
+ex11 & 2D & \code{input2d} & shipped & 65000 & 130 & 1626 s & ran to the end \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\scriptsize The smoke tests rerun twenty times longer (a 15-minute cap), the benchmarks under a 30-minute cap, and the 3D inputs as shipped. ``stopped at the cap'' means the wall-clock limit, not an error.

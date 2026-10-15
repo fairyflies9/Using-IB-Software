@@ -1,0 +1,22 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l l l l r r r L{0.3\textwidth}@{}}
+\toprule
+example & dim & input & \code{END\_TIME} & steps & time $t$ & wall & outcome \\
+\midrule
+ex0 & 2D & \code{input2d} & shipped & 100 & 0.195312 & 2 s & ran to the end \\
+ex1 & 2D & \code{input2d} & shipped & 100 & 0.195312 & 3 s & ran to the end \\
+ex2 & 2D & \code{input2d} & shipped & 100 & 0.390625 & 2 s & ran to the end \\
+ex3 & 2D & \code{input2d} & shipped & 100 & 1.875 & 2 s & ran to the end \\
+ex4 & 2D & \code{input2d} & shipped & 100 & 0.048828 & 1 s & ran to the end \\
+ex5 & 2D & \code{input2d} & shipped & 5 & 0.007812 & 1 s & time-step change abort (slide \ref{fr:dt}) \\
+ex6 & 2D & \code{input2d} & shipped & 14 & 0.004035 & 1 s & time-step change abort (slide \ref{fr:dt}) \\
+ex7 & 2D & \code{input2d.caseC} & shipped & 1000 & 0.019531 & 33 s & ran to the end \\
+ex8 & 2D & \code{input2d} & shipped & 100 & 0.041666 & 1 s & ran to the end \\
+ex9 & 2D & \code{input2d} & shipped & 0 & -- & 0 s & mesh-dimension assertion (slide \ref{fr:fail}) \\
+ex10 & 2D & \code{input2d} & shipped & 5585 & 27.925 & 901 s & stopped at the cap \\
+ex11 & 2D & \code{input2d} & shipped & 32544 & 65.088 & 901 s & stopped at the cap \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\scriptsize The twelve 2D inputs as shipped, built standalone (30--50 s each) and run on four cores. Steps and the time $t$ reached; \code{END\_TIME = 100*DT} for most of them is a hundred steps. Nine of the twelve run as shipped.

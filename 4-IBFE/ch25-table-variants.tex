@@ -1,0 +1,24 @@
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}l l l l r r r L{0.27\textwidth}@{}}
+\toprule
+example & dim & variant & \code{END\_TIME} & steps & time $t$ & wall & outcome \\
+\midrule
+ex5 & 2D & step allowed to change & shipped & 1585 & 0.15625 & 103 s & ran to the end \\
+ex5 & 2D & \code{DT} halved & shipped & 11 & 0.008593 & 1 s & time-step change abort (slide \ref{fr:dt}) \\
+ex5 & 2D & scaled tether, \code{2000*DT} & 2000*DT & 2000 & 3.125 & 31 s & ran to the end \\
+ex5 & 2D & the input's scaled tether & shipped & 100 & 0.15625 & 6 s & ran to the end \\
+ex5 & 3D & step allowed to change & shipped & 88 & 0.012790 & 302 s & stopped at the cap \\
+ex5 & 3D & \code{DT} halved & shipped & 11 & 0.008593 & 3 s & time-step change abort (slide \ref{fr:dt}) \\
+ex6 & 2D & step allowed to change & shipped & 403 & 0.028828 & 16 s & ran to the end \\
+ex6 & 2D & \code{DT} halved & shipped & 100 & 0.014414 & 3 s & ran to the end \\
+ex6 & 2D & \code{DT} halved, \code{2000*DT} & 2000*DT & 2000 & 0.288281 & 20 s & ran to the end \\
+ex6 & 2D & tether 100x softer & shipped & 17 & 0.004900 & 3 s & time-step change abort (slide \ref{fr:dt}) \\
+cf/ex2 & 2D & one rank & shipped & 111 & 0.0555 & 301 s & stopped at the cap \\
+cf/ex2 & 2D & as shipped & shipped & 0 & 0 & 1 s & PETSc: no ILU for a parallel matrix (slide \ref{fr:cf}) \\
+cf/ex4 & 2D & one rank & shipped & 6600 & 0.66 & 301 s & stopped at the cap \\
+cf/ex4 & 2D & as shipped & shipped & 0 & 0 & 1 s & PETSc: no ILU for a parallel matrix (slide \ref{fr:cf}) \\
+\bottomrule
+\end{tabular}
+
+\medskip
+\scriptsize What was tried on the runs that abort (slide \ref{fr:dt}): \code{DT} halved (the 2020 tip), the step allowed to change (\code{error\_on\_dt\_change = FALSE}), and softer tethers; and the two complex-fluids examples with bodies, on four ranks and on one.
