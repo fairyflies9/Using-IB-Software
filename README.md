@@ -2,7 +2,7 @@
 
 Hands-on tutorials for immersed boundary software, with **IB2d**, **IBAMR** (including the immersed boundary finite element method, **IBFE**), **VisIt** for visualization, and **Planktos** for agent-based modeling in fluid flows. By **Laura A. Miller** (Department of Mathematics, University of Arizona), built from tutorials taught since 2013 at UNC Chapel Hill and the University of Arizona.
 
-The theory behind these tools is in the companion series **[Fluid Dynamics and IBM Theory](https://github.com/equiphysics/Fluid-Dynamics-and-IBM-Theory)**.
+The theory behind these tools is in the companion series **[Fluid Dynamics and IBM Theory](https://github.com/fairyflies9/Fluid-Dynamics-and-IBM-Theory)**.
 
 > **This is the `master-tutorial` branch, a work in progress.** It holds the new, consolidated version of the tutorials while it is being written. The `main` branch keeps the original lectures until this version is finished and reviewed.
 
