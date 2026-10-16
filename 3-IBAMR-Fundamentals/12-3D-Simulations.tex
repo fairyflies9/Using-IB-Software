@@ -474,7 +474,7 @@ VelocityInitialConditions { function_0 = "0.0"  function_1 = "0.0"  function_2 =
 \small
 \begin{itemize}
   \item \code{hier\_data\_IB3d/X.NNNNN} and \code{F.NNNNN}: three numbers per point, read with \code{ndim = 3} by chapter 11's readers; the lab's 2014 3D script summed \code{A(1:3:end)}, \code{A(2:3:end)}, \code{A(3:3:end)}.
-  \item \code{viz\_IB3d/dumps.visit}: the fields on the 3D hierarchy; \code{lag\_data.visit}: the structures as 3D meshes (IB/08's \code{glyco\_512\_mesh}).
+  \item \code{viz\_IB3d/dumps.visit}: the fields on the 3D hierarchy; \code{lag\_data.visit}: the structures as 3D point meshes (IB/08's \code{glyco\_512\_vertices}; a \code{\_mesh} of edges exists only for structures with springs, chapter 28).
   \item \code{IB3d.log} and the \code{integral\{F\}} lines with three components.
   \item The IBFE examples write the solid to an ExodusII file (\code{.ex2}) with libMesh (chapter 28).
 \end{itemize}

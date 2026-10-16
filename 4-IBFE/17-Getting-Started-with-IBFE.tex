@@ -307,7 +307,7 @@ key & meaning \\
 \midrule
 \code{PK1\_DEV\_QUAD\_ORDER}, \code{PK1\_DIL\_QUAD\_ORDER} & read by \emph{the program}, not by \code{IBFEMethod}, and passed on as each stress function's \code{quad\_order} (slide \ref{fr:register}). \\
 \code{MFAC}, \code{ELEM\_TYPE} & read by programs that build their own mesh (\code{ds = MFAC*dx}; the element type); \al{no effect on a mesh read from a file}. The 2014--2024 comments ``It seems like 1.0 is better'' next to \code{MFAC = 2.0} and \code{IB\_POINT\_DENSITY = 2.0} were never acted on; the shipped values are what the runs of slides \ref{fr:full}--\ref{fr:numbers} used. \\
-\code{viz\_writer = "VisIt","ExodusII"} & the second word makes \code{AppInitializer} supply an ExodusII file name (\code{viz\_IB2d/output.ex2}); without it \code{uses\_exodus} is false and no plate file is written. \\
+\code{viz\_writer = "VisIt","ExodusII"} & what the examples write; in 0.19.0 the second word is inert: \code{AppInitializer} supplies \code{viz\_IB2d/output.ex2} as the ExodusII file name in any case (the entry only lets an \code{exodus\_filename} key rename it), so the plate file is written whenever \code{viz\_dump\_interval > 0} (checked in chapter 28 with \code{viz\_writer = "VisIt"} alone). \\
 \bottomrule
 \end{tabular}
 
@@ -1104,7 +1104,7 @@ symptom & cause and fix \\
 \code{Unknown MOTION = ...} & the key is misspelled; the valid words are printed with the error \\
 \code{Illegal character token in input} at start-up & Windows line endings, or the stray \code{\textbackslash\textbackslash} at the end of the course input files; save as LF, delete the backslashes \\
 \code{ERROR: Unrecognized file extension} and a list of formats & the mesh file's extension is not one libMesh knows (slide \ref{fr:formats}); rename, or convert with gmsh \\
-no \code{output.ex2} & \code{viz\_writer} lacks \code{"ExodusII"}, so \code{uses\_exodus} is false \\
+no \code{output.ex2} & \code{viz\_dump\_interval = 0}, or the run never reached its first dump; the \code{"ExodusII"} word is not the switch (chapter 28) \\
 the mesh does not move in VisIt & no Displace operator, or its variable is not \code{dX}; ``Apply operators to all plots'' was on and the operator landed on the fluid plot too \\
 ``mesh is 3D'' in VisIt, plate invisible against the fluid & an old IBAMR's three-coordinate 2D output: \code{\{dX\_0, dX\_1, 0\}} and the Project operator \\
 \code{Time step size change encountered} & the plate is too soft for the flow it creates (\code{SHEAR\_MODULUS = 1}): a stiffer plate, a smaller \code{DT}, or accept it (chapter 16) \\
@@ -1175,7 +1175,7 @@ The old programs compile against the 0.16.0--0.19.0 headers only after all of th
   \item Write prescribed motion as a target position in the reference configuration; release by setting the target to the current position.
   \item \code{s(0)} is $x$ and \code{s(1)} is $y$ in the reference configuration; \code{X} is the current position. IBAMR's headers call them \code{X} and \code{x}.
   \item One body force function per part, any number of stress functions; each stress function gets its own quadrature order.
-  \item \code{viz\_writer = "VisIt","ExodusII"}: both words, or there is no plate file.
+  \item \code{viz\_writer = "VisIt","ExodusII"}: what the examples write; the plate file comes with the visualization dumps whether or not the second word is there (chapter 28).
   \item In VisIt the mesh is drawn where it started until you displace it by \code{dX = \{dX\_0, dX\_1\}}.
   \item \code{MFAC} and \code{ELEM\_TYPE} do nothing to a mesh read from a file; \code{IB\_point\_density} does.
   \item Check that a shipped generator writes the file the program reads.

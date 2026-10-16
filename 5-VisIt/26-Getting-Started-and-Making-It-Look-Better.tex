@@ -145,7 +145,7 @@ INSStaggeredHierarchyIntegrator {
 \begin{itemize}
   \item \code{dumps.visit} is a text file listing the frames; open \emph{it}, not a frame, and VisIt knows the time series. The same for \code{lag\_data.visit}.
   \item In the fluid dumps (IBAMR 0.19): \code{U} as one vector, \code{P}, \code{Omega} (a scalar in 2D), \code{Div\_U}, and the AMR structure as the Subsets \code{levels} and \code{patches}. Older decks list \code{U\_x}, \code{U\_y}: those names are gone; \code{U[0]} and \code{magnitude(U)} are expressions (slide \ref{fr:expr}).
-  \item In the Silo files: the structure's points as a point mesh \code{<name>\_vertices}, and \code{<name>\_mesh}, whose edges are the springs and beams of the structure (a run without springs has only the points). With the structure name \code{human}: \code{human\_vertices}, \code{human\_mesh}.
+  \item In the Silo files: the structure's points as a point mesh \code{<name>\_vertices}, and \code{<name>\_mesh}, whose edges are the springs (and crosslinks) of the structure; beams, targets and masses draw no edges, so a run without springs has only the points (chapter 28). With the structure name \code{human}: \code{human\_vertices}, \code{human\_mesh}.
   \item The two files have the same number of frames when the two intervals are equal, which the inputs of this series keep.
 \end{itemize}
 \end{columns}
@@ -374,7 +374,7 @@ u         scalar   U[0]
 v         scalar   U[1]
 speed_cm  scalar   100*magnitude(U)       # a unit change
 omega_abs scalar   abs(Omega)
-dX        vector   {dX_0, dX_1}           # on the Silo points: the displacement
+dX        vector   {dX_0, dX_1}           # IBFE only: the Exodus file's displacement (ch. 28)
 \end{lstlisting}
 \begin{center}
 \includegraphics[height=0.26\textheight]{ch26-v2-pc-menu.png}
@@ -387,7 +387,7 @@ dX        vector   {dX_0, dX_1}           # on the Silo points: the displacement
   \item \code{Omega} is a scalar in 2D and a vector in 3D (\code{Omega[2]} for the spanwise component, chapter 27).
   \item \code{P} is the pressure with the mean removed when \code{normalize\_pressure = TRUE}, and relative to the outflow when it is \code{FALSE} (IB/13): a Pseudocolor of \code{P} has no absolute meaning in the first case.
   \item \code{Div\_U} should be at round-off: a Pseudocolor of it is the first health check of a run (chapter 16).
-  \item On the points' database the Silo files carry \code{dX\_0}, \code{dX\_1}, the displacement since the start, which chapter 28 uses to displace a finite-element mesh.
+  \item The Silo files of a point-method run carry the positions only (no velocity, force or displacement: those are the \code{hier\_data} files of chapter 11); a displacement since the first frame can still be built as a cross-time expression (chapter 28). The \code{dX\_0}, \code{dX\_1} fields belong to the ExodusII file of an IBFE run, which chapter 28 uses to displace a finite-element mesh.
   \item Expressions are saved in the session, not in the data; a session restored on another run keeps them.
 \end{itemize}
 \end{columns}
