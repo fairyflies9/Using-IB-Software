@@ -248,7 +248,7 @@ and continues for 644 lines: 644 points of the band, in meters, each about $\Del
 \end{itemize}
 \vspace{1mm}
 \begin{punchbox}
-\small IBAMR counts from 0; MATLAB and IB2d count from 1. A \code{.spring} file written with MATLAB's loop variable as the index is off by one, and IBAMR stops at the first index equal to $N$: \code{vertex index 644 is out of range} (slide 26). The generators in this series loop \code{for s = 0:npts-1} for exactly this reason.
+\small IBAMR counts from 0; MATLAB, and IB2d's MATLAB version, count from 1 (IB2d's Python version counts from 0: chapter 4a). A \code{.spring} file written with MATLAB's loop variable as the index is off by one, and IBAMR stops at the first index equal to $N$: \code{vertex index 644 is out of range} (slide 26). The generators in this series loop \code{for s = 0:npts-1} for exactly this reason.
 \end{punchbox}
 \small Chapter 9a uses local and global indices side by side for the two plates of IB/07 (points 0--102 and 103--205).
 \end{frame}
