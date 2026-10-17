@@ -836,7 +836,7 @@ e.allTimes = 1; ExportDatabase(e)               # every state ... each overwriti
 # one state: e.allTimes = 0; SetTimeSliderState(10); e.filename = "plate_0010"; ExportDatabase(e)
 \end{lstlisting}
 \begin{lstlisting}[style=tiny]
-# what VisIt 3.5.0 wrote (headless): the file name is dropped, the file is <dirname>/.vtk
+# what VisIt 3.5.0 wrote (headless): the file name is dropped, the file is <current directory>/.vtk
 # vtk DataFile Version 4.2            # legacy ASCII, one time state
 DATASET UNSTRUCTURED_GRID
 FIELD FieldData 4                     # avtOriginalBounds, MeshName, CYCLE 0, TIME 4 (the last state)
@@ -850,7 +850,7 @@ dX_0 1 101 double                     # one array per exported variable (one ask
 \scriptsize
 \begin{itemize}
   \item With the Mesh plot selected (``highlight the mesh''), \gui{File $\to$ Export Database}: file name, directory, \gui{Export to: VTK}, \gui{Export all time states}, \gui{Add variable} for each field to carry (the mesh goes anyway), \gui{Apply}, then \gui{Export}. The export writes the mesh \emph{as plotted}: with the Displace operator on the active plot, the VTK points are the current positions; without it, the reference ones plus \code{dX}.
-  \item Observed in 3.5.0 run headless: the \code{filename} is ignored and every call writes \code{<dirname>/.vtk}, so \gui{Export all time states} overwrites itself; export one state at a time and rename the file (\code{os.rename}) after each call. The export options (\code{GetExportOptions('VTK')}) choose legacy or XML, ASCII or binary.
+  \item Observed in 3.5.0 run headless: the \code{filename} and the directory are ignored and every call writes \code{.vtk} into the \emph{current directory} of the VisIt process (chapter 33 found this; chapter 28's test ran inside the export folder, where the two coincide), so \gui{Export all time states} overwrites itself; export one state at a time and rename the file (\code{os.rename}) after each call. The export options (\code{GetExportOptions('VTK')}) choose legacy or XML, ASCII or binary.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -865,9 +865,9 @@ dX_0 1 101 double                     # one array per exported variable (one ask
 \end{center}
 \sourcecredit{Window: ``3B -- Analyzing your IBFE simulation'' (2018), VisIt 2.12.2.}
 \column{0.58\textwidth}
-\footnotesize
+\scriptsize
 \begin{itemize}
-  \item The 2018 reason: KillDevil's VisIt 2.12.3 had no Exodus reader, so the \code{.ex2} files were exported on a laptop and the VTK files read on the cluster (slide \ref{fr:recipe18}); ``if you are doing the standard fiber-based IBAMR, you do not need to worry about this step'' (a Silo run never needed it). VisIt 3.5 reads Exodus everywhere; the export is still the shortest way to an \code{.ex2} mesh in Python or MATLAB without netCDF (chapter 33: \code{pyvista} and \code{meshio} read these files in one line).
+  \item The 2018 reason: KillDevil's VisIt 2.12.3 had no Exodus reader, so the \code{.ex2} files were exported on a laptop and the VTK files read on the cluster (slide \ref{fr:recipe18}); ``if you are doing the standard fiber-based IBAMR, you do not need to worry about this step'' (a Silo run never needed it). VisIt 3.5 reads Exodus everywhere; the export is still the shortest way to an \code{.ex2} mesh in Python or MATLAB without netCDF (chapter 33: \code{pyvista} or the \code{vtk} module read the exported file in one line; \code{meshio} 5.3 cannot, because of the \code{FIELD} block VisIt writes).
   \item The 3.5 window is titled \gui{Export Database}; its button is \gui{Add variable}. Other export formats in the menu: Silo, Tecplot, Xmdv (columns of numbers), PLY and STL for the surface of a 3D mesh (a 3D-printable file of a deformed body, with the Displace operator on); the Silo points of a point-method run export the same way (a VTK polydata of points).
   \item The export takes the active plot's data after its operators: a Box or Threshold before the export writes the selected part only, and a Slice of a 3D mesh writes the cut surface.
 \end{itemize}
@@ -1091,7 +1091,7 @@ no \code{lag\_data.visit} & \code{viz\_writer} lacks \code{"Silo"} (and an IB/01
 \begin{frame}{What can go wrong (2)}
 \label{fr:wrong2}
 \scriptsize
-\renewcommand{\arraystretch}{0.95}
+\renewcommand{\arraystretch}{0.9}
 \begin{tabular}{@{}L{0.36\textwidth}L{0.57\textwidth}@{}}
 \toprule
 symptom & cause and fix \\
@@ -1104,7 +1104,7 @@ a Subset or Threshold leaves nothing & \gui{Threshold}'s \gui{Show zone if: Part
 a query returns nothing & the plot is hidden (a hidden plot cannot be queried), or the Mesh plot is the active one \\
 the Box keeps the wrong part & operator order: Displace before Box selects by current position, after it by reference position \\
 a Pseudocolor of the mesh looks blocky in 3D & only the outer faces are drawn; Clip or Threshold to look inside \\
-the exported VTK file is called \code{.vtk} & 3.5.0 headless drops the file name; rename after each export (slide \ref{fr:export}) \\
+the exported VTK file is called \code{.vtk}, in the wrong folder & 3.5.0 headless drops the file name and the directory (it writes into VisIt's current directory); rename after each export (slide \ref{fr:export}; chapter 33's \code{resample\_export.py} does it) \\
 \code{mesh\_quality/aspect} is zero everywhere & it is not defined for triangles in 3.5; use \code{minimum\_angle}, \code{condition} or \code{shape} in 2D, \code{aspect\_gamma}, \code{condition} or \code{shape} in 3D \\
 \bottomrule
 \end{tabular}
