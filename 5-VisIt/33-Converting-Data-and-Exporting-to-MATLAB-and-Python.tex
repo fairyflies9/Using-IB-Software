@@ -370,7 +370,7 @@ d = samrai_dumps(folder, 'U');                          % d.data{1}, d.data{2}
 \label{fr:resample2}
 \footnotesize
 \begin{itemize}
-  \item ``The main issue with taking a 2D slice from 3D IBAMR data and exporting it is that it is on an adaptive grid. We can handle this in Visit by resampling the data in the 2D slice and exporting it to vtk'' (2017). Resample puts the plotted variable on a regular grid of \code{samplesX} $\times$ \code{samplesY} $\times$ \code{samplesZ} points between the start and end values (\code{useExtents = 1} takes the whole domain); \code{defaultValue} fills points no patch covers; \code{distributedResample} shares the work in parallel; \code{cellCenteredOutput} makes cells instead of nodes.
+  \item ``The main issue with taking a 2D slice from 3D IBAMR data and exporting it is that it is on an adaptive grid. We can handle this in Visit by resampling the data in the 2D slice and exporting it to vtk'' (2017). Resample puts the plotted variable on a regular grid of \code{samplesX} $\times$ \code{samplesY} $\times$ \code{samplesZ} points between the start and end values (\code{useExtents = 1} takes the whole domain); \code{defaultValue} fills points no patch covers; \code{distributedResample} shares the work among a parallel engine's processes (on, VisIt 3.5.0 exported each state in pieces written into one file, so \code{resample\_export.py} turns it off; chapter 31); \code{cellCenteredOutput} makes cells instead of nodes.
   \item The 3.5 window has the same fields (\gui{Resample Entire Extents}, \gui{Start X} \ldots, \gui{Samples in Z}, \gui{3D resampling}, \gui{Resolve ties}, \gui{Value for uncovered regions}, \gui{Distribute resampled data set}, \gui{Make output cell centered}).
 \end{itemize}
 \end{frame}
@@ -1025,7 +1025,7 @@ the exported VTK file is empty, or all zeros & one of the traps of slides \ref{f
 \toprule
 symptom & cause and fix \\
 \midrule
-the frames stop at the restart step & \code{dumps.visit} truncated: rebuild it (slide \ref{fr:curves}) \\
+the frames begin at the restart step, the earlier ones missing & \code{dumps.visit} truncated to the frames after the restart: rebuild it (slide \ref{fr:curves}) \\
 the flux across one line disagrees with another & the line crosses something besides the channel (a wall, a gap, a second structure), or the AMR level there is coarse: draw the line on the picture first \\
 the flow rate differs from the prescribed inflow by a few per cent & the start-up transient; porous point walls; the open box: compare lines with each other first \\
 VisIt's Python has no \code{numpy} or \code{h5py} & it is VisIt's own Python: export from VisIt, analyse outside, or install into VisIt's Python at your own risk \\

@@ -14,6 +14,7 @@ This is the 2017-2018 recipe of the "Taking a 2D slice from 3D IBAMR" and "Resam
 (Operators > Geometry > Resample, File > Export Database > VTK, a loop over time) and of C. Strickland's
 read_IBAMR3d_py27.py (2017), written for VisIt 3.x and Python 3. Where the AMR grid is coarse (the edges of a
 box) the resampled values away from any patch are set to defaultValue (0): cut those edges off in the analysis.
+A parallel engine (visit -np N) works: every process resamples the whole box, and the file is the serial one (chapter 31).
 """
 import os
 import shutil
@@ -81,7 +82,10 @@ r.is3D = 1 if is3d else 0
 r.startZ, r.endZ, r.samplesZ = z0, z1, nz
 r.tieResolver = r.random
 r.defaultValue = 0
-r.distributedResample = 1
+# Not distributed: with a parallel engine (visit -np 4) a distributed resample exported each state in pieces, two
+# processes writing into one file (VisIt 3.5.0); not distributed, -np 4 wrote the serial engine's file, value for value
+# (chapter 31). Serially the two settings give the same file.
+r.distributedResample = 0
 r.cellCenteredOutput = 0
 SetOperatorOptions(r)
 DrawPlots()

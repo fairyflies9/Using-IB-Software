@@ -194,7 +194,7 @@ Type "shell" to access the job submission hosts for all environments
 \end{lstlisting}
 \begin{itemize}\small
   \item Typing \code{shell} takes you to a login node. Puma is the default cluster for job submission.
-  \item No VPN is needed for SSH or for Open OnDemand from off campus, because Duo protects both. The HPC VPN (\code{vpn.hpc.arizona.edu}) is needed only to open graphical windows from the cluster (X11).
+  \item No VPN is needed for SSH or for Open OnDemand from off campus, because Duo protects both. The HPC VPN (\code{vpn.hpc.arizona.edu}) is for graphical programs that cannot go through the bastion host, and is often faster for them; X11 windows also work through the bastion (\code{ssh -X}, then \code{shell -X}; chapter 31).
   \item Older notes say to type \code{puma}, \code{ocelote} or \code{elgato} here. Those were shortcuts for choosing a cluster and are no longer needed.
 \end{itemize}
 \end{frame}

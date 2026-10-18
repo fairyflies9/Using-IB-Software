@@ -45,6 +45,8 @@ PREFIX = opt.get("prefix", "f")
 FIRST = int(opt.get("first", 0))
 DB = SRC if SRC.endswith(".visit") else os.path.join(SRC, "dumps.visit")
 LAG = os.path.join(os.path.dirname(DB), "lag_data.visit")
+if not os.path.exists(DB):                           # without this: "FAILED list index out of range" below
+    print("no database:", DB, "- give the run's viz folder (viz_IB2d) or its dumps.visit"); sys.stdout.flush(); sys.exit(1)
 os.makedirs(OUT, exist_ok=True)
 
 
