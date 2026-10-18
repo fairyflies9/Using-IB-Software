@@ -56,7 +56,7 @@ On Puma: `sbatch job.slurm`. The run writes `viz_Cylinder_IB2d/` (VisIt), `Cylin
 | `CylinderDiv_Drag_force_struct_no_0` | t, inertial force (x y z), constraint force (x y z) |
 | `CylinderDiv_EULERIAN_MOMENTUM.TXT` | t, total momentum of the fluid in the box (x y z) |
 
-Measured from these files (`tools/ch14_figures.py` of the tutorial repository reads them):
+Measured from these files (`tools/ch14_figures.py` of the tutorial's working folder, not published here, reads them):
 
 | Quantity | Measured |
 |---|---|

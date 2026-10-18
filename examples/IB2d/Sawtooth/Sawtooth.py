@@ -1,10 +1,13 @@
 """Sawtooth (pyIB2d): a sawtooth channel whose top wall is driven up and down by target points (chapter 4c of Using
 IB Software). Writes sawtooth.vertex and sawtooth.target, 0-based, and prints the two numbers the update function
 needs. A Python port of matIB2d/Examples/Example_Sawtooth/give_Me_Sawtooth_Geometry.m, with the grid as parameters
-so that the example runs on a laptop (the MATLAB original is 1024 x 256).
+(the MATLAB original is 1024 x 256; on the coarser grids tried, its target stiffness made the runs fail: README).
 
     python3 Sawtooth.py                 # Nx = 256, Ny = 64
     python3 Sawtooth.py 1024 256        # the original resolution (6552 points)
+
+As a port of IB2d's MATLAB file, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 import math
 import sys

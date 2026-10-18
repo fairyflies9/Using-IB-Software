@@ -591,7 +591,7 @@ python3 sweep.py base blowup map   # the chapter's run groups
 \includegraphics[width=0.72\textwidth]{ch4d-band-base.png}
 
 \footnotesize
-The tall ellipse snaps to a wide one and back, seven to eight times in 1.5 units of time (a period of about 0.2: $r_y$ has minima at $t = 0.10, 0.32, 0.52, \ldots, 1.48$), with decaying amplitude ($r_y$ from 0.40 to 0.196 at $t = 0.10$). The mean radius falls below the area-preserving 0.283 because the \al{enclosed area is not conserved}: 97\,\% at $t = 0.5$, 87\,\% at $t = 1$, 73\,\% at $t = 1.5$. The fluid leaks through a band with one point per cell, and the springs (resting length 0) pull the perimeter in by 21\,\%. The four vortices at each ``corner'' are the flow the snapping makes. Run time: 3.7 s for 1500 steps (laptop, Python).
+The tall ellipse snaps to a wide one and back, seven to eight times in 1.5 units of time (a period of about 0.2: $r_y$ has minima at $t = 0.10, 0.32, 0.52, \ldots, 1.48$), with decaying amplitude ($r_y$ from 0.40 to 0.196 at $t = 0.10$). The mean radius falls below the area-preserving 0.283 because the \al{enclosed area is not conserved}: 97\,\% at $t = 0.5$, 87\,\% at $t = 1$, 73\,\% at $t = 1.5$. The fluid leaks through a band with one point per cell, and the springs (resting length 0) pull the perimeter in by 21\,\%. The four vortices at each ``corner'' are the flow the snapping makes. Run time: 3.7 s for 1500 steps (a desktop PC under WSL, Python).
 \end{frame}
 
 \begin{frame}[fragile]{Blow-up 1: a time step of 1}
@@ -861,7 +861,7 @@ grid & $32^2$ & $64^2$ & $128^2$ & $256^2$ & \\
 cells & 1024 & 4096 & 16384 & 65536 & $\times 4$ \\
 points & 64 & 128 & 256 & 512 & $\times 2$ \\
 steps to $t = 1$ ($\Delta t \propto \Delta x$) & 1000 & 2000 & 4000 & 16000 & $\times 2$ (and $\times 4$ at $256^2$) \\
-wall (Python, laptop) & 2.9 s & 8.6 s & 38 s & 384 s & $\times 3$--$10$ \\
+wall (Python, desktop PC) & 2.9 s & 8.6 s & 38 s & 384 s & $\times 3$--$10$ \\
 per step & 2.9 ms & 4.3 ms & 9.5 ms & 24 ms & \\
 \bottomrule
 \end{tabular}
@@ -959,7 +959,7 @@ Appendix C collects the homework bank.
 \scriptsize
 \begin{itemize}
   \item Sources merged (slide \ref{fr:sources}): ``Lecture 19: Stability and convergence'' (2021, edited 2023) and Lecture 12's numerics block (2021--23), both from the UA course; the handed-out \code{stiff\_ode\_example.m} and \code{heat\_equation.m} (the latter from an older numerical-methods course, ``Example4\_1''); the MATLAB pictures and VisIt screenshot are the lecture's. Quotations are from those slides.
-  \item The lab: \code{examples/IB2d/Stability\_Lab} (\code{Rubberband.py}, \code{sweep.py}, \code{analyze.py}, \code{input2d}, \code{main2d.py}, README with every table) and \code{examples/support/matlab-exercises}; figures by \code{tools/ch4d\_figures.py} and \code{ch4d\_figures2.py}; the runs of 16 October 2026 (\code{wsl/final/ch4d\_*.sh}) with the Python IB2d (clone of 2024-03-06, with the tracer fix of chapter 4b) on a laptop.
+  \item The lab: \code{examples/IB2d/Stability\_Lab} (\code{Rubberband.py}, \code{sweep.py}, \code{analyze.py}, \code{input2d}, \code{main2d.py}, README with every table) and \code{examples/support/matlab-exercises}; figures by \code{tools/ch4d\_figures.py} and \code{ch4d\_figures2.py}; the runs of 16 October 2026 (\code{wsl/final/ch4d\_*.sh}) with the Python IB2d (clone of 2024-03-06, with the tracer fix of chapter 4b) on a desktop PC under WSL.
   \item IB2d: N.\,A. Battista, W.\,C. Strickland, L.\,A. Miller, ``IB2d: a Python and MATLAB implementation of the immersed boundary method'', Bioinspir.\ Biomim.\ 12 (2017) 036003, and, with A. Barrett, ``IB2d Reloaded: a more powerful Python and MATLAB implementation of the immersed boundary method'', Math.\ Meth.\ Appl.\ Sci.\ 41 (2018) 8455--8480; the spreading convention is in the code (\code{please\_Find\_Lagrangian\_Forces\_On\_Eulerian\_grid}).
   \item The immersed boundary method's orders: C.\,S. Peskin, ``The immersed boundary method'', Acta Numerica 11 (2002) 479--517; B.\,E. Griffith and C.\,S. Peskin, ``On the order of accuracy of the immersed boundary method: higher-order convergence rates for sufficiently smooth problems'', J.\ Comput.\ Phys.\ 208 (2005) 75--105 (second order for sufficiently smooth problems, first order where the solution has a jump at the interface, as for a thin elastic boundary). The volume error: C.\,S. Peskin and B.\,F. Printz, ``Improved volume conservation in the computation of flows with immersed elastic boundaries'', J.\ Comput.\ Phys.\ 105 (1993) 33--46.
   \item The warm-ups: any numerical-analysis text; e.g. R.\,J. LeVeque, \emph{Finite Difference Methods for Ordinary and Partial Differential Equations} (SIAM, 2007), chapters 7 (absolute stability) and 9 (the heat equation, von Neumann analysis); the Wikipedia articles on numerical stability, the CFL condition and rate of convergence, which Lecture 19 quoted.

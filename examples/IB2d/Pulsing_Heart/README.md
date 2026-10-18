@@ -9,8 +9,8 @@ Files
 
 | file | what |
 |---|---|
-| `heart.vertex`, `heart.target` | the MATLAB example's files with the target indices shifted to pyIB2d's 0-based numbering (384 points) |
-| `All_Positions.txt` | the two phases, one line per point: x1 y1 x2 y2 (the MATLAB example's file, unchanged) |
+| `heart.vertex`, `heart.target` | the MATLAB example's files with the target indices shifted to pyIB2d's 0-based numbering (384 points); IB2d's data, GPL-3.0 |
+| `All_Positions.txt` | the two phases, one line per point: x1 y1 x2 y2 (the MATLAB example's file, unchanged; IB2d's, GPL-3.0) |
 | `update_Target_Point_Positions.py` | blends the phases as a function of time (the second style of chapter 4c: no drift); reads the phase file once |
 | `input2d` | the MATLAB example's parameters without the trailing semicolons |
 | `main2d.py` | the run script |
@@ -18,7 +18,7 @@ Files
 Run it
 
 ```bash
-python3 main2d.py            # about half a minute on a desktop PC; 200 dumps
+python3 main2d.py            # about half a minute on a desktop PC; 201 dumps (dump 0 and one every 50 steps)
 ```
 
 The generator `Pulsing_Heart.m` of the MATLAB example builds the two shapes and `All_Positions.txt`; it is not ported

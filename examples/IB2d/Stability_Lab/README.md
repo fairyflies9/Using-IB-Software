@@ -5,7 +5,7 @@ springs of zero resting length in a 32 x 32 periodic box) with the grid, the sti
 number of points per cell as arguments, a sweep script that runs the chapter's groups of cases, and an analysis script
 that turns each run's `lagsPts` dumps into the band's shape in time. Every number on the chapter's slides came from
 `runs/summary.json` and the `series.csv` files these scripts write (October 2026, Python IB2d, clone of 2024-03-06 with
-the tracer fix of chapter 4a, on a laptop).
+the tracer fix of chapter 4b, on a desktop PC under WSL).
 
 | file | what |
 |---|---|

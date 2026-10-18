@@ -7,7 +7,7 @@ A straight flexible beam lies in a box of still fluid, clamped at its left end b
 | Method | Immersed boundary (IB): springs, beams with a time-dependent preferred curvature, two target points |
 | Dimension | 2D |
 | Chapters | 10 (resting curvature and beams), 9a (update functions), 6 (structure files), 11 (forces) |
-| Run time | about 12 minutes on 3 cores (0.012 s per step on a desktop PC under WSL; 60,000 steps) |
+| Run time | about 12 minutes on 3 cores (the commands below use 4; 0.012 s per step on a desktop PC under WSL; 60,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR (a filament of springs and beams, with zero preferred curvature) |
 
@@ -68,7 +68,7 @@ integral{F} = -0.336556 0.117695
 
 That is the sum of the Lagrangian forces: the force on the two target points, since the springs and beams pull their own points with forces that cancel in the sum (chapter 11). It is the force the clamp needs to hold the beam while it curls.
 
-Measured from the saved positions (`tools/ch10_figures.py` of the tutorial repository; the beam's tip is point 102, the clamp is at (−0.05, 0)):
+Measured from the saved positions (`tools/ch10_figures.py` of the tutorial's working folder, not published here; the beam's tip is point 102, the clamp is at (−0.05, 0)):
 
 | Time (s) | Tip, x and y from the clamp (cm) | Largest distance between the beam and the arc its curvature asks for (mm) |
 |---|---|---|

@@ -10,6 +10,9 @@ The driver passes and expects back the target table `targets` with one row per t
     column 2: the target y position
     column 3: the target stiffness
 The structure's own positions are not touched here: the points follow their targets through the target force.
+
+As a port of IB2d's MATLAB file, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 
 

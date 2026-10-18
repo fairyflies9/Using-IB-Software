@@ -7,7 +7,7 @@ A two-dimensional jellyfish bell, a single curve of springs and beams with no te
 | Method | Immersed boundary (IB): springs, beams with a time-dependent preferred curvature; a free (untethered) body |
 | Dimension | 2D |
 | Chapters | 10 (resting curvature and beams), 9a (update functions), 6 (structure files), 8b (dimensionless parameters), 11 (forces) |
-| Run time | about 15 minutes on 2 cores (0.02 s per step on a desktop PC under WSL; 40,000 steps) |
+| Run time | about 15 minutes on 2 cores (the commands below use 4; 0.02 s per step on a desktop PC under WSL; 40,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR (a filament of springs and beams); the bell is that of Herschlag and Miller, *J. Theor. Biol.* 285 (2011) 84–95 |
 
@@ -71,7 +71,7 @@ integral{F} = 5.50671e-14 1.06581e-13
 
 That is the sum of the Lagrangian forces, zero to round-off: the bell has no tethers, and springs and beams pull their own points with forces that cancel (chapter 11). The jellyfish can only push against the fluid.
 
-Measured from the saved positions (`tools/ch10_figures.py` of the tutorial repository; the apex is point 128, the tips are points 0 and 256):
+Measured from the saved positions (`tools/ch10_figures.py` of the tutorial's working folder, not published here; the apex is point 128, the tips are points 0 and 256):
 
 | Time | Apex height above its start | Width, tip to tip | What the bell is doing |
 |---|---|---|---|

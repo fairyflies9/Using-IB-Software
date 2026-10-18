@@ -57,7 +57,7 @@ The program has two source files. Both must be listed in `CMakeLists.txt` (`add_
 
 ## What you should see
 
-The run takes 10,000 time steps of 10⁻⁴ s and saves 50 frames. Every 200 steps the screen shows a line like
+The run takes 10,000 time steps of 10⁻⁴ s and saves 51 frames (dump 0 and 50 more). Every 200 steps the screen shows a line like
 
 ```
 integral{F} = -0.172314 0.147064

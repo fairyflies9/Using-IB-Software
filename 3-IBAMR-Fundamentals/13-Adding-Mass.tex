@@ -109,7 +109,7 @@
   \item \al{The file format}: \code{include/ibamr/IBStandardInitializer.h}, the ``mass file format'' paragraph, quoted on slide \ref{fr:massfile}; the key \code{uniform\_bdry\_mass\_stiffness}.
   \item \al{The upstream example}: \code{examples/IB/explicit/ex3}, a filament with mass (chapter 9b used its force function; chapter 15 tours it).
   \item \al{The example of this series}: IB/12 spider ballooning (\code{main.cpp}, \code{generate\_mesh2d.py}/\code{.m}, \code{input2d}, README with the measured fall).
-  \item \al{The physics}: Y. Kim and C. S. Peskin, \emph{Penalty immersed boundary method for an elastic boundary with mass}, Phys.\ Fluids 19 (2007) 053103; the lab's spider-ballooning papers (chapter 23 for the research versions).
+  \item \al{The physics}: Y. Kim and C. S. Peskin, \emph{Penalty immersed boundary method for an elastic boundary with mass}, Phys.\ Fluids 19 (2007) 053103; the lab's spider-ballooning papers (their research codes are not part of this repository).
   \item IB2d's massive points (chapter 4e) are the same idea in MATLAB and Python.
 \end{itemize}
 \end{frame}
@@ -254,7 +254,7 @@ F[NDIM * i + d] += K[i] * (Y[NDIM * i + d] - X[NDIM * i + d]);
   \item the copy's velocity $\mathbf{V}_i$ is its own; the IB point's velocity is still interpolated from the fluid. At $t = 0$ the copy starts at $\mathbf{Y}_i = \mathbf{X}_i$ with the fluid's velocity;
   \item $K_i/m_i$ is the square of the spring--mass frequency $\omega_i$: the explicit update is stable only if $\Delta t\,\omega_i$ is small, $\Delta t < 2/\omega_i = 2\sqrt{m_i/K_i}$. The spider: $\sqrt{2\times10^{-5}/20} = 10^{-3}$ s, so $\Delta t = 5\times10^{-5}$ is twenty times below the limit;
   \item a stiffer $K_i$ keeps $\mathbf{Y}_i$ closer to $\mathbf{X}_i$ (the deviation at steady fall is $m_i g/K_i$: $10^{-5}$ m for the spider) at the price of a shorter step;
-  \item the penalty force appears in the \code{F} files of chapter 11 like any other force on that point: its sum over a falling structure is minus the drag plus the weight.
+  \item the penalty force appears in the \code{F} files of chapter 11 like any other force on that point: its sum over a falling structure balances the fluid's drag on it: the weight once the fall is steady, less while the mass still accelerates.
 \end{itemize}
 \end{column}
 \end{columns}
@@ -269,7 +269,7 @@ F[NDIM * i + d] += K[i] * (Y[NDIM * i + d] - X[NDIM * i + d]);
 \small ``\al{Spider ballooning example.} Dragline: massless, resists stretching and bending. Body: zero body diameter (body drag neglected), prescribed mass. Flow profile: quiescent fluid; uniform flow at angle $\theta$ to the horizontal; lid-driven flow. $m$: mass, $D$: body diameter, $L$: thread length, $d$: silk diameter, $V$: background flow velocity, $\theta$: flow angle. In all simulations, the model is constructed as a point mass at the end of a massless, elastic silk drag line. We performed three types of simulations: free fall (settling), uniform background flow, and shear flow.'' (2020, with its vorticity figure ``for variations in Re'')
 \vspace{1mm}
 
-\footnotesize The lecture's example used ``the module \code{ibamr/2018-03}'' on the UNC cluster, and its folder was misspelt in the course files; IB/12 is the same model under the CMake build of chapter 3. The research versions (the lab's spider-ballooning papers, chapter 23) add the flow profiles and a body of finite size.
+\footnotesize The lecture's example used ``the module \code{ibamr/2018-03}'' on the UNC cluster, and its folder was misspelt in the course files; IB/12 is the same model under the CMake build of chapter 3. The research versions (the lab's spider-ballooning papers; their codes are not part of this repository) add the flow profiles and a body of finite size.
 \end{frame}
 
 % 11
@@ -349,12 +349,11 @@ with open(f"{mesh_name}{N}.mass", "w", newline="\n") as f:
 \scriptsize Left: the heights of the spider and of the top of the dragline against time, from the \code{X} files (chapter 11; the spider is the last point), with free fall for comparison. Right: the spider's speed from differences of positions.
 \vspace{1mm}
 
-\scriptsize Measured: the spider falls $0.9$ cm in the first quarter second, $9.1$ cm by $1$ s and $24.9$ cm by $2$ s; its speed rises from $3$ cm/s at $0.1$ s to $14$ cm/s at $1$ s and levels off near $17$ cm/s (mean $15.9$ cm/s over the second second), the terminal speed at which the air's drag on the line balances the weight. The top of the dragline falls by the same $24.9$ cm: the line keeps its length ($K = 20$ N stretches it by $10^{-5}$ m) and trails straight above the spider.
-\vspace{1mm}
-
-\scriptsize The weight, $m g = 1.96\times10^{-4}$ N per unit depth, is what the log's first \code{integral\{F\}} shows; the sum stays within a few percent of it throughout, since the line's own springs cancel and only the penalty force is left (chapter 11).
+\scriptsize Measured: the spider falls $1.0$ cm in the first quarter second, $9.2$ cm by $1$ s and $25.0$ cm by $2$ s; its speed rises from $3$ cm/s at $0.1$ s to $14$ cm/s at $1$ s and levels off near $17$ cm/s (mean $15.9$ cm/s over the second second), the terminal speed at which the air's drag on the line balances the weight. The top of the dragline falls by the same $25.0$ cm: the line keeps its length ($K = 20$ N stretches it by $10^{-5}$ m) and trails straight above the spider.
 \end{column}
 \end{columns}
+\vspace{1mm}
+\scriptsize The weight, $m g = 1.96\times10^{-4}$ N per unit depth, is what the \code{integral\{F\}} lines swing about from $t = 0.3$ s on ($-1.83$ to $-2.07\times10^{-4}$ N); the first, at $t = 0.05$ s, shows $-1.20\times10^{-4}$ N, while the spider still speeds up. The line's own springs cancel and only the penalty force is left (chapter 11): the massive copy's pull on the spider, $m(g - a)$.
 \sourcecredit{IB/12 with IBAMR 0.19.0; \code{tools/ch13\_figures.py} reads \code{hier\_data\_IB2d/X.*}.}
 \end{frame}
 
@@ -440,7 +439,7 @@ a beam loop one triple too long (the course generator) & a beam naming a point t
   \item One line per massive point: \code{index mass kappa}; \code{PenaltyIBMethod} in the program and in the input, with \code{gravitational\_acceleration} as \code{NDIM} numbers.
   \item Mass per unit depth in 2D; no added mass.
   \item $\Delta t < 2\sqrt{m/K}$, use a tenth; $K$ large enough that $m g/K$ is small.
-  \item The penalty force is in the \code{F} files; the sum over a falling body is weight minus drag.
+  \item The penalty force is in the \code{F} files; the sum over a falling body balances the fluid's drag on it: the weight once the fall is steady, less while the mass still accelerates.
   \item Rigid bodies: constraint IB. Dense elastic bodies: IBFE. Nearly buoyant: a body force.
   \item Check the generator's counts and indices before the first run.
 \end{itemize}
@@ -487,7 +486,7 @@ a beam loop one triple too long (the course generator) & a beam naming a point t
 \begin{itemize}
   \item IBAMR 0.19.0: \code{include/ibamr/PenaltyIBMethod.h}, \code{src/IB/PenaltyIBMethod.cpp} (the copies' update, gravity), \code{include/ibamr/IBStandardInitializer.h} (the mass file format), \code{examples/IB/explicit/ex3} (a filament with mass). \url{https://github.com/IBAMR/IBAMR}
   \item Y. Kim and C. S. Peskin, \emph{Penalty immersed boundary method for an elastic boundary with mass}, Physics of Fluids 19 (2007) 053103.
-  \item The example of this series: IB/12 spider ballooning (\code{main.cpp}, \code{generate\_mesh2d.py}/\code{.m}, \code{input2d}, README with the measured fall); \code{tools/ch13\_figures.py}; chapter 23 for the lab's spider-ballooning research codes.
+  \item The example of this series: IB/12 spider ballooning (\code{main.cpp}, \code{generate\_mesh2d.py}/\code{.m}, \code{input2d}, README with the measured fall); \code{tools/ch13\_figures.py}; the lab's spider-ballooning research codes are not part of this repository.
   \item Source: \emph{IBAMR Lecture 8: Adding mass to the boundaries} (2020, 11 slides) and the course example \code{8-AddingMass-Spider} (2020).
 \end{itemize}
 \end{frame}

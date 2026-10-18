@@ -1,8 +1,8 @@
 """make_input.py: writes input2d.<case> for example IB/13 from <case>_geometry.txt (written by vessel_walls.py),
 so that the box, the grid and the inlet band in the input always match the wall points.
 
-    python3 vessel_walls.py --case horse && python3 make_input.py horse          # -> input2d.horse
-    python3 vessel_walls.py --case human --DT 8e-5 && python3 make_input.py human  # -> input2d.human
+    python3 vessel_walls.py --case horse --DT 3e-5 && python3 make_input.py horse  # -> input2d.horse
+    python3 vessel_walls.py --case human --DT 5e-5 && python3 make_input.py human  # -> input2d.human
 
 The horse case: inflow on the left face, outflow through the top and bottom faces (the branches), the right face a
 wall; the equine pulse. The human case: inflow on the left face, outflow through the right face; a human pulse.

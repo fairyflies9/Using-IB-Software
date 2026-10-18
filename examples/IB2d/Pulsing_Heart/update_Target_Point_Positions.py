@@ -8,6 +8,9 @@ also used by the swimmer's beams). A port of matIB2d/Examples/Example_Pulsing_He
 the phase file is read once, not at every step as in the MATLAB version.
 
 The driver passes the target table `targets` (columns: index, x, y, stiffness; 0-based indices) and expects it back.
+
+As a port of IB2d's MATLAB file, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 import math
 

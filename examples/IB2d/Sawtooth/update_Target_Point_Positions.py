@@ -7,6 +7,9 @@ of typed in (the MATLAB version hard-codes N_top = 3276 for its 1024 x 256 grid 
 resolution changes).
 
 The driver passes the target table `targets` (columns: index, x, y, stiffness; 0-based indices) and expects it back.
+
+As a port of IB2d's MATLAB file, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 import math
 

@@ -1,8 +1,9 @@
 # examples/IB2d: the tutorial's own IB2d examples (Python)
 
-Each folder is a pyIB2d example: copy it under `pyIB2d/Examples/` of an IB2d clone
-(https://github.com/nickabattista/IB2d; its `IBM_Blackbox` is the solver, GPL-3.0), run the generator, then
-`python3 main2d.py`. The structure files use pyIB2d's 0-based indices. Chapters 4a-4c of the tutorial explain them.
+Most folders are pyIB2d examples: copy one under `pyIB2d/Examples/` of an IB2d clone
+(https://github.com/nickabattista/IB2d; its `IBM_Blackbox` is the solver, GPL-3.0), run its generator if it has one,
+then `python3 main2d.py` (`Pulsing_Heart` ships its structure files; `Muscle_Models` needs neither IB2d nor
+`main2d.py`). The structure files use pyIB2d's 0-based indices. Chapters 4c-4f of the tutorial explain them.
 
 | folder | chapter | what |
 |---|---|---|

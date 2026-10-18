@@ -97,7 +97,7 @@ Both options are off by default, which gives the course version's plate.
 ## Things to try
 
 - Run the course's full 2 time units: set `END_TIME = 2.0`, or continue a finished run from its restart files with `mpirun -np 4 ./build/main3d input3d restart_IB3d 5000`. The stream reaches 96% of U by t = 1.
-- Make the plate softer or stiffer by changing `E_STEM` (and read the note on `MU_STEM` above).
+- Make the plate softer or stiffer by changing `E_LEAF`: with `TWO_MATERIALS = FALSE` the plate's shear modulus is `MU_STEM`, which the input computes from `E_LEAF`, as the course version did (changing `E_STEM` changes only `BETA_STEM`; see the note on `MU_STEM` above).
 - Widen the tethered band with `TETHER_HALF_WIDTH`, or move it: the tether is applied where the reference z-coordinate is within `TETHER_HALF_WIDTH` of 0, in `target_force_function()` in `main.cpp`.
 - Turn on the 2017 options above.
 - Raise the Reynolds number with `Re`. A lower viscosity may need a smaller `DT`.

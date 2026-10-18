@@ -5,6 +5,9 @@ A Python port of matIB2d/Examples/Example_Moving_Rubberband/Rubberband.m. Indice
 IB2d indexes its structure files that way; the MATLAB files count from 1).
 
     python3 Rubberband.py          # writes the two files and rubberband_geometry.png
+
+As a port of IB2d's MATLAB file, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 import math
 

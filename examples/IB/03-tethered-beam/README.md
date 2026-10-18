@@ -54,7 +54,7 @@ On Puma, submit `job.slurm` with `sbatch job.slurm` instead.
 
 ## What you should see
 
-The run takes 20,000 time steps of 10⁻⁴ s and saves 50 frames. Every 400 steps the screen shows a line like
+The run takes 20,000 time steps of 10⁻⁴ s and saves 51 frames (dump 0 and 50 more). Every 400 steps the screen shows a line like
 
 ```
 integral{F} = -4.6921 -0.0505867

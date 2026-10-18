@@ -19,11 +19,11 @@ Run it
 
 ```bash
 python3 Sawtooth.py 1024 256   # the original geometry; edit input2d to 1024 x 256 as well
-python3 main2d.py              # 400 000 steps for the MATLAB example's 10 cycles: hours
+python3 main2d.py              # with input2d at 1024 x 256 and Tfinal = 10, as the MATLAB example: 400 000 steps, 20 cycles, hours
 ```
 
 **This example needs its full grid.** The MATLAB example tethers its points with k_target = 1e11 at 1024 x 256
-and runs (its folder holds the analysis of ten cycles). On the laptop grids tried in October 2026 every run failed
+and runs (its folder holds an analysis of its first three cycles). On the laptop grids tried in October 2026 every run failed
 with NaN positions (an IndexError in the delta-function indices is how Python reports it) before one cycle was done:
 
 | grid | k_target | dt | stroke a | fails at t |

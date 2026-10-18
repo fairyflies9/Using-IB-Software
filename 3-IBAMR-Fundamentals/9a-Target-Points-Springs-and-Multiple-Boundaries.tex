@@ -434,7 +434,7 @@ static const double time_to_acc = 0.1; // time to accelerate from 0 to V (s)
 \scriptsize From the shipped run (0.2 s, 4 cores): the mean $y$ of the 297 points against the target path. The two curves lie on top of each other; the right panel is their difference.
 \begin{itemize}
   \item the lead of the targets peaks at $0.48\ \mu$m at the end of the ramp and settles to $0.2\ \mu$m: a \al{five-thousandth of a cell} ($\Delta x = 1/1024$ m);
-  \item the lead is the force the fluid exerts on the row divided by $\kappa$: with $\kappa = 4.1\times10^6$ per point, a drag of a fraction of a newton per metre per point is a fraction of a micrometre. \code{integral\{F\}} prints that force (chapter 11): $249.6$ N/m in $y$ at the end of the run;
+  \item the lead is the force the fluid exerts on the row divided by $\kappa$: with $\kappa = 4.1\times10^6$ per point, a drag of a fraction of a newton per metre per point is a fraction of a micrometre. \code{integral\{F\}} prints that force (chapter 11): $249.6$ N/m in $y$ at $t = 0.19$ s, $238.9$ at the end of the run ($0.2$ s);
   \item the peak at $t = 0.1$ s is the acceleration reaction: the fluid resists the change of speed, not the speed.
 \end{itemize}
 \scriptsize The price of following this closely is the time step: $\kappa = 4.1\times10^6$ needs \code{DT = 2e-5} (slide \ref{fr:dt}).
@@ -916,7 +916,7 @@ IB/08 fibre (3D) & $3.2\times10^4$ & $10^{-5}$ & fixed targets; with \code{TARGE
 \small Four checks, in order of cost:
 \begin{enumerate}\footnotesize
   \item \al{Print}: a \code{pout} of one target position and the corresponding point every few hundred steps (rank 0 only, or the output interleaves); the difference is the lag.
-  \item \al{The force line}: \code{integral\{F\}} (chapter 11) is the sum of the tether forces, which is the force the fluid exerts on the structure. For a body on a path it should look like drag: a ramp-up, then a plateau (IB/04: $249.6$ N/m at $0.2$ s); a force that grows without bound or oscillates at the step frequency means the targets are fighting something (slide \ref{fr:stretch}) or the step is too large.
+  \item \al{The force line}: \code{integral\{F\}} (chapter 11) is the sum of the tether forces, which is the force the fluid exerts on the structure. For a body on a path it should look like drag: a ramp-up while the body accelerates, then a steady or slowly changing value (IB/04: $594.8$ N/m at the end of its acceleration, $0.10$ s, falling to $238.9$ at $0.2$ s as the fluid around the row starts to move); a force that grows without bound or oscillates at the step frequency means the targets are fighting something (slide \ref{fr:stretch}) or the step is too large.
   \item \al{The positions}: the \code{X.*} files against the path, as in the figures of this chapter (\code{tools/ch9a\_figures.py}; chapter 11 has the reader). This is the check that catches the copy bug: a fibre whose length does not change.
   \item \al{VisIt}: the \code{lag\_data.visit} mesh at several times, and the velocity field around it (chapter 26); a structure that moves while the fluid does not is a tether without a kernel (wrong \code{level\_number}, chapter 6).
 \end{enumerate}

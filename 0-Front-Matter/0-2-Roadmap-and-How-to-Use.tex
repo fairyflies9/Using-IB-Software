@@ -129,29 +129,49 @@ Helper scripts & MATLAB R2024a; every MATLAB script has a Python 3 version, chec
 \end{frame}
 
 % 5
-\begin{frame}[fragile]{Where the examples live}
+\begin{frame}[fragile]{Where the examples live (1/2): the tree}
+\label{fr:tree}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.46\textwidth}
+\begin{column}{0.48\textwidth}
 \begin{lstlisting}[style=shell,basicstyle=\ttfamily\tiny\color{BlackGray}]
 examples/
-  IB/      01-rubber-band        (ch. 3, 6)
-           02-pulsatile-channel  (ch. 7)
-           03-tethered-beam      (ch. 7, 10)
-           04-moving-cylinders   (ch. 9a)
-           06-growing-springs    (ch. 9a)
-           07-moving-plates      (ch. 9a)
-           08-glycocalyx-3d      (ch. 12)
-  IBFE/    01-tethered-plate     (ch. 17)
-           05-gmsh-triangle      (ch. 18)
-           06-active-tension     (ch. 20)
-           08-plate-hits-circle  (ch. 21)
-           10-flow-tank-plate-3d (ch. 22)
-           12-advection-diffusion(ch. 24)
-  support/ matlab-exercises      (App. A)
-  legacy/  the course codes as they were
+  IB/      01-rubber-band         (ch. 3, 6)
+           02-pulsatile-channel   (ch. 7)
+           03-tethered-beam       (ch. 7, 10)
+           04-moving-cylinders    (ch. 9a)
+           06-growing-springs     (ch. 9a)
+           07-moving-plates       (ch. 9a)
+           08-glycocalyx-3d       (ch. 12)
+           09-curling-beam        (ch. 10)
+           10-jellyfish-bell      (ch. 10)
+           11-heart-tube-pump     (ch. 9b)
+           12-spider-ballooning   (ch. 13)
+           13-carotid-bifurcation (ch. 7, 25, 26)
 \end{lstlisting}
 \end{column}
-\begin{column}{0.52\textwidth}
+\begin{column}{0.5\textwidth}
+\begin{lstlisting}[style=shell,basicstyle=\ttfamily\tiny\color{BlackGray}]
+  IBFE/    01-tethered-plate      (ch. 17)
+           05-gmsh-triangle       (ch. 18)
+           06-active-tension      (ch. 20)
+           08-plate-hits-circle   (ch. 21)
+           10-flow-tank-plate-3d  (ch. 22)
+           12-advection-diffusion (ch. 24)
+  ConstraintIB/  01, 02, 03       (ch. 14)
+  IB2d/      six folders          (ch. 4c-4f)
+  analysis/  readers, VisIt scripts (ch. 11, 27-35)
+  Planktos/  agents in these flows  (ch. 34, 35)
+  support/   matlab-exercises     (App. A)
+  legacy/    the course codes as they were
+\end{lstlisting}
+\end{column}
+\end{columns}
+\vspace{1mm}
+\small There is no IB/05 in the public repository. Chapter 36 has one page per example.
+\end{frame}
+
+\begin{frame}{Where the examples live (2/2): what every folder holds}
+\label{fr:folders}
 \small Every example folder holds
 \begin{itemize}
   \item \code{main.cpp}, the IBAMR program, and \code{CMakeLists.txt} to build it; \code{input2d} or \code{input3d}, with Unix line endings; \code{job.slurm} for Puma;
@@ -161,8 +181,6 @@ examples/
 \begin{punchbox}
 \small Chapter 36 is the catalogue, one page per example. The numbers in the READMEs were measured with the shipped files; if yours differ, something in your set-up is different.
 \end{punchbox}
-\end{column}
-\end{columns}
 \end{frame}
 
 % 6
@@ -223,7 +241,7 @@ pdflatex 3-Building-and-Running-IBAMR.tex
   \item Parts I--VII cover set-up, IB2d, IBAMR, IBFE, VisIt, Planktos and the examples; Part X is the archive; A--C are the appendices.
   \item Pick a path: first simulation, IB2d only, IBAMR, IBFE, visualization, or Planktos.
   \item The code targets IBAMR 0.16.0 and 0.19.0 with CMake, and is ready for 0.20.
-  \item The examples are in \code{examples/IB} and \code{examples/IBFE}, each with a README that says what you should see.
+  \item The examples are in \code{examples/IB}, \code{IBFE}, \code{ConstraintIB} and \code{IB2d}, with \code{analysis}, \code{Planktos} and \code{support} beside them, each with a README that says what you should see (chapter 36).
   \item Clone the repository; every deck compiles with \code{pdflatex}, and the PDFs are already there.
 \end{enumerate}
 \vspace{3mm}

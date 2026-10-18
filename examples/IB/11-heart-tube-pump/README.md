@@ -7,7 +7,7 @@ An elastic tube in a closed loop (a "racetrack") inside a rigid pericardium, wit
 | Method | Immersed boundary (IB): springs, beams, target points, custom spring force functions, five actuation modes |
 | Dimension | 2D |
 | Chapters | 9b (custom spring forces and active pumping), 9a (target points and update functions), 6 (structure files), 11 (forces), 36 (two-point pump) |
-| Run time | about 55 to 65 minutes per mode on 3 cores (0.08 s per step on a desktop PC under WSL; 40,000 steps); the five modes can run at the same time |
+| Run time | 40 to 86 minutes per mode on 3 cores each, measured with the five modes running at the same time (0.06 to 0.11 s per step on a desktop PC under WSL; 40,000 steps, 80,000 for `FORCE_PERI`; the commands below use 4 cores) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR registers its own spring force function (under index 0, replacing the default) |
 
@@ -74,7 +74,7 @@ mpirun -np 4 ./build/main2d input2d.stiffness-peri   # STIFFNESS_PERI
 mpirun -np 4 ./build/main2d input2d.target-peri      # TARGET_PERI
 ```
 
-Run each mode in its own folder (copy the structure files and the one input file there), or the output folders of one run overwrite the other's. On Puma, submit `job.slurm` with `sbatch job.slurm`; it takes the input file as its first argument.
+Run each mode in its own folder (copy the structure files and the one input file there), or the output folders of one run overwrite the other's. On Puma, submit `job.slurm` with `sbatch job.slurm`; it runs `input2d` (`TARGET_VP`): for another mode, edit its last line.
 
 The program has six source files. All must be listed in `CMakeLists.txt`; if one is missing, the link step fails with `undefined reference to update_...`.
 
@@ -96,7 +96,7 @@ integral{F} = 0.976499 6.99228
 
 That is the sum of all Lagrangian forces. For the force modes it is close to zero in the first steps (every applied force acts on a pair of points and cancels) and grows as the tube's own springs, beams and tethers respond; for the target modes it is the net tether force.
 
-Measured from the saved positions (`tools/ch9b_figures.py` of the tutorial repository reads them; the markers' mean x position measures how far those 121 parcels drift along the elastic section, which is not always the direction of the net flow round the loop (below), and the smallest distance between the two walls measures the squeeze):
+Measured from the saved positions (`tools/ch9b_figures.py` of the tutorial's working folder, not published here, reads them; the markers' mean x position measures how far those 121 parcels drift along the elastic section, which is not always the direction of the net flow round the loop (below), and the smallest distance between the two walls measures the squeeze):
 
 | Mode | Runs to | Markers' transport, period 1 / period 2 | Smallest opening, period 1 / period 2 | What happens |
 |---|---|---|---|---|
