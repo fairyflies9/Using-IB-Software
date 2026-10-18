@@ -289,7 +289,7 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \begin{itemize}
   \item The prompt appears when a second time-varying database is opened (or, in the 2024 practical, when the first plot of it is added): say \gui{Yes}. The \gui{Time} panel then shows \gui{Active time slider: Correlation01}, and \gui{Play}, the single-step arrows and the slider move both sources together, because they have the same number of frames.
   \item If you said \gui{No}, each source has its own slider and the points stay at frame 0 while the fluid moves: the classic ``the boundary doesn't move'' question. \gui{Controls $\to$ Database correlations} makes or edits a correlation later, by index or by time.
-  \item The frame index is not the time: \gui{Controls $\to$ Annotation $\to$ General} shows the cycle and time taken from the dumps, but only on the database's line (``Cycle: 32000 Time: 1.6'' under ``DB: \dots''); for the time alone, a text annotation with \code{\$time} (chapter 30).
+  \item The frame index is not the time: \gui{Controls $\to$ Annotation $\to$ General} shows the cycle and time taken from the dumps, but only on the database's line (``Cycle: 32000\ \ Time:1.6'' under ``DB: \dots''); for the time alone, a text annotation with \code{\$time} (chapter 30).
   \item A correlation by index assumes equal intervals. If the two \code{*\_dump\_interval} values differ, correlate by time, or fix the input. Rendering every frame is what makes a movie (chapter 30); for a figure, stop at the frame you want and save the window.
 \end{itemize}
 \sourcecredit{VisIt 3.4.1 (2024 practical, slide 18; the IB2d paths).}
@@ -352,7 +352,7 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \begin{itemize}
   \item \gui{Add $\to$ Subset $\to$ levels} colours each refinement level (the plot of slide \ref{fr:dumps}, added by VisIt itself); \gui{Subset $\to$ patches} colours each patch; \gui{Add $\to$ Mesh $\to$ amr\_mesh} draws every cell. The 2015 lecture used the first two to show where the fine grid sits and that it follows the body.
   \item A Subset plot is also how you \emph{hide} a level: the Subset window (\gui{Controls $\to$ Subset}) unticks levels or patches for every plot, which is how a coarse-level-only picture is made.
-  \item The coloured straight lines that turn up in saved pictures of IBAMR runs are this plot, forgotten in the list or merely hidden (a hidden plot keeps its legend); delete it. Chapter 30's frame cleaner (\code{tools/movie\_clean.py}) removes such lines after the fact, for pictures made before the cause was known.
+  \item The coloured straight lines that turn up in saved pictures of IBAMR runs are this plot, forgotten in the list or merely hidden (a hidden plot keeps its legend); delete it. Chapter 30's frame cleaner (\code{examples/analysis/movie\_clean.py}) removes such lines after the fact, for pictures made before the cause was known.
   \item \gui{Operators $\to$ Selection $\to$ Box} restricts every plot to a box (chapter 29 uses it for queries); \gui{Operators $\to$ Transforms $\to$ Reflect} mirrors a half-domain run.
 \end{itemize}
 \column{0.38\textwidth}

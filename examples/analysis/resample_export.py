@@ -16,10 +16,16 @@ read_IBAMR3d_py27.py (2017), written for VisIt 3.x and Python 3. Where the AMR g
 box) the resampled values away from any patch are set to defaultValue (0): cut those edges off in the analysis.
 """
 import os
+import shutil
 import sys
 import time
 
-args = [a for a in sys.argv[1:] if a != "--"]
+args = []
+for a in sys.argv[1:]:
+    if a in ("-engineargs", "-launchengine"):    # VisIt appends these when started with -np (a parallel engine)
+        break
+    if a != "--":
+        args.append(a)
 if len(args) < 3:
     print(__doc__); sys.exit(1)
 db, var, out = args[0], args[1], args[2]
@@ -110,6 +116,6 @@ for s in states:
     time.sleep(0.5)
     for p in strays:
         if os.path.exists(p) and not os.path.exists(target):
-            os.replace(p, target)
+            shutil.move(p, target)                  # not os.replace: the working folder may be on another filesystem
     print("state %d  t = %g  ->  %s  (%s; plot %s)" % (s, md.times[s], target, "ok" if ok else "export failed", mm.replace("\n", " ").strip())); sys.stdout.flush()
 sys.exit(0)

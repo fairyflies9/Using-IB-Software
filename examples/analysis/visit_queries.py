@@ -22,7 +22,12 @@ import sys
 import glob
 import time
 
-args = [a for a in sys.argv[1:] if a != "--"]
+args = []
+for a in sys.argv[1:]:
+    if a in ("-engineargs", "-launchengine"):    # VisIt appends these when started with -np (a parallel engine)
+        break
+    if a != "--":
+        args.append(a)
 if len(args) < 2:
     print(__doc__); sys.exit(1)
 DB, OUT = args[0], args[1]
