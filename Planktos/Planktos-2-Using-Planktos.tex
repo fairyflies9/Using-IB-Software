@@ -1,5 +1,5 @@
 % =====================================================================
-% Using IB Software: using Planktos
+% Using IB Software, Part VI, chapter 35: using Planktos
 % API audited against Planktos v1.0.3, commit a1c2128 (2026-08-19)
 % =====================================================================
 \documentclass[aspectratio=169,11pt]{beamer}
@@ -63,7 +63,7 @@
 \subtitle{Agent-based transport and behavior in fluid environments}
 \author[Miller]{Laura A. Miller}
 \institute[UArizona]{Department of Mathematics, University of Arizona}
-\date{Using IB Software \textbullet\ Planktos}
+\date{Using IB Software \textbullet\ Part VI \textbullet\ Chapter 35}
 
 \begin{document}
 
@@ -89,11 +89,12 @@
 \end{column}
 \begin{column}{0.48\textwidth}
 \begin{block}{Research extensions}
-\begin{itemize}\itemsep4pt
+\begin{itemize}\itemsep1pt
   \item encode deterministic, stochastic, or social behavior;
   \item choose sliding, sticky, or disabled mesh collisions;
   \item compute KDE and finite-time Lyapunov exponent fields;
-  \item reproduce a current Vicsek-model example.
+  \item reproduce a current Vicsek-model example;
+  \item run the main ones on this series' IB2d and IBAMR flows.
 \end{itemize}
 \end{block}
 \end{column}
@@ -101,7 +102,7 @@
 \begin{punchbox}
 \footnotesize
 \centering
-Every code fragment targets \textbf{Planktos v1.0.3}, repository commit \texttt{a1c2128} (2026-08-19). Unless a slide explicitly continues prior state, treat each fragment as a separate pattern in a fresh environment.
+Every code fragment targets \textbf{Planktos v1.0.3}, repository commit \texttt{a1c2128} (2026-08-19). Unless a slide explicitly continues prior state, treat each fragment as a separate pattern in a fresh environment. The plots of these calls are this series' runs (\texttt{examples/Planktos}, slide~\ref{fr:ourexamples}); other pictures are credited.
 \end{punchbox}
 \end{frame}
 
@@ -130,7 +131,7 @@ Planktos is designed for point-particle organisms or particles whose feedback on
 \end{column}
 \end{columns}
 \vspace{4pt}
-{\scriptsize A spatially varying \(\boldsymbol\sigma(\vect X)\) needs a Milstein-type scheme; the built-in Euler--Maruyama step is only order 0.5 in that case and does not support it directly.}
+{\scriptsize A spatially varying \(\boldsymbol\sigma(\vect X)\) needs a Milstein-type scheme for strong order 1; the built-in Euler--Maruyama step is only order 0.5 in that case and does not support it directly.}
 {\footnotesize\warn{One-way coupling.}
 Agent motion does \emph{not} alter \(\vect u\); use a coupled solver when feedback matters.}
 \end{frame}
@@ -197,7 +198,7 @@ Run \texttt{python examples/basic\_ex\_2d.py}; close each interactive plot to co
 \end{block}
 \end{column}
 \end{columns}
-\source{Adapted from the repository \texttt{README.md} Quickstart.}
+\source{Adapted from the repository \texttt{README.md} Quickstart. Examples that read data files are run from \texttt{examples/}, as the documentation says.}
 \end{frame}
 
 % ----- 6. Dependencies -----
@@ -209,7 +210,7 @@ Run \texttt{python examples/basic\_ex\_2d.py}; close each interactive plot to co
 \toprule
 \textbf{Declared core} & \textbf{Role} \\
 \midrule
-Python \(\ge 3.8\) & runtime (development currently uses newer Python) \\
+Python \(\ge 3.8\) & runtime (development uses Python 3.12) \\
 NumPy \(\ge 1.19\) & vectorized agent and field arrays \\
 SciPy \(\ge 1.10.1\) & interpolation, KDE, ODE integration \\
 Matplotlib \(\ge 3.0\) & plots and animations \\
@@ -230,15 +231,16 @@ python -m pip install -e ".[STL,netCDF,test]"
 \end{itemize}
 \end{block}
 \begin{alertblock}{VTK installation}
-If binary resolution becomes difficult, the project documentation recommends a clean conda-forge/Miniforge environment.
+The project documentation highly recommends Miniforge (instead of Anaconda) and conda-forge for as much as possible, VTK and PyVista included.
 \end{alertblock}
 \end{column}
 \end{columns}
-\source{Versions and extras are from \texttt{setup.cfg} at commit \texttt{a1c2128}.}
+\source{Versions and extras are from \texttt{setup.cfg} at commit \texttt{a1c2128}; the development Python and the Miniforge advice from \texttt{docs/quickstart.rst}.}
 \end{frame}
 
 % ----- 7. FFmpeg -----
 \begin{frame}[fragile]{\NoCaseChange{FFmpeg} is needed only when saving animations}
+\label{fr:ffmpeg}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.52\textwidth}
 \begin{lstlisting}
@@ -267,6 +269,97 @@ Simulations, static plots, and interactive animations still work. A filename pas
 \centering
 For long simulations, save every \(k\)-th state as a frame; rendering every time step is rarely useful.
 \end{punchbox}
+\end{frame}
+
+% ----- 7b. Tests -----
+\begin{frame}[fragile]{Running the tests}
+\label{fr:tests}
+\begin{lstlisting}
+cd Planktos                      # the clone's base directory
+python -m pip install pytest
+pytest                           # the test suite
+pytest --runslow                 # also the parallelization tests and the plotting smoke tests
+\end{lstlisting}
+\begin{itemize}\itemsep3pt
+  \item The 2021 deck: ``All tests can be run by typing pytest into a terminal in the base directory.'' It is the same in 2026, and GitHub Actions run the suite and a spell check on pushes to the main branches and on pull requests (``with every push'', say the 1.0.1 notes), with Python 3.8 and 3.12.
+  \item 1.0.2 grew the suite: the immersed-boundary collision code is covered to 99\,\%, with checks that do not depend on the geometry (no penetration, no amplification of motion, independence from position, axis orientation and units).
+  \item Not run for this chapter: the package here was installed with \texttt{pip install git+\dots}, which brings no \texttt{tests} folder. The scripts of \texttt{examples/Planktos} (slide~\ref{fr:ourexamples}) ran instead.
+\end{itemize}
+\source{Planktos \texttt{README.md} (``Tests''; October 2026) and release notes v1.0.1, v1.0.2; ``Getting started with Planktos'' (Miller lab, 2021), slide 12.}
+\end{frame}
+
+% ----- 7c. Then and now -----
+\begin{frame}{Installing, 2021 and 2026}
+\label{fr:then}
+\scriptsize
+\begin{tabular}{@{}p{0.46\textwidth}p{0.48\textwidth}@{}}
+\toprule
+the lab's 2021 deck (``Getting started with Planktos'') & Planktos 1.0.3 (2026) \\
+\midrule
+Python 3.5+ & Python \(\ge 3.8\) (tested on 3.8 and 3.12) \\
+download with git or GitHub Desktop, and pull often (``Christopher just fixed some bugs today'') & \texttt{git clone}, then \texttt{pip install .} or \texttt{pip install -e .}; pull often \\
+NumPy, SciPy, Matplotlib 3.x, pandas & NumPy \(\ge 1.19\), SciPy \(\ge 1.10.1\) (``earlier versions have a broken interpn''), Matplotlib \(\ge 3.0\), pandas \\
+FFmpeg from conda-forge (\texttt{conda install -c conda-forge ffmpeg}) & FFmpeg from anywhere, on the \texttt{PATH} (slide~\ref{fr:ffmpeg}) \\
+VTK and PyVista from conda-forge, installed with mamba & VTK \(\ge 9.2\), PyVista \(\ge 0.44\); conda-forge and mamba still advised \\
+numpy-stl for STL files & numpy-stl \(\ge 2.16.3\); netCDF4 \(\ge 1.5.7\) for NetCDF \\
+pytest for the tests & the same, and \texttt{--runslow} (slide~\ref{fr:tests}) \\
+IBAMR data: ``a Python 2.7 environment with numpy and VisIt installed (VisIt's Python API is written in Python 2.7)'' & VisIt's Python is 3 from VisIt 3.2 on (chapter 32): chapter 33's \texttt{resample\_export.py}, then \texttt{vtk\_for\_planktos.py} (slide~\ref{fr:ibamr}) \\
+\bottomrule
+\end{tabular}
+\source{``Getting started with Planktos'' (Miller lab, 2021), slides 8--11; Planktos \texttt{README.md} (October 2026); chapter 32.}
+\end{frame}
+
+% ----- 7d. The 2021 examples -----
+\begin{frame}{The 2021 examples, with today's names}
+\label{fr:examples2021}
+\scriptsize
+\begin{tabular}{@{}p{0.25\textwidth}p{0.3\textwidth}p{0.39\textwidth}@{}}
+\toprule
+2021 & what it showed & in 1.0.3 (\texttt{examples/}) \\
+\midrule
+\texttt{example\_2d.py} & time-varying Brinkman flow across a porous layer & \texttt{basic\_ex\_2d.py} (Brinkman flow; the start of the tour) \\
+\texttt{example\_3d.py}, \texttt{example\_3d\_flat.py} & the same in 3D; ``Same as previous but different dimensions in each direction'' & \texttt{basic\_ex\_3d.py} (a $20\times10\times4$ box) \\
+\texttt{example\_IBAMR.py} & 3D flow around cylinders read from IBAMR & \texttt{ex\_IBAMR\_ibmesh.py}: IBAMR test data (dumps 3--5), a cylinder by convex hull, the domain tiled \\
+\texttt{example\_IBAMR\_ibmesh.py} & agents around a cylinder in 3D, saved as a movie & the same file \\
+\texttt{example\_IBAMR\_ind\_var.py} & a 2D Brinkman layer, agents that differ & \texttt{ex\_ind\_var.py} (\texttt{example\_ind\_var.py} in the 2021 repository): the covariance differs from agent to agent \\
+an IB2d leaf (not on GitHub then) & IB2d flow past a leaf made from a vertex file & no leaf; \texttt{ex\_ib2d\_ibmesh.py} reads IB2d's flow around a cylinder (data from a link) \\
+a COMSOL sea fan (not on GitHub then) & COMSOL flow through an STL sea fan & \texttt{ex\_sticky\_seafan\_3d.py}: a COMSOL cylinder tiled into an array, sticky (data from a link) \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3mm}
+\scriptsize New since 2021: \texttt{ex\_agent\_behavior.py}, \texttt{ex\_ode\_gen.py}, \texttt{ex\_poisson\_search.py}, \texttt{ex\_produce\_ftle\_2d.py}, \texttt{ex\_ib2d\_sticky.py}, \texttt{ex\_ib2d\_mvbnd\_sticky.py}, \texttt{ex\_vicsek\_model\_2d.py}, \texttt{ex\_vicsek\_model\_3d.py}. \texttt{old\_examples/} keeps \texttt{old\_example\_2d.py}, \texttt{old\_example\_3d.py}, \texttt{old\_ex\_pltcyl.py}.
+\source{``Getting started with Planktos'' (Miller lab, 2021), slides 13--20; the repository's \texttt{examples/} folder and the files' docstrings (GitHub, 17 October 2026; 2021: commit \texttt{58cca0d}). The repository of June 2021 also had \texttt{example\_2d\_plankton\_agent.py}, \texttt{example\_ib2d\_ibmesh.py}, \texttt{plt\_cyl.py} and \texttt{basic\_brine\_shrimp/}, which the 2021 deck did not show.}
+\end{frame}
+
+% ----- 7e. The 2021 output (1/2) -----
+\begin{frame}{The 2021 examples' output (1/2)}
+\label{fr:out2021}
+\centering
+\begin{tabular}{@{}cc@{}}
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-2d.png} &
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-3d.png} \\[-1pt]
+\scriptsize \texttt{example\_2d.py}: Brinkman flow across a porous layer & \scriptsize \texttt{example\_3d.py}: the same in 3D \\[2pt]
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-3d-flat.png} &
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-ibamr.png} \\[-1pt]
+\scriptsize \texttt{example\_3d\_flat.py}: different lengths in each direction & \scriptsize \texttt{example\_IBAMR.py}: IBAMR flow around cylinders \\
+\end{tabular}
+\source{Planktos output in ``Getting started with Planktos'' (Miller lab, 2021), slides 13--16.}
+\end{frame}
+
+% ----- 7f. The 2021 output (2/2) -----
+\begin{frame}{The 2021 examples' output (2/2)}
+\label{fr:out2021b}
+\centering
+\begin{tabular}{@{}cc@{}}
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-ibamr-ibmesh.png} &
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-example-ind-var.png} \\[-1pt]
+\scriptsize \texttt{example\_IBAMR\_ibmesh.py}: a frame of its movie & \scriptsize \texttt{example\_IBAMR\_ind\_var.py}: agents that differ \\[2pt]
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-ib2d-leaf.png} &
+\includegraphics[height=0.33\textheight,keepaspectratio]{planktos-2021-comsol-seafan.png} \\[-1pt]
+\scriptsize IB2d flow past a leaf (static mesh from a vertex file) & \scriptsize COMSOL flow through an STL sea fan \\
+\end{tabular}
+\source{Planktos output in ``Getting started with Planktos'' (Miller lab, 2021), slides 17--20.}
 \end{frame}
 
 % ----- 8. Object model -----
@@ -364,6 +457,7 @@ These settings govern the rectangular domain. Immersed-mesh collisions are contr
 
 % ----- 11. Analytical flow -----
 \begin{frame}[fragile]{Generate a Brinkman-layer flow}
+\label{fr:brinkman}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.54\textwidth}
 \begin{lstlisting}
@@ -376,8 +470,8 @@ env.set_brinkman_flow(
 
 env.plot_flow()
 \end{lstlisting}
-\begin{itemize}\itemsep3pt
-  \item \texttt{alpha}: inverse hydraulic-permeability parameter (\texttt{alpha=0} is free flow);
+\begin{itemize}\itemsep0pt
+  \item \texttt{alpha}: inverse hydraulic-permeability parameter (\(\texttt{alpha}\to0\) is free flow; \texttt{alpha=0} itself stops with \texttt{ZeroDivisionError});
   \item \texttt{h\_p}: porous-layer height;
   \item \texttt{U}: velocity at the top of the domain;
   \item \texttt{dpdx}: pressure-gradient parameter;
@@ -525,6 +619,7 @@ Vectorization is the design choice: write array operations over agents whenever 
 
 % ----- 15. Initial conditions -----
 \begin{frame}[fragile]{Choose initial positions deliberately}
+\label{fr:init}
 \footnotesize
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.59\textwidth}
@@ -549,7 +644,7 @@ s_grid = env.add_swarm(
 \end{column}
 \begin{column}{0.37\textwidth}
 \begin{block}{Interpretation}
-\begin{itemize}\itemsep4pt
+\begin{itemize}\itemsep2pt
   \item \texttt{random}: a uniform domain sample;
   \item point: a release cohort;
   \item \(N\times d\) array: measured or designed initial condition (its row count sets \(N\); \texttt{swarm\_size} is ignored);
@@ -557,7 +652,7 @@ s_grid = env.add_swarm(
 \end{itemize}
 \end{block}
 \begin{alertblock}{Grid masking}
-{\footnotesize\texttt{testdir} is meaningful only when a closed immersed mesh is loaded and the chosen ray direction gives a robust inside/outside test.}
+{\footnotesize\texttt{testdir} needs a loaded immersed mesh: without one the call above stops (``AttributeError: 'NoneType' object has no attribute 'reshape'''), so leave it out then. With a closed mesh, the chosen ray direction must give a robust inside/outside test.}
 \end{alertblock}
 \end{column}
 \end{columns}
@@ -601,6 +696,7 @@ The default SDE uses step covariance \(\texttt{cov}\,dt\). Thus \texttt{cov} has
 
 % ----- 17. Default SDE -----
 \begin{frame}{The default model is Euler--Maruyama drift--diffusion}
+\label{fr:sde}
 For each active agent, the default \texttt{apply\_agent\_model} approximates
 \[
   d\vect X
@@ -629,7 +725,7 @@ Check both temporal convergence and collision resolution. A step can be statisti
 \end{alertblock}
 \end{column}
 \end{columns}
-\source{Adapted from the \texttt{Swarm.apply\_agent\_model} and \texttt{motion.Euler\_brownian\_motion} docstrings (commit \texttt{a1c2128}); scheme: Kloeden \& Platen (1992), \S10.2. A \code{'D'} property may replace \code{'cov'}; it is converted as \(\texttt{cov}=2D\).}
+\source{Adapted from the \texttt{Swarm.apply\_agent\_model} and \texttt{motion.Euler\_brownian\_motion} docstrings (commit \texttt{a1c2128}); scheme: Kloeden \& Platen (1992), \S10.2. A \code{'D'} property (converted as \(\texttt{cov}=2D\)) is read only when there is no \code{'cov'}, and every Swarm starts with \code{cov} = the identity unless given one: delete it first (\code{del s.shared\_props['cov']}).}
 \end{frame}
 
 % ----- 18. Advance and history -----
@@ -712,6 +808,7 @@ Do not call \texttt{s1.move(dt)} and then \texttt{s2.move(dt)} when both should 
 
 % ----- 20. Static plotting -----
 \begin{frame}[fragile]{Make an early diagnostic plot}
+\label{fr:plot}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.52\textwidth}
 \begin{lstlisting}
@@ -735,14 +832,15 @@ s.plot(
 \end{column}
 \begin{column}{0.45\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.63\textheight,keepaspectratio]{repo-basic-2d-agents.png}
-\source{Not the output of the calls above, but a documentation render of the same example: Planktos documentation image \texttt{docs/\_static/basic\_ex\_2d\_agents.png} (commit \texttt{a1c2128}, GPLv3).}
+\includegraphics[width=\linewidth,height=0.63\textheight,keepaspectratio]{planktos-brinkman-agents.png}
+\source{The first call above, run: \texttt{examples/Planktos/brinkman\_first.py} runs most of this chapter's first-run fragments, in order (Planktos 1.0.3): 200 agents in the Brinkman flow at \(t=24\) s, 110 of them still in the box (the default \texttt{zero} boundaries remove the rest). The documentation's own render of this example (\texttt{docs/\_static/basic\_ex\_2d\_agents.png}, GPLv3) is on the title slide.}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ----- 21. KDE -----
 \begin{frame}[fragile]{KDE turns particles into a distribution diagnostic}
+\label{fr:kde}
 \small
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.49\textwidth}
@@ -766,14 +864,15 @@ s.plot(dist="hist")
 \end{column}
 \begin{column}{0.48\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.51\textheight,keepaspectratio]{bmb2022-fig4-ib2d-kde.png}
-\source{IB2d cylinder flow, agents, vorticity, and marginal density: Strickland et al. (2022), Fig.~4, \emph{Bull.\ Math.\ Biol.}\ 84:72; educational reproduction (article not openly licensed).}
+\includegraphics[width=\linewidth,height=0.51\textheight,keepaspectratio]{planktos-starfish-kde.png}
+\source{\texttt{dist="density"} with \texttt{fluid="vort"} on this series' flow: 1000 agents released just upstream of chapter 4f's starfish, at \(t=0.38\) s; the KDE of \(y\) has a peak on each side of the starfish (\texttt{examples/Planktos/starfish\_kde.py}). Strickland et al.\ (2022), Fig.~4, shows the same kind of plot for an IB2d cylinder flow (not reproduced: the article is not openly licensed).}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ----- 22. Animation and export -----
 \begin{frame}[fragile]{Animate selectively; export analysis-ready data}
+\label{fr:animate}
 \small
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.60\textwidth}
@@ -783,14 +882,14 @@ frames = range(0, len(s.full_pos_history), 5)
 s.plot_all(
     movie_filename="trial_01.mp4",
     frames=frames, fps=10,
-    fluid="vort", plot_heading=False)
+    fluid="quiver", plot_heading=False)
 
 # Data products
 s.save_data("results", "trial_01")
 s.save_pos_to_csv("results/trial_01_positions.csv")
 s.save_pos_to_vtk("results", "trial_01")
 \end{lstlisting}
-{\footnotesize\hi{What \texttt{save\_data} writes:} CSV files for the position history (with mask and time stamps) and for the current velocities and accelerations; \texttt{props} to JSON; \texttt{shared\_props} to .npz. \texttt{props\_history} is not saved. \texttt{save\_pos\_to\_vtk} writes one PolyData file per stored time.\par}
+{\footnotesize\hi{What \texttt{save\_data} writes:} CSV files for the position history (with mask and time stamps) and for the current velocities and accelerations; \texttt{props} to JSON; \texttt{shared\_props} to .npz. \texttt{props\_history} is not saved. \texttt{save\_pos\_to\_vtk} writes one PolyData file per stored time. \hi{Why \texttt{quiver}:} on a static flow such as this Brinkman layer, \texttt{plot\_all(fluid="vort")} stops in 1.0.3 (``ValueError: not enough values to unpack (expected 2, got 1)'') before a frame is drawn (slide~\ref{fr:issues2}).\par}
 \end{column}
 \begin{column}{0.36\textwidth}
 \begin{block}{Choose the product by use}
@@ -956,6 +1055,7 @@ When an \texttt{ode} is supplied, include fluid interaction in that ODE if it is
 
 % ----- 27. Inertial particles (1/2) -----
 \begin{frame}[fragile]{Built-in inertial-particle dynamics (1/2)}
+\label{fr:inertial}
 \footnotesize
 {\scriptsize\warn{Set \(\rho\), \(\mu\), \(\nu\) in the constructor:} the constructor computes the third value correctly, but in v1.0.3 the \texttt{nu} and \texttt{rho} property setters compute \(\mu=\nu/\rho\) instead of \(\mu=\nu\rho\) when \(\mu\) is unset (an upstream bug, still present on \texttt{master} as of October 2026; not yet filed as a GitHub issue).}
 \begin{columns}[T,onlytextwidth]
@@ -972,7 +1072,7 @@ env = planktos.Environment(
     flow=[zero, zero.copy()])
 \end{lstlisting}
 {\scriptsize The listing continues on the next slide with the Swarm subclass. Here \(\mathrm{Re}=U\,\texttt{char\_L}/\nu=0.1\cdot0.01/10^{-6}=1000\), and the constructor sets \(\mu=\nu\rho=10^{-3}\).\par\smallskip
-More on the setters: once all three are set, a setter only warns and leaves the other two unchanged. The bug is still present on \texttt{master} as of 2026-09-16; no public GitHub issue for it was found as of 2026-10-11.}
+More on the setters: once all three are set, a setter only warns and leaves the other two unchanged. The bug is still on \texttt{master} (last commit 2026-09-16); no public GitHub issue for it was found as of 2026-10-17.}
 \end{column}
 \begin{column}{0.52\textwidth}
 \footnotesize
@@ -1013,6 +1113,7 @@ class InertialSwarm(planktos.Swarm):
 s = InertialSwarm(envir=env, seed=4)
 s.shared_props.update({"R": 2/3, "diam": 1e-4})
 \end{lstlisting}
+{\scriptsize\hi{Units:} Planktos applies the dimensionless equation at right to the data's metres and seconds, so the slip here decays at \(R/\mathrm{St}=120\) s\(^{-1}\) (measured), while the physical rate is \((R/\mathrm{St})\,U/\texttt{char\_L}=3\nu/a^2=1200\) s\(^{-1}\): use units with \(U=\texttt{char\_L}\), or rescale.\par}
 \end{column}
 \begin{column}{0.36\textwidth}
 \small
@@ -1031,6 +1132,7 @@ s.shared_props.update({"R": 2/3, "diam": 1e-4})
 
 % ----- 28. Collision modes -----
 \begin{frame}{Immersed-mesh collision modes}
+\label{fr:collide}
 \small
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.48\textwidth}
@@ -1059,12 +1161,14 @@ Set a swarm default with \texttt{ib\_condition}; override per step with
 \begin{alertblock}{Geometry restriction}
 {\footnotesize Avoid immersed structures that intersect periodic box boundaries; that interaction is not implemented in the current API.}
 \end{alertblock}
+{\scriptsize\hi{One more case:} a hit followed in the same step by a periodic or \texttt{noflux} box edge is lost from \texttt{ib\_collision\_idx}: the re-check at the edge resets it (to \(-1\) if nothing more is hit).\par}
 \end{column}
 \end{columns}
 \end{frame}
 
 % ----- 29. Stateful capture -----
 \begin{frame}[fragile]{Make ``captured'' a persistent biological state}
+\label{fr:capture}
 \small
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.58\textwidth}
@@ -1094,7 +1198,7 @@ s.props["color"] = np.full(s.N, s.shared_props["color"])
 \begin{column}{0.38\textwidth}
 \centering
 \includegraphics[width=\linewidth,height=0.27\textheight,keepaspectratio]{jeb2023-fig6a-polyp-array.png}
-\source{Cylinder and polyp geometry: Hamlet et al. (2023), Fig.~6a, CC BY 4.0.}
+\source{Cylinder and polyp geometry: Hamlet et al. (2023), Fig.~6A, CC BY 4.0.}
 \begin{block}{Why both hooks?}
 \texttt{after\_move} records new contacts after collision correction. \texttt{apply\_agent\_model} prevents previously captured agents from leaving on later steps.
 \end{block}
@@ -1146,6 +1250,79 @@ Successive printed flow snapshots are separated by
 \source{Adapted from \texttt{examples/ex\_ib2d\_ibmesh.py}; the external dataset is linked from \texttt{examples/ib2d\_data/README.txt}.}
 \end{frame}
 
+% ----- 30b. This series' IB2d output (1/2) -----
+\begin{frame}[fragile]{This series' IB2d output (1/2): reading chapter 4f's starfish run}
+\label{fr:starfish}
+\small
+\begin{columns}[T,onlytextwidth]
+\begin{column}{0.56\textwidth}
+\begin{lstlisting}
+env = planktos.Environment(x_bndry="periodic",
+    y_bndry="noflux", rho=1000, mu=0.1, units="m")
+env.read_IB2d_fluid_data("Starfish_Channel/viz_IB2d",
+    dt=5e-5, print_dump=400, d_start=1)
+print(env.L, env.flow_times[[0, -1]],
+      env.fluid_domain_LLC)
+# [0.9999974399999999, 0.24999936] [0.   0.38] (0.0, 0.0)
+\end{lstlisting}
+\end{column}
+\begin{column}{0.40\textwidth}
+\footnotesize
+\begin{alertblock}{Start at dump 1}
+pyIB2d writes dump 0's velocity transposed: \texttt{u.0000.vtk} and \texttt{uX.0000.vtk} say \texttt{DIMENSIONS 128 512 1}, every later dump \texttt{512 128 1} (\texttt{IBM\_Driver.py} passes \texttt{U, V} there and \texttt{U.T, V.T} afterwards; \texttt{Omega} and \texttt{uMag} are right). From dump 0 the reader stops: ``all the input array dimensions \dots\ must match''.
+\end{alertblock}
+\end{column}
+\end{columns}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item The fluid is at rest in dump 0, so only the run's first 0.02 s (the pulse starting from rest) is lost; Planktos's clock starts at the first dump it reads: Planktos's \(t\) is the run's \(t-0.02\) s. IB2d's issue \#12 reports the same transposed dump 0 for the MATLAB version.
+  \item \texttt{L} is \(0.99999744\), not 1: IB2d writes the grid spacing with six digits (\texttt{SPACING 0.00195312}).
+  \item \texttt{rho} and \texttt{mu} go to the constructor (slide~\ref{fr:inertial}). IB2d is periodic, and the reader always adds the periodic end points (its docstring's \texttt{auto\_regrid} is not a parameter).
+\end{itemize}
+\source{\texttt{examples/Planktos/starfish\_env.py}; \url{https://github.com/nickabattista/IB2d/issues/12} (open, 17 October 2026).}
+\end{frame}
+
+% ----- 30c. This series' IB2d output (2/2) -----
+\begin{frame}[fragile]{This series' IB2d output (2/2): joining the starfish's outline}
+\label{fr:starfishmesh}
+\begin{lstlisting}
+# starfish_only.vertex: the 405 starfish points of starfish_channel.vertex, without the walls
+env.read_IB2d_mesh_data("starfish_only.vertex", method="adjacent",
+                        add_idx_list=[(404, 0)])     # 0-based: last point to first
+\end{lstlisting}
+\scriptsize
+\begin{tabular}{@{}p{0.46\textwidth}p{0.48\textwidth}@{}}
+\toprule
+call & what it gave (405 points, 0.503--0.566 grid cells apart) \\
+\midrule
+\texttt{method="adjacent", periodic=True} & 404 segments: still open (\texttt{periodic} is read only for moving meshes) \\
+\texttt{add\_idx\_list=[(405, 1)]} (1-based, as the docstring says) & \texttt{IndexError}: the indices are used from 0 \\
+\texttt{add\_idx\_list=[(404, 0)]} & 405 segments, closed \\
+\texttt{method="proximity"} (joins points closer than \(0.501\,\Delta x\)) & 13 segments; 381 points joined to nothing \\
+\texttt{method="proximity", res\_factor=0.6} & 442 segments: closed, plus 37 chords across \\
+\bottomrule
+\end{tabular}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item The channel walls (\(y=0.01\) and \(0.24\)) run across the box and cross its periodic \(x\) boundary, which Planktos does not handle (slide~\ref{fr:collide}): load the starfish alone, and let \texttt{noflux} box edges stand in for the walls.
+  \item Count the segments (\texttt{len(env.ibmesh)}) as well as looking at \texttt{plot\_envir()}: a 0.57-cell gap (1.1 mm) does not show.
+\end{itemize}
+\source{\texttt{examples/Planktos/starfish\_env.py} (the \texttt{adjacent} call) and its \texttt{README.md} (each option tried on the same 405 points); \texttt{Environment.read\_IB2d\_mesh\_data} (\texttt{planktos/\_environment.py}, 1.0.3).}
+\end{frame}
+
+% ----- 30d. The capture pattern on the starfish -----
+\begin{frame}{The capture pattern on this series' starfish}
+\label{fr:capstar}
+\centering
+\includegraphics[width=0.84\textwidth]{planktos-starfish-capture.png}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item The \texttt{CaptureSwarm} of slide~\ref{fr:capture} (without its colour column), \texttt{ib\_condition="sticky"}, the starfish of the previous slide: 1500 agents start within 1.5 cm of the outline (no closer than one grid cell), \texttt{cov} \(=2\times10^{-6}\) (\(D=10^{-6}\) m\(^2\)/s), \(\Delta t = 1\) ms.
+  \item With the flow 4.7\,\% are held by \(t = 0.38\) s; in still water (the same environment with \texttt{flow} set to zeros, the same seed) none. Diffusion alone moves an agent about 0.9 mm in 0.38 s (\(\sqrt{2Dt}\) in each direction): the flow brings them to the surface.
+\end{itemize}
+\source{\texttt{examples/Planktos/starfish\_capture.py} (Planktos 1.0.3, 90 s for both runs).}
+\end{frame}
+
 % ----- 31. Other imports -----
 \begin{frame}[fragile]{Import matrix: CFD fields and 3D geometry}
 \scriptsize
@@ -1175,13 +1352,15 @@ The loader may reset \texttt{env.L} to match the data. Read back \texttt{L}, \te
 
 % ----- 32. Mesh and unit QA -----
 \begin{frame}[fragile]{Align flow, mesh, and physical units before release}
+\label{fr:qa}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.54\textwidth}
 \begin{lstlisting}[basicstyle=\densecode]
 # For appropriate cell-centered COMSOL data,
 # regrid immediately after the flow import.
 # Match these flags to the data's actual BCs;
-# this example treats all axes as nonperiodic.
+# this example treats all axes as nonperiodic (the repository's
+# sea-fan example passes (True, True, True) for its COMSOL data).
 env.center_cell_regrid(
     periodic_dim=(False, False, False))
 
@@ -1211,8 +1390,46 @@ Look for crossing edges, missing closure, duplicated surfaces, mesh outside the 
 \end{columns}
 \end{frame}
 
+% ----- 32b. IBAMR -> Planktos (1/2) -----
+\begin{frame}[fragile]{From an IBAMR run to Planktos (1/2): the route}
+\label{fr:ibamr}
+\begin{lstlisting}[basicstyle=\densecode]
+# 1. VisIt (chapter 33): the AMR data on a uniform grid, as legacy VTK (here IBFE/10's last dump, around the plate)
+visit -nowin -cli -s resample_export.py -- viz_IB3d/dumps.visit U plate_visit \
+      nx=97 ny=49 nz=49 x0=-4 x1=8 y0=-3 y1=3 z0=-3 z1=3 states=20 format=binary
+# 2. the velocity made the active vector; files named IBAMR_db_000.vtk, IBAMR_db_001.vtk, ...
+python vtk_for_planktos.py plate_visit plate_planktos
+# 3. Planktos: one file is a steady flow; a folder of IBAMR_db_###.vtk files, a time series
+env = planktos.Environment(rho=1.0, mu=0.01)
+env.read_IBAMR3d_vtk_data("plate_planktos/IBAMR_db_000.vtk")
+print(env.L, env.fluid_domain_LLC, env.flow_times)   # [12.0, 6.0, 6.0] (-4.0, -3.0, -3.0) None
+\end{lstlisting}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item Step 2 because VisIt 3.5 exports the vector as a field array beside an active scalar, and Planktos's reader then stops (``AttributeError: 'NoneType' object has no attribute 'GetDataType'''). VTK 9.4 may also print ``Could not read dimensions or extents from the file'' for these binary files: the grid still comes out whole.
+  \item In 2021 this needed a Python 2.7 environment with VisIt (slide~\ref{fr:then}); now VisIt's own Python 3 does step 1.
+  \item Spacing 0.125, twice the finest level's (chapter 22): \(97\times49\times49\) points, 7.5 MB. The whole \(32\times16\times16\) tank at that spacing would be about 18 times as many points.
+\end{itemize}
+\source{\texttt{wsl/final/ch35\_plate\_export.sh} (VisIt 3.5.0, 8 s); \texttt{examples/analysis/vtk\_for\_planktos.py}; \texttt{examples/Planktos/ibamr\_plate.py}.}
+\end{frame}
+
+% ----- 32c. IBAMR -> Planktos (2/2) -----
+\begin{frame}{From an IBAMR run to Planktos (2/2): agents past IBFE/10's plate}
+\label{fr:plate}
+\centering
+\includegraphics[width=0.67\textwidth]{planktos-ibamr-plate.png}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item The plate is its reference shape, a box \(0<x<0.125\), \(-1<y,z<1\), written as an STL file (12 triangles, numpy-stl) in the run's coordinates; \texttt{read\_stl\_mesh\_data} shifts it with the flow (to \(x = 4\)--\(4.125\)). By \(t = 0.5\) its flaps had bent 0.012 at their edges (chapter 22).
+  \item 900 tracers, a \(30\times30\) sheet at \(x=-2\), with a little diffusion; 600 steps of 0.1 s: 86 agent-steps touched the plate (sliding). The sheet bends round the plate, the agents behind it lag in its wake, and 18 still sit against its upstream face.
+  \item The last dump stands in for a steady flow; the stream was still speeding up (\(U\tanh 2t\) is 76\,\% of \(U\) at \(t=0.5\)), so a longer run would give a truer one.
+\end{itemize}
+\source{\texttt{examples/Planktos/ibamr\_plate.py} (Planktos 1.0.3, 40 s); IBFE/10 (chapter 22).}
+\end{frame}
+
 % ----- 33. FTLE -----
 \begin{frame}[fragile]{FTLE reveals finite-time stretching of a motion model}
+\label{fr:ftle}
 \small
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.53\textwidth}
@@ -1238,11 +1455,11 @@ env.calculate_FTLE(
 \end{column}
 \begin{column}{0.44\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.32\textheight,keepaspectratio]{bmb2022-fig5-ftle.png}
-\source{Agent-based forward-time FTLE comparison: Strickland et al. (2022), Fig.~5, \emph{Bull.\ Math.\ Biol.}\ 84:72; educational reproduction (article not openly licensed).}
+\includegraphics[width=\linewidth,height=0.27\textheight,keepaspectratio]{planktos-starfish-ftle.png}
+\source{The first call on this series' starfish flow (\(256\times64\) points, \texttt{T=0.2}, \texttt{testdir="x1"}, \texttt{dt=0.002}) for tracers (top) and, with \texttt{swrm=}, for swimmers that add 0.1 m/s in \(x\) (bottom): \texttt{examples/Planktos/starfish\_ftle.py}, 140 s per map. Strickland et al.\ (2022), Fig.~5, compares FTLE fields for parasitoid wasps (not reproduced).}
 \begin{alertblock}{Two API distinctions}
 {\scriptsize\begin{itemize}\itemsep0pt
-  \item The current call requires \texttt{T > t0}; the elapsed interval is \texttt{T-t0} (\texttt{T} is an end time, although the docstring calls it ``integration time''). With \texttt{backward=True}, physical time ends at \texttt{2*t0-T}; tracers only.
+  \item The current call requires \texttt{T > t0}; the elapsed interval is \texttt{T-t0} (\texttt{T} is an end time, although the docstring calls it ``integration time'' and \texttt{plot\_2D\_FTLE}'s title prints it as \(\Delta t\)). With \texttt{backward=True}, physical time ends at \texttt{2*t0-T}; tracers only.
   \item \texttt{FTLE\_smallest} is a forward-map contraction exponent, not backward-time FTLE.
 \end{itemize}}
 \end{alertblock}
@@ -1313,11 +1530,10 @@ IC[:, 1] = rng.uniform(0.050, 0.200, N)
 \end{column}
 \begin{column}{0.40\textwidth}
 \centering
-\includegraphics[width=\linewidth,height=0.50\textheight,keepaspectratio]{bmb2022-fig9-vicsek.png}
-\source{Motivating 3D result: Strickland et al. (2022), Fig.~9, \emph{Bull.\ Math.\ Biol.}\ 84:72; educational reproduction (article not openly licensed).}
 \begin{block}{Null versus flow experiment}
-The repository example runs without the large external flow dataset. Load matching IB2d flow to ask how alignment survives an unsteady wake.
+The repository example runs without the large external flow dataset. Load matching IB2d flow to ask how alignment survives an unsteady wake: slide~\ref{fr:vicsekstar} does it with this series' starfish flow.
 \end{block}
+{\scriptsize Strickland et al.\ (2022), Fig.~9, motivates the capstone with a 3D Vicsek result in cylinder flow (not reproduced: the article is not openly licensed).\par}
 \end{column}
 \end{columns}
 \source{Setup: current \texttt{examples/ex\_vicsek\_model\_2d.py}; separate NumPy seed added.}
@@ -1378,14 +1594,27 @@ In the notation of Vicsek et al.\ (1995), each agent \(i\) updates its heading a
   \qquad \xi_i^n\sim\mathcal U\!\left[-\tfrac{\eta}{2},\tfrac{\eta}{2}\right],
 \]
 then moves with \(\vect x_i^{n+1}=\vect x_i^n+\big[v\,(\cos\theta_i^{n+1},\sin\theta_i^{n+1})+\vect u(\vect x_i^n,t^n)\big]\Delta t\). Here \(\eta\) is \texttt{nu}, \(v\) is \texttt{v}, and \(r\) is \texttt{r}.
-\begin{itemize}\itemsep3pt
-  \item Because \texttt{move} resets \texttt{velocities} to the realized displacement over \texttt{dt}, the neighbor average uses ground-frame velocities (swimming plus fluid drift), not swimming headings alone. In a strong flow the fluid can dominate the ``consensus''.
+\begin{itemize}\itemsep1.5pt
+  \item Because \texttt{move} sets \texttt{velocities} from each step's displacement over \texttt{dt} (the proposed one, or the slide along a mesh), the neighbor average uses ground-frame velocities (swimming plus fluid drift), not swimming headings alone. In a strong flow the fluid can dominate the ``consensus''.
   \item An agent always counts itself as a neighbor (distance \(0<r\)), so the average is never empty.
   \item The condensed listing wraps both axes unconditionally; the repository version wraps only the axes whose \texttt{envir.bndry} is \texttt{periodic}, so use that form in a channel with walls.
   \item The noise is drawn once per step, so the statistics depend on \(\Delta t\); this is why the capstone asks for at least two smaller \(\Delta t\).
   \item A standard summary is the polarization \(\varphi=\big|\sum_i \vect s_i\big|/(Nv)\in[0,1]\), with \(\vect s_i\) the self-propulsion velocity; \(\varphi\approx1\) is an aligned flock.
 \end{itemize}
 \source{Vicsek et al.\ (1995), Eqs.~(1)--(2) and their order parameter; Planktos example \texttt{ex\_vicsek\_model\_2d.py}, commit \texttt{a1c2128}.}
+\end{frame}
+
+% ----- 36c. The capstone's rule around the starfish -----
+\begin{frame}{Capstone: the rule around this series' starfish}
+\label{fr:vicsekstar}
+\centering
+\includegraphics[width=0.86\textwidth]{planktos-starfish-vicsek.png}
+\footnotesize
+\begin{itemize}\itemsep1pt
+  \item The capstone's rule with all pairs at once (no loop), the minimum image on the periodic \(x\) axis only, and random starting headings: 400 agents released upstream of chapter 4f's starfish, \(v=0.1\) m/s, \(r=2\) cm, \texttt{nu} \(=0.5\), \(\Delta t = 2\) ms, for the run's 0.38 s.
+  \item Still water: the polarization grows from 0.17 to about 0.6 (0.55 at the end), and the swarm splits into two groups. The flow: 0.88 after the first step and 0.98 by \(t=0.02\) s, because the neighbours' mean velocity is the stream's (previous slide); briefly below 0.2 (0.16 at \(t=0.196\) s) as the stream near the agents dies away (its mean \(u\) from 0.31 m/s at \(t=0.08\) s to 0 at \(t=0.18\) s); 0.68 at the end.
+\end{itemize}
+\source{\texttt{examples/Planktos/starfish\_vicsek.py} (Planktos 1.0.3, 25 s for both runs).}
 \end{frame}
 
 % ----- 37. Run and validate -----
@@ -1430,20 +1659,88 @@ s.plot_all(
 \end{columns}
 \end{frame}
 
+% ----- 37b. This series' examples -----
+\begin{frame}{This series' Planktos examples}
+\label{fr:ourexamples}
+\scriptsize
+\begin{tabular}{@{}p{0.27\textwidth}p{0.55\textwidth}p{0.11\textwidth}@{}}
+\toprule
+\texttt{examples/Planktos/} & what it does & slides \\
+\midrule
+\texttt{brinkman\_first.py} & most of this chapter's first-run fragments, in order: Brinkman flow, a swarm, 24 s, plots, \texttt{save\_data}, CSV, VTK (a movie if FFmpeg is found; not run here, without FFmpeg); no input data & \ref{fr:plot} \\
+\texttt{starfish\_env.py} & \texttt{load(run)}: chapter 4f's starfish run as an \texttt{Environment}, the starfish as a closed mesh & \ref{fr:starfish}, \ref{fr:starfishmesh} \\
+\texttt{starfish\_kde.py} & agents upstream of the starfish; vorticity and KDEs & \ref{fr:kde} \\
+\texttt{starfish\_capture.py} & the capture pattern, with the flow and in still water & \ref{fr:capstar} \\
+\texttt{starfish\_ftle.py} & FTLE maps for tracers and for swimmers & \ref{fr:ftle} \\
+\texttt{starfish\_vicsek.py} & the capstone's rule in still water and in the flow & \ref{fr:vicsekstar} \\
+\texttt{ibamr\_plate.py} & IBFE/10's flow tank through VisIt; a sheet of agents past the plate & \ref{fr:ibamr}, \ref{fr:plate} \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\footnotesize Run on Planktos 1.0.3 (git \texttt{a1c2128}) with Python 3.12 (Anaconda, Windows) on a desktop PC; the folder's \texttt{README.md} gives each script's time and result. The starfish run is chapter 4f's example (pyIB2d), IBFE/10 chapter 22's.
+\source{\texttt{examples/Planktos/README.md}.}
+\end{frame}
+
+% ----- 37c. Known issues -----
+\begin{frame}{Known issues in 1.0.3, and what this chapter does about them (1/2)}
+\label{fr:issues}
+\scriptsize
+\begin{tabular}{@{}p{0.55\textwidth}p{0.39\textwidth}@{}}
+\toprule
+issue (October 2026) & what to do \\
+\midrule
+the \texttt{nu} and \texttt{rho} setters compute \(\mu=\nu/\rho\) (slide~\ref{fr:inertial}) & give \texttt{rho} and \texttt{mu} (or \texttt{nu}) to the constructor \\
+\texttt{center\_cell\_regrid}: docstring default \texttt{(True, True, False)}, signature \texttt{(False, False, False)} (slide~\ref{fr:qa}) & pass \texttt{periodic\_dim} explicitly \\
+\texttt{read\_IB2d\_mesh\_data} on a \texttt{.vertex} file with \texttt{'adjacent'}: \texttt{periodic=True} ignored; \texttt{add\_idx\_list} used from 0, documented from 1 (slide~\ref{fr:starfishmesh}) & close an outline with \texttt{add\_idx\_list=[(n-1, 0)]}; count the segments \\
+\texttt{read\_IB2d\_fluid\_data}: the docstring lists an \texttt{auto\_regrid} parameter the signature does not have & nothing: the periodic end points are always added \\
+\texttt{calculate\_FTLE}: the docstring speaks of an \texttt{ode} argument (it is \texttt{ode\_gen}) and says ``Default is 1'' for \texttt{T}, whose default is 0.1; \texttt{T} is an end time (slide~\ref{fr:ftle}) & trust the signature: \texttt{inspect.signature(env.calculate\_FTLE)} \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\footnotesize The pyIB2d item, four more traps of 1.0.3 met while running this chapter's fragments, and the search of Planktos's issues are on the next slide.
+\source{\texttt{planktos/\_environment.py} (1.0.3); \texttt{examples/Planktos}.}
+\end{frame}
+
+% ----- 37d. Known issues (2/2) -----
+\begin{frame}{Known issues in 1.0.3, and what this chapter does about them (2/2)}
+\label{fr:issues2}
+\scriptsize
+\begin{tabular}{@{}p{0.55\textwidth}p{0.39\textwidth}@{}}
+\toprule
+issue (October 2026) & what to do \\
+\midrule
+pyIB2d writes dump 0's velocity transposed (IB2d issue \#12; slide~\ref{fr:starfish}) & read from dump 1 \\
+\texttt{Swarm.plot\_all(fluid="vort")} on a static flow, such as the Brinkman layer (slide~\ref{fr:animate}), stops with ``ValueError: not enough values to unpack (expected 2, got 1)'' (\texttt{\_swarm.py}, line 2548), with or without a movie file & \texttt{fluid="quiver"}, or none, on a static flow; \texttt{"vort"} works on a time-dependent one \\
+\texttt{init="grid"} with \texttt{testdir} and no immersed mesh stops with ``AttributeError: 'NoneType' object has no attribute 'reshape''' (slide~\ref{fr:init}) & give \texttt{testdir} only when a mesh is loaded \\
+a \code{'D'} property is read only when there is no \code{'cov'}, and every Swarm starts with \code{cov} = the identity unless given one (slide~\ref{fr:sde}) & set \code{'cov'} to \(2D\), or delete \code{'cov'} before setting \code{'D'} \\
+\texttt{set\_brinkman\_flow}: the docstring calls \texttt{alpha=0} free flow; the call divides by \(\alpha^2\) and stops with ``ZeroDivisionError: float division by zero'' (slide~\ref{fr:brinkman}) & a small \texttt{alpha} instead (\(10^{-6}\) gives the free-flow profile) \\
+\bottomrule
+\end{tabular}
+
+\vspace{1mm}
+\footnotesize Searching Planktos's issues on 17 October 2026 (\texttt{add\_idx\_list}, \texttt{periodic}, \texttt{regrid}, \texttt{setter}, \texttt{viscosity}, \texttt{docstring}, \texttt{vort}, \texttt{plot\_all}, \texttt{testdir}, \texttt{diffusion}, \texttt{brinkman}) found none of the Planktos items on these two slides; related open ones are \#75 (the 3D \texttt{.vertex} reader, chapter 34), \#33 (moving the SDE solver to Milstein) and \#74 (both fluid backdrops at once in \texttt{plot} and \texttt{plot\_all}).
+\source{\texttt{planktos/\_environment.py}, \texttt{\_swarm.py} and \texttt{motion.py} (1.0.3); \texttt{examples/Planktos}; \url{https://github.com/mountaindust/Planktos/issues}.}
+\end{frame}
+
 % ----- 38. Resources -----
 \begin{frame}{Resources and source trail}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.55\textwidth}
 \begin{block}{Start with the current software}
-\begin{itemize}\itemsep4pt
+\small
+\begin{itemize}\itemsep1pt
   \item \href{https://github.com/mountaindust/Planktos}{Planktos repository and README};
   \item repository \texttt{docs/} and runnable \texttt{examples/};
   \item \texttt{examples/ib2d\_data/README.txt} for the external IB2d dataset;
-  \item this tutorial was audited against v1.0.3, commit \texttt{a1c2128} (2026-08-19).
+  \item this tutorial was audited against v1.0.3, commit \texttt{a1c2128} (2026-08-19);
+  \item this series' \texttt{examples/Planktos} (its README: what each script gave);
+  \item the lab's 2021 deck, ``Getting started with Planktos'' (install, tests, examples of 2021).
 \end{itemize}
 \end{block}
 \begin{punchbox}
-\centering
+\centering\small
 Record the exact software commit with every scientific result: current interfaces can differ from those shown in the 2022 paper.
 \end{punchbox}
 \end{column}
@@ -1463,7 +1760,7 @@ Gorgonian multiscale flow and capture application; article and reproduced figure
 \begin{frame}{References}
 \footnotesize
 \begin{itemize}\itemsep3pt
-  \item W. C. Strickland, N. A. Battista, C. L. Hamlet, and L. A. Miller, ``Planktos: an agent-based modeling framework for small organism movement and dispersal in a fluid environment with immersed structures,'' \emph{Bull. Math. Biol.} 84 (2022), 72, \href{https://doi.org/10.1007/s11538-022-01027-1}{doi:10.1007/s11538-022-01027-1}. Figs.~4, 5, 9 reproduced for education (article not openly licensed); FTLE qualifications from Sections 2.1 and 4.2.
+  \item W. C. Strickland, N. A. Battista, C. L. Hamlet, and L. A. Miller, ``Planktos: an agent-based modeling framework for small organism movement and dispersal in a fluid environment with immersed structures,'' \emph{Bull. Math. Biol.} 84 (2022), 72, \href{https://doi.org/10.1007/s11538-022-01027-1}{doi:10.1007/s11538-022-01027-1}. Its Figs.~4, 5 and 9 are described, not reproduced (the article is not openly licensed): the pictures are this series' runs. FTLE qualifications from Sections 2.1 and 4.2.
   \item C. L. Hamlet, W. C. Strickland, N. Battista, and L. A. Miller, ``Multiscale flow between the branches and polyps of gorgonians,'' \emph{J. Exp. Biol.} 226(5) (2023), jeb244520, \href{https://doi.org/10.1242/jeb.244520}{doi:10.1242/jeb.244520}. CC BY 4.0; Figs.~1 and 6A reproduced.
   \item W. C. Strickland \emph{et al.}, \emph{Planktos} agent-based modeling framework, v1.0.3, commit \texttt{a1c2128} (2026-08-19), GPLv3, \url{https://github.com/mountaindust/Planktos}; documentation \url{https://planktos.readthedocs.io}. Source of every code pattern (\texttt{README.md}, \texttt{setup.cfg}, \texttt{examples/}, docstrings) and of the \texttt{docs/\_static} images.
   \item S. Kupfner Johnson and P. Hallock, ``A review of symbiotic gorgonian research in the western Atlantic and Caribbean with recommendations for future work,'' \emph{Coral Reefs} 39 (2020), 239--258, \href{https://doi.org/10.1007/s00338-020-01891-0}{doi:10.1007/s00338-020-01891-0}. Adapted in Hamlet et al.\ (2023), Fig.~1.
@@ -1494,8 +1791,17 @@ Gorgonian multiscale flow and capture application; article and reproduced figure
   \item N. A. Battista, W. C. Strickland, and L. A. Miller, ``IB2d: a Python and MATLAB implementation of the immersed boundary method,'' \emph{Bioinspir. Biomim.} 12 (2017), 036003, \href{https://doi.org/10.1088/1748-3190/aa5e08}{doi:10.1088/1748-3190/aa5e08}. Source of the IB2d flow and mesh formats.
   \item FFmpeg project, \url{https://ffmpeg.org}. External movie writer used by Matplotlib for \texttt{plot\_all(movie\_filename=...)}.
 \end{itemize}
+\end{frame}
+
+% ----- 41b. References (continued) -----
+\begin{frame}{References (continued)}
+\footnotesize
+\begin{itemize}\itemsep3pt
+  \item Planktos release notes v1.0.1--v1.0.3 and \texttt{README.md}, \url{https://github.com/mountaindust/Planktos} (read 17 October 2026); IB2d issue \#12, \url{https://github.com/nickabattista/IB2d/issues/12}.
+  \item ``Getting started with Planktos'' (Miller lab, 2021): the install, tests and example tour merged here, and the 2021 pictures.
+\end{itemize}
 \begin{punchbox}
-\footnotesize The workflow, object-model, Brinkman-layer, shared-clock, and FTLE-validity diagrams were drawn for these notes (TikZ). Code fragments are adapted from the Planktos repository (GPLv3) as credited on each slide.
+\footnotesize The workflow, object-model, Brinkman-layer, shared-clock, and FTLE-validity diagrams were drawn for these notes (TikZ). Code fragments are adapted from the Planktos repository (GPLv3) as credited on each slide; the plots are this series' runs (\texttt{examples/Planktos}), the 2021 lab deck's, and two Planktos documentation images (the title slide and slide~\ref{fr:collide}).
 \end{punchbox}
 \end{frame}
 

@@ -21,6 +21,7 @@ Small, dependency-light readers used by the chapters of *Using IB Software*; eac
 | `read_exodus.py`, `read_exodus.m` | the ExodusII file of an IBFE run (`output.ex2`): times, coordinates, connectivity, nodal fields, current positions | 33, 28 |
 | `hier_data_h5.py` | the HDF5 state dumps the upstream examples write (`hier_data.NNNNN.samrai.PPPPP`): patches with the solver's cell and side data | 33 |
 | `piv_to_vtk.py` | two text arrays (PIV components, or any gridded field) to a VTK vector field for VisIt | 33, 29 |
+| `vtk_for_planktos.py` | `resample_export.py`'s VTK exports of a 3D run made readable by Planktos's `read_IBAMR3d_vtk_data`: the vector made the active one, the files numbered `IBAMR_db_000.vtk`, `IBAMR_db_001.vtk`, ... (needs `vtk`) | 35 |
 
 Python 3 with `numpy`; `h5py` for the SAMRAI files, `netCDF4` for Exodus, `vtk` or `pyvista` only if you want them (`apt install python3-h5py python3-netcdf4 python3-vtk9` on Ubuntu, `pip install h5py netCDF4` elsewhere). VisIt 3.5's own Python (3.13) has NumPy, VTK and Pillow but not h5py, netCDF4, pyvista, pandas, SciPy or matplotlib (measured, chapter 32); `resample_export.py`, `visit_3d.py`, `visit_queries.py` and `visit_movie_frames.py` call VisIt's functions and run inside VisIt, the others in any Python 3 with the packages above. The `.m` files were run in Octave 8.4 (with the `netcdf` package for `read_exodus.m`) except `samrai_dumps.m`, which needs MATLAB's `h5read`.
 
