@@ -91,7 +91,7 @@
   \item \al{The course's ``4-ib2d-MakeYourOwnExample'' folder (two beams driven by target points) and its homework} (``Your own rubber band'', Lectures 3 and 9; option 2 of Lecture 11's homework 4).
   \item The IB2d examples \code{Example\_Moving\_Rubberband}, \code{Example\_Sawtooth}, \code{Example\_Pulsing\_Heart} (all three ported here), \code{Tracers\_In\_Impedance\_Pump} (Python) and the swimmer (chapter 4b).
 \end{itemize}
-What is new here: the three Python ports and their runs, the two prescription styles, the sawtooth's failure on laptop grids, the checklist for a new example, and three things to fix in the course's own template.
+What is new here: the three Python ports and their runs, the two prescription styles, the sawtooth's failure on the coarser grids tried on a desktop PC, the checklist for a new example, and three things to fix in the course's own template.
 \end{frame}
 
 % ---------------------------------------------------------------- the mechanism
@@ -169,7 +169,7 @@ def update_Target_Point_Positions(dt, current_time, targets):
         targets[:, 1] -= s * dt          # left
     return targets
 \end{lstlisting}
-\small
+\footnotesize
 The MATLAB original loops over the rows and does the same (\code{targets(IDs(i),3) = yPts(IDs(i)) + (s/2)*dt} and the $x$ branch); the Python port uses the table's columns at once.
 \column{0.48\textwidth}
 \small
@@ -551,7 +551,7 @@ Lecture 11's homework 4, option 1: run an example related to your project instea
   \item A boundary moves in IB2d because something it is tied to changes in time: a target position, a resting length, a rest curvature, an activation. Each has a flag in \code{input2d} and a function in the example folder that the driver calls every step with the time and the current table, and whose returned table replaces it.
   \item The moving band increments the targets every step; the sawtooth sets them from the original positions as a function of time. Use the second style: no drift, the same motion at every $\Delta t$.
   \item The sawtooth's hard-coded \code{N\_top} and the two-beam template's \code{while} and row numbers are the classic mistakes of this kind of file: counts typed in for one resolution, a loop that was meant to be a condition, rows of the table confused with indices of the points. Read the counts from the files; test the function without the fluid.
-  \item Coarsening a grid changes what a tethered wall can take: the sawtooth pump, built for $1024 \times 256$, failed on every laptop grid tried (stiff tethers blow up, soft ones let points stray two cells from their targets), while the pulsing heart at $32^2$ runs in half a minute; chapter 4d makes that a measurement.
+  \item Coarsening a grid changes what a tethered wall can take: the sawtooth pump, built for $1024 \times 256$, failed on every coarser grid tried on a desktop PC (stiff tethers blow up, soft ones let points stray two cells from their targets), while the pulsing heart at $32^2$ runs in half a minute; chapter 4d makes that a measurement.
   \item A new example is a sketch, a grid, points at $\Delta x/2$ in a known order, files with the right index base, an \code{input2d} copied from a working example, a short first run and a look at the first dumps.
   \item Next: chapter 4d, the stability and convergence lab.
 \end{itemize}

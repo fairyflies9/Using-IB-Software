@@ -34,7 +34,7 @@ An elastic tube in a closed loop (a "racetrack") inside a rigid pericardium, wit
 | `peri_aforce_512.vertex`, `.spring` | Mode `FORCE_PERI`: the middle 0.32 m of both walls (328 + 328 points) with springs across the tube carrying `Fmag`, the phase and force function index 2 |
 | `peri_kwave_512.vertex`, `.spring` | Mode `STIFFNESS_PERI`: the same 656 points with ordinary springs (index 0) of stiffness 0 and rest length 0.05 m (half the diameter) |
 | `pperi_top_512`, `pperi_bot_512` (`.vertex`, `.target`) | Mode `TARGET_PERI`: the middle 0.3 m of each wall (308 + 308 points), every point a target |
-| `generate_mesh2d.m`, `generate_mesh2d.py` | MATLAB/Octave and Python scripts that write all 27 structure files. They write identical files (checked with Octave 8.4 and Python 3.12). |
+| `generate_mesh2d.m`, `generate_mesh2d.py` | MATLAB/Octave and Python scripts that write all 27 structure files. On one system they write identical files (checked with Octave 8.4 and Python 3.12 on Linux). The `heart_race_512.vertex` in this folder was written by Python on Windows: Octave 8.4 and Python on Linux differ from it in the last digit of 101 coordinates and MATLAB R2024a in 88 (round-off of sine and cosine, at most 6×10⁻¹⁷ m); the other 26 files are the same everywhere. |
 | `make_inputs.py` | Writes the four other input files from `input2d` |
 | `CMakeLists.txt` | Build instructions for CMake. It lists all six `.cpp` files. |
 | `job.slurm` | Batch script for Puma |
@@ -153,7 +153,7 @@ This example is the lab's 2014 `Forced-tube-pump` code (UNC, the lecture *Design
 - The lecture's Gaussian-wave loop used an undefined variable `c` (it meant the wave speed) and added the packets of all earlier pulses, which had long left the piece; one packet per period is the same thing and is what the code does. The width and speed are input keys (`PERI_WIDTH`, `PERI_SPEED`); shipped are the lecture's 25 mm width and the 2014 code's speed of 1.3 piece lengths per period (the code's 5 mm packet closed the tube; the lecture's slides had 0.025 m and 1.0).
 - The `.spring` files of the force modes reuse the rest-length column for the phase; this is now documented in the generator and in the update functions.
 - The time step is 5.0e-5 s instead of 1.0e-5 s (2.5e-5 s for mode `FORCE_PERI` on its stiffer tube), and the run stops at 2 s instead of 10 s.
-- `generate_mesh2d.m` is the 2014 generator with a few edits (it writes `peri_aforce_512.spring` with `Fmag`, phase and index 2, as the lecture describes, `peri_kwave_512.*` for the stiffness-wave mode and `heart_tube_stiff_512.*` for the force-driven wave; the actuator's force is `Fmag_vp`; `percont` is 0.5 and `Fmag` 1 instead of 0.8 and 4); `generate_mesh2d.py` is new. Both write identical files (27).
+- `generate_mesh2d.m` is the 2014 generator with a few edits (it writes `peri_aforce_512.spring` with `Fmag`, phase and index 2, as the lecture describes, `peri_kwave_512.*` for the stiffness-wave mode and `heart_tube_stiff_512.*` for the force-driven wave; the actuator's force is `Fmag_vp`; `percont` is 0.5 and `Fmag` 1 instead of 0.8 and 4); `generate_mesh2d.py` is new. Both write identical files (27; on one system: see the table above for `heart_race_512.vertex`).
 - The 2015 public-folder example `14-YourOwnForceEx` (a sinusoidal force `F*sin(2πft)` on a "muscle" structure, with `update_springs_freq.C`) shipped without input or structure files; its force function is the `FORCE_VP` mode of this example.
 
 The original files are in `examples/legacy/`.

@@ -981,7 +981,7 @@ mpirun -np 4 ./build/main2d input2d
 grid & $160\times12$ on level 0, four levels at ratio $2$, $\mathrm{DX} = 1/32$; the finest level follows the walls \\
 walls & $2\times1280$ \code{QUAD4}, one element thick; \code{IB\_point\_density = 3} \\
 step & $\mathrm{DT} = 1.95\times10^{-5}$ s; $51200$ steps per second of channel \\
-speed & $28$ steps per second on four cores (laptop, WSL): $1$ s of channel in $30$ minutes; $2$ s in $60$ \\
+speed & $28$ steps per second on four cores (desktop PC, WSL): $1$ s of channel in $30$ minutes; $2$ s in $60$ \\
 output & a frame every $3200$ steps ($0.0625$ s): \code{visit\_dump.NNNNN}, \code{loweroutput.ex2}, \code{upperoutput.ex2}; $33$ frames, $81$ MB, plus $29$ MB of restart files \\
 regrids & $831$ in $102400$ steps: a wall that moves regrids the hierarchy every $120$ steps or so (\code{regrid\_cfl\_interval = 0.5}) \\
 \code{caseS2}, \code{caseSP} to $100$ s & five million steps: a cluster job of days, with restarts every \code{restart\_dump\_interval} steps \\

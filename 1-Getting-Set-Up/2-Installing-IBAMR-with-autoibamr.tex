@@ -158,7 +158,7 @@ IBAMR & Released & SAMRAI fork & Notes \\
 \end{tabular}
 \vspace{5mm}
 \begin{itemize}
-  \item Every example in this tutorial builds and runs with \textbf{0.16.0 and 0.19.0}.
+  \item Every example in this tutorial builds and runs with \textbf{0.16.0 and 0.19.0}; IB/13 and the three ConstraintIB examples were run with 0.19.0 only (chapter 36).
   \item The one difference you will notice is in VisIt: from 0.19, plot \code{U}, \code{U[0]} or \code{magnitude(U)} instead of \code{U\_x}. Those expressions also work with 0.16.
   \item Starting fresh on a laptop? Take the default, 0.19.0.
   \item The autoibamr help text lists versions up to 0.17.0 only. The script itself installs 0.19.0 by default and accepts \code{--ibamr-version=0.18.0} and \code{0.19.0}.
@@ -174,7 +174,7 @@ IBAMR & Released & SAMRAI fork & Notes \\
   \item Linux, macOS, or Windows through WSL2.
   \item Good for learning, editing input files, 2D runs and VisIt.
   \item Needs about \textbf{6~GB} of disk: one install with its sources and build files took 5.6~GB.
-  \item Builds in about half an hour on a fast laptop with 12 parallel jobs.
+  \item Builds in about half an hour on a fast desktop PC with 12 parallel jobs.
 \end{itemize}
 \end{block}
 \end{column}
@@ -341,7 +341,7 @@ Run \code{./autoibamr.sh --help} for the full list.
 
 % 13
 \begin{frame}[fragile]{How long it takes}
-The end of the screen output from the two installs made for this tutorial (a 24-core laptop running Ubuntu 24.04 under WSL2, 12 parallel jobs):
+The end of the screen output from the two installs made for this tutorial (a desktop PC with 24 threads running Ubuntu 24.04 under WSL2, 12 parallel jobs):
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.48\textwidth}
 \begin{lstlisting}

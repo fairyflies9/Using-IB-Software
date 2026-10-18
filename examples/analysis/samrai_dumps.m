@@ -7,15 +7,19 @@ function d = samrai_dumps(folder, var, level)
 %   The same reading as samrai_dumps.py: summary.samrai (BASIC_INFO, extents) and processor_cluster.CCCCC.samrai
 %   (processor.P/level.L/patch.N/<var>, stored x-fastest). Nodal variables (U, P, Omega) come back on the nodes
 %   (nx+1 columns), cell-centred ones (Div U) on the cell centres; coarse patches are interpolated (nodal, bilinear)
-%   or repeated (cell) where no finer patch exists. 2D only in this MATLAB version. MATLAB's h5read is used;
-%   Octave 8 has no h5read, so this file was checked only against the Python reader, not run.
+%   or repeated (cell) where no finer patch exists. 2D only in this MATLAB version. MATLAB's h5read is used
+%   (Octave 8 has none). Checked in MATLAB R2024a against samrai_dumps.py on a dump of IB/03: the same arrays.
 %   This replaces the 2013 lecture's importsamrai.m (E. Tytell), which read the pre-HDF5 layout and could not cope
 %   with the space in "Div U".
 sfile = fullfile(folder, 'summary.samrai');
 d.folder = folder;
 d.ndim = double(h5read(sfile, '/BASIC_INFO/number_dimensions_of_problem'));
 names = h5read(sfile, '/BASIC_INFO/var_names');
-d.variables = cellfun(@(s) strtrim(char(s(:)')), num2cell(names, 1), 'UniformOutput', false);
+if isstring(names)                                         % MATLAB R2020a and later: a string array
+    d.variables = cellstr(strtrim(names(:)'));
+else                                                       % older releases: a character matrix, a name per column
+    d.variables = cellfun(@(s) strtrim(char(s(:)')), num2cell(names, 1), 'UniformOutput', false);
+end
 d.variables = cellfun(@(s) regexprep(s, char(0), ''), d.variables, 'UniformOutput', false);
 cc = double(h5read(sfile, '/BASIC_INFO/var_cell_centered'));
 nc = double(h5read(sfile, '/BASIC_INFO/var_number_components'));
@@ -50,17 +54,17 @@ if nargin < 3, level = d.levels - 1; end
 if d.ndim ~= 2, error('samrai_dumps:ndim', 'this MATLAB version handles 2D dumps; use samrai_dumps.py for 3D'); end
 r0 = ones(1, 2); for lv = 2:level + 1, r0 = r0 .* d.ratios(lv, :); end
 n = d.n0 .* r0; dxl = d.dx(level + 1, :);
-cell = d.cell_centered(var); ncomp = d.components(var);
-if cell, shape = [n(2) n(1)]; else, shape = [n(2) + 1, n(1) + 1]; end
+iscc = d.cell_centered(var); ncomp = d.components(var);
+if iscc, shape = [n(2) n(1)]; else, shape = [n(2) + 1, n(1) + 1]; end
 data = cell(1, ncomp); for c = 1:ncomp, data{c} = nan(shape); end
 for lv = 0:level
     r = ones(1, 2); for k = lv + 2:level + 1, r = r .* d.ratios(k, :); end
     for p = d.patches([d.patches.level] == lv)
         lo = p.lower .* r; hi = (p.upper + 1) .* r;                   % cells of 'level', 0-based, hi exclusive
-        arrays = patch_data(d, p, var, cell, ncomp);
+        arrays = patch_data(d, p, var, iscc, ncomp);
         for c = 1:ncomp
             a = arrays{c};
-            if cell
+            if iscc
                 fine = kron(a, ones(r(2), r(1)));
                 data{c}(lo(2) + 1:hi(2), lo(1) + 1:hi(1)) = fine;
             else
@@ -72,7 +76,7 @@ for lv = 0:level
         end
     end
 end
-if cell
+if iscc
     d.x = d.xlo(1) + dxl(1) * ((0:n(1) - 1) + 0.5); d.y = d.xlo(2) + dxl(2) * ((0:n(2) - 1) + 0.5);
 else
     d.x = d.xlo(1) + dxl(1) * (0:n(1)); d.y = d.xlo(2) + dxl(2) * (0:n(2));
@@ -80,11 +84,11 @@ end
 if ncomp == 1, d.data = data{1}; else, d.data = data; end
 end
 
-function arrays = patch_data(d, p, var, cell, ncomp)
+function arrays = patch_data(d, p, var, iscc, ncomp)
 f = fullfile(d.folder, sprintf('processor_cluster.%05d.samrai', p.cluster));
 g = sprintf('/processor.%05d/level.%05d/patch.%05d/', p.proc, p.level, p.number);
 ncell = p.upper - p.lower + 1;
-if cell, shape = ncell; else, shape = ncell + 1; end
+if iscc, shape = ncell; else, shape = ncell + 1; end
 arrays = cell(1, ncomp);
 for c = 1:ncomp
     if ncomp == 1, name = var; else, name = sprintf('%s.%02d', var, c - 1); end

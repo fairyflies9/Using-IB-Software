@@ -111,15 +111,15 @@ A--C & Appendices & A MATLAB and Python helper codes \textbullet\ B glossary, re
 \scriptsize
 \begin{tabular}{@{}L{0.18\textwidth}L{0.76\textwidth}@{}}
 \toprule
-IBAMR & \al{0.16.0} (31 January 2025), the version installed on Puma, and \al{0.19.0} (11 March 2026), the latest release. Every example was built and run with both. 0.19.0 writes the velocity only as the vector \code{U}; older versions also wrote \code{U\_x}, \code{U\_y}, \code{U\_z}.\\
+IBAMR & \al{0.16.0} (31 January 2025), the version installed on Puma, and \al{0.19.0} (11 March 2026), the latest release. Every example was built and run with both, except IB/13 and the three ConstraintIB examples, run with 0.19.0 (chapter 36). 0.19.0 writes the velocity only as the vector \code{U}; older versions also wrote \code{U\_x}, \code{U\_y}, \code{U\_z}.\\
 IBAMR 0.20 (in development) & drops the autotools build: only CMake remains. Everything here builds with CMake and starts with \code{IBTKInit}, so it is ready for 0.20.\\
 autoibamr & the installer used in chapter 2 (commit \code{9c1e0a5}, October 2026), which pins libMesh 1.7.8 and PETSc 3.23.3 for these IBAMR versions.\\
 Compilers and MPI & GCC 13.3 and Open MPI 4.1.6 on Ubuntu 24.04 (also under WSL2 on Windows); on Puma the modules \code{gnu13} and \code{openmpi5}.\\
-IB2d & the current GitHub version, in MATLAB R2024a or Python 3.12.\\
+IB2d & the GitHub version cloned on 6 March 2024 (commit \code{58663e1}; chapters 4a--4f), in MATLAB R2024a or Python 3.12 (pyIB2d, with the tracer fix of chapter 4b).\\
 VisIt & 3.5.0.\\
 gmsh & 4.12.1 (meshes in MSH 2.2 text format); Coreform Cubit for hexahedral meshes.\\
-Planktos & the current GitHub version (Python).\\
-Helper scripts & MATLAB R2024a; every MATLAB script has a Python 3 version, checked against Octave 8.4.\\
+Planktos & 1.0.3, commit \code{a1c2128} (19 August 2026), in Python 3.12 (chapters 34 and 35).\\
+Helper scripts & MATLAB R2024a; every MATLAB script has a Python 3 version, checked against Octave 8.4: 26 scripts outside \code{examples/legacy} (Appendix A).\\
 \bottomrule
 \end{tabular}
 \vspace{2mm}

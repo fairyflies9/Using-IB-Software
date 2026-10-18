@@ -109,7 +109,7 @@ This example is the course's `8-AddingMass-Spider` (2020; the folder in the cour
 
 - A CMake build replaces the Makefile; `main.C` became `main.cpp`, starts IBAMR with `IBTKInit` and no longer includes the old configuration headers. It is IB/01's program with `PenaltyIBMethod` in place of `IBMethod`.
 - The course program also carried a temperature field: an advection-diffusion integrator with a Boussinesq body force (`BoussinesqForcing.cpp`, `KAPPA`, `GAMMA`, the `Temperature*` and `AdvDiff*` input blocks). The lecture never mentioned it and the spider does not use it; it is left out, and the input file's blocks with it. Chapter 19 has thermal forcing where it belongs.
-- The generator's beam loop wrote one beam too many, naming a point past the end of the line, under a header that did not count it; the loop now stops at the last valid triple. The mass point is the last point of the dragline (the course file put it on the one before).
+- The generator's beam loop wrote one beam too many, `169 170 171`, naming a point past the end of the line (the header's count, 169, was right); the loop now stops at the last valid triple. The mass point is the last point of the dragline, point 170, as in the course file.
 - The input file has Unix line endings and no trailing `//` on every line; `DT` is a plain number; the Silo writer is enabled so that the dragline appears in VisIt; the run is 2 s instead of 20.
 - `generate_mesh2d.py` is new; `generate_mesh2d.m` is the course's with the two fixes. Both write identical files.
 - `output_data` writes the positions and forces every 1000 steps; the course program did not.

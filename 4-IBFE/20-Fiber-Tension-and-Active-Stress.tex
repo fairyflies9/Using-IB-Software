@@ -291,7 +291,7 @@ ib_method_ops->registerPK1StressFunction(PK1_dil_stress_data);
 \medskip
 \begin{itemize}
   \item The plate is IBFE/01's ($1.0\times0.0312$, $\mu = 10$) with \emph{no tether}: nothing holds it, so the fibre tension alone moves it, and anything it does is what the muscle did.
-  \item The values are the course's; each mode gives exactly the course program's node positions (checked on 0.19.0 to the last digit). The runs take $23$--$41$ s on four laptop cores.
+  \item The values are the course's; each mode gives exactly the course program's node positions (checked on 0.19.0 to the last digit). The runs take $23$--$41$ s on four cores of a desktop PC (WSL).
   \item ``Alternating'' in the course's name meant top and bottom halves; the shipped folder applies the pulse to the bottom half only, as its own slide says. The 2014 \code{OscillatingMuscleFiber2D} is the one that alternates (slide \ref{fr:oscillating}).
 \end{itemize}
 \end{frame}

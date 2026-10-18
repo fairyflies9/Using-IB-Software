@@ -591,7 +591,7 @@ the band drifts from its generator's shape at step 0 & the generator's \code{N} 
 \footnotesize
 \begin{enumerate}
   \item IB/01: raise \code{DT} until the run aborts, then set \code{warn\_on\_dt\_change = TRUE} and \code{error\_on\_dt\_change = FALSE} and run again; plot \code{dt} from the log against time and say what the integrator did instead of stopping.
-  \item Run the two Python exercises of slide \ref{fr:exercises} at the lecture's parameters and at one more of your own each; write the stability condition you observed as an inequality.
+  \item Run the two Python exercises of slides \ref{fr:exercises}--\ref{fr:exercises2} at the lecture's parameters and at one more of your own each; write the stability condition you observed as an inequality.
   \item Repeat the convergence study of slides \ref{fr:conv1}--\ref{fr:conv2} on IB/03 (chapter 8a's tethered beam) with the drag coefficient of chapter 11 as the number: three grids, one order.
   \item Take the upstream cylinder of chapter 15 (\code{IB/explicit/ex2}) and set \code{vorticity\_rel\_thresh} to $0.5$, $0.25$ and $0.1$; count the finest-level cells in the log at $t = 20$ s and compare the wake in VisIt.
   \item Make a run fail on purpose in three different ways (a key in the wrong block, a point outside the box, a stiffness ten times too high) and write down, for each, the first line of the log that gave it away.

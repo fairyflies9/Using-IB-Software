@@ -73,7 +73,7 @@
   \item Turn a \code{.vertex} file into an IB2d example: targets, walls, a driven flow; and know what the IB2d starfish example does with its points, and what it does not.
 \end{itemize}
 \begin{punchbox}
-\small MeshmerizeMe itself is not installed on this tutorial's laptop. This chapter describes it from its paper, the 2021 lecture and Senter's design notes, measures the MeshmerizeMe output that ships with IB2d, and does the same job (points at equal Euclidean distances, found by a walk and bisection instead of MeshmerizeMe's gradient descent) with a 400-line script (\code{examples/IB2d/Mesh\_From\_SVG/svg\_to\_vertex.py}, about 320 lines of code) whose output then runs in Python IB2d (October 2026).
+\small MeshmerizeMe itself is not installed on the desktop PC used for this tutorial. This chapter describes it from its paper, the 2021 lecture and Senter's design notes, measures the MeshmerizeMe output that ships with IB2d, and does the same job (points at equal Euclidean distances, found by a walk and bisection instead of MeshmerizeMe's gradient descent) with a 400-line script (\code{examples/IB2d/Mesh\_From\_SVG/svg\_to\_vertex.py}, about 320 lines of code) whose output then runs in Python IB2d (October 2026).
 \end{punchbox}
 \end{frame}
 
@@ -422,7 +422,7 @@ The circle's 1287 points match $2\pi r/\Delta s = 1286.8$. Step 4's last chord i
 \code{input2d}: $\rho = 1000$, $\mu = 0.1$, $\Delta t = 5 \cdot 10^{-5}$, $T = 0.4$ (one pulse and one rest; MATLAB's runs to 1).
 
 \vspace{2mm}
-8000 steps, 223\,s (under four minutes) on the laptop.
+8000 steps, 223\,s (under four minutes) on the desktop PC.
 
 \vspace{2mm}
 The SVG is not copied into this repository: it is part of IB2d (GPL-3.0) and was extracted by ContourizeMe from a NOAA photograph; the script reads it from your IB2d clone. \code{main2d.py} (IB2d's own file) and the forcing (a port of IB2d's) stay under IB2d's GPL-3.0.

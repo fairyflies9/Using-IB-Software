@@ -23,7 +23,7 @@ python3 main2d.py              # with input2d at 1024 x 256 and Tfinal = 10, as 
 ```
 
 **This example needs its full grid.** The MATLAB example tethers its points with k_target = 1e11 at 1024 x 256
-and runs (its folder holds an analysis of its first three cycles). On the laptop grids tried in October 2026 every run failed
+and runs (its folder holds an analysis of its first three cycles). On the coarser grids tried on a desktop PC in October 2026 every run failed
 with NaN positions (an IndexError in the delta-function indices is how Python reports it) before one cycle was done:
 
 | grid | k_target | dt | stroke a | fails at t |

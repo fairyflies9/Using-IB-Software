@@ -599,7 +599,7 @@ python3 stiff_ode_example.py 0.01 1
   \item For an IB simulation the question is the same: is the flow around the boundary resolved? Are the shed vortices resolved? Is the gap between two structures resolved?
   \item Chapter 16 makes this a procedure: run on two or three grids ($N$, $2N$, $4N$ on the coarsest level, which refines every level), compare a number you care about (a drag force, a swimming speed, a tip position), and stop refining when it changes by less than you can accept.
   \item Convergence in time is checked the same way with $\Delta t$; in IB runs it is usually the space resolution that limits accuracy, because the time step is already small for stability (slide 27).
-  \item Chapter 4d does the whole exercise in IB2d on a laptop, where a grid study takes minutes; the same study in IBAMR is the first thing to do before a long 3D run.
+  \item Chapter 4d does the whole exercise in IB2d on a desktop PC, where a grid study takes minutes; the same study in IBAMR is the first thing to do before a long 3D run.
 \end{itemize}
 \vspace{2mm}
 \begin{punchbox}
@@ -625,11 +625,11 @@ python3 heat_equation.py 19 70    # r = 0.57: not yet visible
 \end{lstlisting}
 \end{column}
 \begin{column}{0.48\textwidth}
-\small
+\footnotesize
 \begin{itemize}
-  \item The plot shows the numerical and the exact solution at $t = 0.1$; the Python version prints $\Delta x$, $\Delta t$ and $r$ and saves \code{heat\_equation.png}.
+  \item The plot shows the numerical and the exact solution at $t = 0.1$; the Python version prints the largest error, writes $\Delta x$, $\Delta t$ and $r$ on the plot and saves \code{heat\_equation.png}.
   \item The 2018 lecture used $n = 10$ with $T = 2, 4, 8, 16, 32, 64$. With so few points the unstable runs (any $T < 25$) have not yet grown visibly by $t = 0.1$, and the solutions look merely wrong; $n = 19$ with $T = 25$ and $50$ shows the real blow-up.
-  \item The course's \code{heat\_equation.m} had a header that said $\sin 3\pi x$ while the code used $\sin 2\pi x$, and wrote an EPS file on every call; both are fixed, and the Python version gives identical numbers (checked with Octave).
+  \item The course's \code{heat\_equation.m} had a header that said $\sin 3\pi x$ while the code used $\sin 2\pi x$, and writes an EPS file on every call (\code{print -deps Example4\_1.eps}, left as it was: chapter 4d); the header is fixed, and the Python version gives the same numbers in the stable cases (checked with Octave; in the unstable ones the round-off that starts the blow-up differs from program to program, Appendix A).
 \end{itemize}
 \end{column}
 \end{columns}

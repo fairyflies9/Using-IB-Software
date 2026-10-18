@@ -896,7 +896,7 @@ a heavier body falls no faster & \code{rho\_solid} does not add inertia & a grav
   \item A program needs \code{ConstraintIBMethod}, a \code{ConstraintIBKinematics} subclass with four functions, and two input blocks: the structure's (names, levels, the free-component flags, the update method, a tagged point, the class's own keys) and the method's with \code{PrintOutput}.
   \item Locked flags give prescribed motion (01); free flags with zero kinematics give a rigid body moved by the fluid's momentum (02); free flags with a deformation give a swimmer (03).
   \item The outputs are plain text: drag, torque, power, velocities, centre of mass, moments of inertia, the fluid's momentum; four lines of Python or MATLAB read them.
-  \item The three examples run in minutes to an hour on a laptop and reproduce the lecture's pictures; the 2020 slides' three slips (a key that does not exist, a file name, what \code{RigidBodyKinematics} does) are corrected here.
+  \item The three examples run in minutes to an hour on a desktop PC (WSL) and reproduce the lecture's pictures; the 2020 slides' three slips (a key that does not exist, a file name, what \code{RigidBodyKinematics} does) are corrected here.
 \end{enumerate}
 \begin{homebox}
 \footnotesize Chapter 15 tours the rest of IBAMR's examples, ConstraintIB's nine among them; chapter 16 collects what can go wrong.

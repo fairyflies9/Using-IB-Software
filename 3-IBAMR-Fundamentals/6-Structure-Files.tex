@@ -535,11 +535,11 @@ i_0  j_0  kappa_0  L_0  [fcn_0 ...]
 \small \al{Crosslink springs} have the same line format as \code{.spring}, but the indices are \al{global} (slide 8), so a crosslink spring may join points of two different structures.
 \end{column}
 \begin{column}{0.48\textwidth}
-\small
+\footnotesize
 \begin{itemize}
   \item The two structures must be on the same grid level.
   \item The lower index is the master point, as for springs; the same force functions and the same optional columns apply, and \code{uniform\_xspring\_stiffness}, \code{uniform\_xspring\_rest\_length} and \code{uniform\_xspring\_force\_fcn\_idx} override the file.
-  \item Chapter 9a ties two structures together with them (two plates hinged at a point; a wing attached to a body).
+  \item They are the file route for tying two structures together (two plates hinged at a point; a wing attached to a body); chapter 9a lists them with the other ways, and none of this series' examples uses one.
   \item Reordering \code{structure\_names} silently rewires every crosslink spring: regenerate the file when you do.
 \end{itemize}
 \end{column}

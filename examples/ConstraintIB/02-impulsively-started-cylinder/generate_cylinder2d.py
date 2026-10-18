@@ -28,7 +28,7 @@ YCOM = sum(Y_array) / len(Y_array)
 X_array = [x - XCOM for x in X_array]
 Y_array = [y - YCOM for y in Y_array]
 
-with open("cylinder2d.vertex", "w", newline="\n") as f:   # LF line endings, as the MATLAB script writes
+with open("cylinder2d.vertex", "w", newline="\n") as f:   # LF line endings, as the MATLAB script writes on Linux and macOS (on Windows MATLAB's 'wt' mode writes CRLF: the same numbers)
     f.write("%d\n" % len(X_array))
     for x, y in zip(X_array, Y_array):
         f.write("%f\t%f\n" % (x, y))

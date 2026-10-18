@@ -40,7 +40,7 @@ for i in range(1, BodyNx + 1):
         NumMatPoints += 2
     rows.append((xs_up + xs_down, ys_up + ys_down))
 
-with open("eel2d.vertex", "w", newline="\n") as f:   # LF line endings, as the MATLAB script writes
+with open("eel2d.vertex", "w", newline="\n") as f:   # LF line endings, as the MATLAB script writes on Linux and macOS (on Windows MATLAB's 'wt' mode writes CRLF: the same numbers)
     f.write("%d\n" % NumMatPoints)
     for xs, ys in rows:
         for x, y in zip(xs, ys):

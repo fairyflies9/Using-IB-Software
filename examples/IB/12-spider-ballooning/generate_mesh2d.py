@@ -11,10 +11,10 @@ domain due to gravity. The dragline slows it down." "Note that this is a 2D
 simulation. The mass is actually a mass per unit length."
 
 Changes from the course generator (8-AddingMass-Spider, 2020): the beam loop
-ran one triple too far (it wrote a beam with a point index past the end of the
-dragline, under a header that did not count it); the mass point is the last
-point of the dragline (point npts-1; the course file said npts-2); the files
-have Unix line endings.
+ran one triple too far (it wrote a 170th beam, 169 170 171, naming a point past
+the end of the dragline, under a header of 169 that was right); the files have
+Unix line endings. The mass point is the last point of the dragline (point
+npts-1), as in the course file.
 
 Run it in this folder: python3 generate_mesh2d.py
 generate_mesh2d.m writes the same files (checked with Octave 8.4 and Python 3.12).
@@ -26,7 +26,7 @@ N = 256                                       # number of Cartesian grid meshwid
 dx = L / N                                    # Cartesian mesh width (m)
 
 drag_length = 0.10                            # length of the dragline (m)
-npts = math.ceil(2 * (drag_length / L) * N)   # number of points along the dragline (172)
+npts = math.ceil(2 * (drag_length / L) * N)   # number of points along the dragline (171)
 ds = drag_length / (npts - 1)                 # distance between neighboring points (m)
 
 mesh_name = "spider2d_"                       # structure name

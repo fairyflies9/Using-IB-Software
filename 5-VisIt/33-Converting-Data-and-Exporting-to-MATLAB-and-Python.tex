@@ -83,7 +83,7 @@
   \item bring other programs' fields into VisIt (PIV components to VTK, COMSOL's VTU) and know where ParaView, Tecplot and the LCS tools fit.
 \end{enumerate}
 \begin{punchbox}
-\scriptsize Everything shown was run: the readers on IB/13, IB/02, IB/11, IBFE/01, IBFE/10 and an upstream run, with Python 3.12 (h5py 3.10, netCDF4 1.6, vtk 9.1, meshio 5.3) and Octave 8.4 (netcdf 1.0.17) in WSL; MATLAB itself was not available, so the \code{.m} files were checked in Octave where Octave has the function (netCDF yes, \code{h5read} no).
+\scriptsize Everything shown was run: the readers on IB/13, IB/02, IB/11, IBFE/01, IBFE/10 and an upstream run, with Python 3.12 (h5py 3.10, netCDF4 1.6, vtk 9.1, meshio 5.3) and Octave 8.4 (netcdf 1.0.17) in WSL; the \code{.m} files were checked in Octave where Octave has the function (netCDF yes, \code{h5read} no), and \code{samrai\_dumps.m} later in MATLAB R2024a (Appendix A).
 \end{punchbox}
 \end{frame}
 
@@ -95,7 +95,7 @@
   \item \al{``Taking a 2D slice from 3D IBAMR with Visit'' (2017, 17 slides) and ``6 -- Resampling AMR grids to Uniform Grid, exporting to .vtk, and recording in Python'' (2018, 21 slides):} the Resample operator, the plane of one sample, \gui{Export Database} to VTK, the \code{2D\_Slicer.py} recording with its time loop, Nick's MATLAB reader, the \code{mopenpiv} reader, the ``cut off the edges'' warning, the KillDevil commands. Quoted and redone in 3.5 (slides \ref{fr:resample}--\ref{fr:plane}).
   \item \al{``Converting IBAMR output to Matlab and analyzing it'' (MATH 769, 23 April 2013, 12 slides) and ``5 -- Reading forces and converting IBAMR output to Matlab and analyzing it'' (2020, 24 slides):} Eric Tytell's \code{importsamrai.m} and its \code{V} structure, the \code{OUTPUT\_DIV\_U} workaround, \code{flappy\_ends.m} and \code{vol\_flow\_rate.m}, \code{pcolor\_frames.m}; the Lagrangian half is chapter 11, the Eulerian half is here (slides \ref{fr:importsamrai}, \ref{fr:flow}--\ref{fr:frames}).
   \item \al{Christopher Strickland's 2017 scripts and README} (``IBAMR $\to$ VTK $\to$ NumPy''): \code{read\_IBAMR3d\_py27.py} and \code{read\_vtk\_data.py}; \al{Nick Battista's 2017 MATLAB readers} \code{read\_Structured\_Vector\_Field\_Data\_From\_vtk.m} and \code{Convert\_vtk2LCS.m}; the lab's 2017 Read Me notes on batch processing (Lindsay Waldrop), LCS options, Dabiri's LCS code and Arvind's circulation script; the 2017 ``Read Me and To Do'' whose item ``overview of translating one file type to another (.visit, .m, .py, .txt, .vtk, etc)'' was the one-slide stub this chapter fills.
-  \item \al{The 2019 ``6. Analyze PIV Data'' document} (DaVis batch processing; the lost \code{toVTK.py}) and \al{the 2020 COMSOL lecture's slides 12--14} (export as VTU, open in VisIt).
+  \item \al{The 2019 ``6. Analyze PIV Data'' document} (DaVis batch processing; the lost \code{toVTK.py}) and \al{the 2019 COMSOL lecture's slides 12--14} (export as VTU, open in VisIt).
   \item \al{New here:} the file formats read from the files themselves (\code{h5py}, \code{ncdump}); \code{samrai\_dumps.py/.m}, \code{read\_exodus.py/.m}, \code{read\_vtk\_legacy.py/.m}, \code{hier\_data\_h5.py}, \code{resample\_export.py}, \code{flow\_rate.py}, \code{piv\_to\_vtk.py} in \code{examples/analysis}, each tested; the comparison of the Python route with VisIt's; what VisIt 3.5 does wrong headless.
 \end{itemize}
 \end{frame}
@@ -315,7 +315,7 @@ time 0.9548 step 19096  levels 2  patches [4, 6]  finest cells [200, 96]  dx [0.
 \end{frame}
 
 % 11
-\begin{frame}[fragile]{The MATLAB version, and Tytell's \code{importsamrai.m} (2013)}
+\begin{frame}[fragile]{The MATLAB version, and Tytell's \code{importsamrai.m} (2013) (1/2): this series' reader}
 \label{fr:importsamrai}
 \footnotesize
 \begin{columns}[T]
@@ -327,6 +327,19 @@ d = samrai_dumps('viz_IB2d/visit_dump.19096', 'Omega'); % + d.x, d.y, d.data (ny
 pcolor(d.x, d.y, d.data); shading flat; axis equal
 d = samrai_dumps(folder, 'U');                          % d.data{1}, d.data{2}
 \end{lstlisting}
+\column{0.48\textwidth}
+\scriptsize
+\begin{itemize}
+  \item \code{samrai\_dumps.m} mirrors the Python reader line by line with \code{h5read} (MATLAB's HDF5 reader; it returns the arrays transposed, which the code undoes), \code{kron} for cell data and \code{interp2} for nodal data. It was written against the Python output (Octave 8 has no \code{h5read}); run later in MATLAB R2024a on a dump of IB/03, after two fixes (\code{h5read} returns the variable names as strings; a variable named \code{cell} hid the function \code{cell}), it gives the same arrays as the Python reader (Appendix A). 2D only.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{The MATLAB version, and Tytell's \code{importsamrai.m} (2013) (2/2): the 2013 toolbox}
+\label{fr:importsamrai2}
+\footnotesize
+\begin{columns}[T]
+\column{0.5\textwidth}
 \begin{lstlisting}[style=mtiny]
 % the 2013 / 2020 lecture (E. Tytell's toolbox, matlab-tytell/CFD, after install_here.m)
 [x,y,Vinterp,V] = importsamrai(pathname,'interpolaten',[GridSizex GridSizey])
@@ -337,7 +350,6 @@ d = samrai_dumps(folder, 'U');                          % d.data{1}, d.data{2}
 \column{0.48\textwidth}
 \scriptsize
 \begin{itemize}
-  \item \code{samrai\_dumps.m} mirrors the Python reader line by line with \code{h5read} (MATLAB's HDF5 reader; it returns the arrays transposed, which the code undoes), \code{kron} for cell data and \code{interp2} for nodal data. It was written against the Python output and not run: Octave 8 has no \code{h5read} and MATLAB was not at hand. 2D only.
   \item The 2013 lecture used Eric Tytell's \code{importsamrai.m}: ``imports samrai data from files in the directory pathname. Files should be named \code{summary.samrai} and \code{processor\_clusterXXXXX.samrai}''; its output \code{V} is ``a structure containing one element for each grid region'' with \code{level\_number} ``from 1 (coarsest) usually to 4 (finest)'', \code{xlo}, \code{xup}, \code{rows}, \code{cols} and the fields, and \code{Vinterp} the interpolated data. The same idea; its fields are the old names (\code{U\_0}, \code{F0}) and it needed \code{OUTPUT\_DIV\_U = FALSE} ``due to the space in the name''. The toolbox is third-party (link in chapter 11) and not shipped.
   \item \code{Forceread.m} and \code{positionread.m} of the same lecture are chapter 11's \code{read\_hier\_data.m}.
 \end{itemize}
@@ -727,7 +739,7 @@ frames = sd.frames("viz_IB2d")        # reads dumps.visit: rebuild it first
 \column{0.48\textwidth}
 \scriptsize
 \begin{itemize}
-  \item \code{.curve} files (queries over time, picks with a time curve, lineouts) are text with a \code{\#} header per curve; chapter 28's slide has the MATLAB and Python readers; Lindsay Waldrop's 2017 note on batch processing adds that they ``are pretty easy to import into R''.
+  \item \code{.curve} files (queries over time, picks with a time curve, lineouts) are text with a \code{\#} header per curve; chapter 29's \code{read\_curve.m} and \code{read\_curve.py} read them (chapter 28 shows \code{importdata} and a short Python loop); Lindsay Waldrop's 2017 note on batch processing adds that they ``are pretty easy to import into R''.
   \item A restarted run truncates \code{dumps.visit} and \code{lag\_data.visit} to the frames after the restart (chapter 3's test: 35 lines for 77 folders on disk); the readers of this chapter trust the lists (\code{sd.frames} walks \code{dumps.visit}), so rebuild them with chapter 3's two lines before an analysis spanning the restart. The Exodus file of an IBFE run is one file and \code{append(from\_restart)} keeps it whole (chapter 17).
   \item The frame times are in the files (\code{BASIC\_INFO/time}, \code{time\_whole}), not in the lists; \code{sd.frames} returns them.
 \end{itemize}
@@ -970,7 +982,7 @@ file & what it reads or writes & chapter \\
 \end{tabular}
 
 \vspace{1mm}
-\footnotesize All Python 3 with \code{numpy}; \code{h5py}, \code{netCDF4} and \code{vtk} where the format needs them (\code{apt install python3-h5py python3-netcdf4 python3-vtk9} on Ubuntu, \code{pip install h5py netCDF4 vtk} elsewhere; VisIt's own Python has none of them, so the VisIt scripts stay inside VisIt and the NumPy scripts outside). The \code{.m} files were checked in Octave 8.4 except \code{samrai\_dumps.m} (no \code{h5read} in Octave).
+\footnotesize All Python 3 with \code{numpy}; \code{h5py}, \code{netCDF4} and \code{vtk} where the format needs them (\code{apt install python3-h5py python3-netcdf4 python3-vtk9} on Ubuntu, \code{pip install h5py netCDF4 vtk} elsewhere; VisIt's own Python has none of them, so the VisIt scripts stay inside VisIt and the NumPy scripts outside). The \code{.m} files were checked in Octave 8.4, and \code{samrai\_dumps.m} (no \code{h5read} in Octave) in MATLAB R2024a (Appendix A).
 \end{frame}
 
 % 33

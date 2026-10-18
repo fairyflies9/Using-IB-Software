@@ -778,10 +778,11 @@ for (std::vector<double>& spring : spring_spec->getParameters())
 % 24
 \begin{frame}{Can structures be connected? What 0.19.0 allows}
 \label{fr:connect}
-\small The 2014--2020 lectures said ``I don't think you can connect springs between them.'' Checked against the initializer:
+\small The 2014--2020 lectures said ``I don't think you can connect springs between them.'' Checked against the initializer (IBAMR 0.19.0, \code{IBStandardInitializer.cpp}):
 \begin{itemize}
-  \item A \code{.spring} (or \code{.beam}, \code{.xspring}) file names points by their index \emph{within that structure's} \code{.vertex} file; \code{IBStandardInitializer} adds the structure's offset when it builds the global numbering. There is no syntax for ``point 5 of the other structure'', so \al{files cannot join two structures}. The statement was right.
-  \item Three ways around it:
+  \item A \code{.spring} or \code{.beam} file names points by their index \emph{within that structure's} \code{.vertex} file; \code{IBStandardInitializer} adds the structure's offset when it builds the global numbering. There is no syntax in these files for ``point 5 of the other structure'': \al{they cannot join two structures}. For them the statement was right.
+  \item A \code{.xspring} file is read with \emph{global} indices (\code{readXSpringFiles(".xspring", true)}: no offset is added), so its crosslink springs \al{can} join points of two structures on the same level (chapter 6). None of this series' examples uses one.
+  \item Other ways to join two structures:
   \begin{enumerate}
     \item \al{one structure, several parts}: put both plates in one \code{.vertex} file and join them with springs in the one \code{.spring} file; use the index ranges you know (points 0--102 are the left plate) in the update function instead of \code{getLagrangianStructureIndexRange};
     \item \al{the glue}: coincident points (slide \ref{fr:multi}), when the joint is a weld;

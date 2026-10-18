@@ -367,7 +367,7 @@ print -deps Example4_1.eps
 \end{lstlisting}
 \end{columns}
 \footnotesize
-One thing fixed in the repository's copy: the header said $\sin 3\pi x$ (and \code{U(0,x)}) where the code and the exact solution use $\sin 2\pi x$ at $t = 0$. Two things left as they were, so you will meet them: the name in the comment, \code{Example4\_1}, is from an older course, and \code{print -deps} writes \code{Example4\_1.eps} into the current folder on every call (delete the line if you do not want the file). The Python version is \code{heat\_equation.py N T} (vectorised loop, PNG output, same numbers to $10^{-9}$ or better: the README of \code{examples/support/matlab-exercises}, Appendix A; chapter 5 runs them).
+One thing fixed in the repository's copy: the header said $\sin 3\pi x$ (and \code{U(0,x)}) where the code and the exact solution use $\sin 2\pi x$ at $t = 0$. Two things left as they were, so you will meet them: the name in the comment, \code{Example4\_1}, is from an older course, and \code{print -deps} writes \code{Example4\_1.eps} into the current folder on every call (delete the line if you do not want the file). The Python version is \code{heat\_equation.py N T} (vectorised loop, PNG output, the same numbers in the stable cases and to about $10^{-9}$ at $r = 0.57$; at $r = 0.8$ the blow-up grows from round-off, which differs from program to program: the README of \code{examples/support/matlab-exercises}, Appendix A; chapter 5 runs them).
 \sourcecredit{Lecture 19, slides 22--24.}
 \end{frame}
 

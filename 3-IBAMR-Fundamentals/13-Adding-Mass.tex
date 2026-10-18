@@ -329,7 +329,7 @@ with open(f"{mesh_name}{N}.mass", "w", newline="\n") as f:
 \scriptsize What happens: the spider's weight, $m g = 2\times10^{-4}$ N per unit depth, pulls its copy down; the copy drags the IB point, the point drags the dragline and the air. The line straightens behind the falling spider and its drag (and the spider's own, through the delta function's footprint, since the point has no body) sets a terminal speed; the 2020 model is a settling experiment.
 \vspace{1mm}
 
-\footnotesize Changes from the course version: CMake build, \code{IBTKInit}, the temperature field removed, \code{output\_data} added; the generator's beam loop fixed (it wrote one beam past the end of the line under a header that did not count it) and the mass point put on the last point (the course file said the one before); 2 s instead of 20; \code{DT} as a plain number.
+\footnotesize Changes from the course version: CMake build, \code{IBTKInit}, the temperature field removed, \code{output\_data} added; the generator's beam loop fixed (it wrote a 170th beam, \code{169 170 171}, past the end of the line, under a header of 169 that was right; the mass point was already the last point, as in the course file); 2 s instead of 20; \code{DT} as a plain number.
 \vspace{1mm}
 
 \footnotesize The ``mass per unit length'' of the lecture is the ``per unit depth'' of chapter 8b: a 2D spider is a rod of spiders along the third axis, and $2\times10^{-5}$ kg/m is the lecture's estimate of what that weighs.
