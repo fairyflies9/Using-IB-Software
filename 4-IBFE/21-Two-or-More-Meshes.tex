@@ -256,6 +256,7 @@ circle_exodus_io->write_timestep(circle_exodus_filename, *circle_equation_system
   \item \code{register\_for\_restart = true} in the constructor saves and reloads the finite element data of every part with the fluid's restart files; a restarted run then appends its new states to both ExodusII files. The shipped input has \code{restart\_dump\_interval = 0}; \code{int(0.5/DT)} writes a restart every half time unit.
   \item The restart rule is IBFE/08's own finding (0.16.0 and 0.19.0): IBAMR's examples pass \code{append(from\_restart)} on every rank, and a restart on more than one process leaves files that VisIt cannot open. Only rank $0$ writes, so only rank $0$ reopens.
   \item The same rule holds with one part; it only shows up more often with several, because multi-part runs are the long ones that get restarted.
+  \item Before restarting, check the first run's log for a regrid at the dump's step (chapter 3, ``Restarting a run (2)''); the log cannot show one at the run's last step. Such restarts crashed with IBFE/01 and with IBAMR's own IBFE example \code{ex2}.
 \end{itemize}
 \end{frame}
 

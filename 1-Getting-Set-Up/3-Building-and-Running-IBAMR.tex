@@ -653,8 +653,17 @@ mpirun -np 4 ./build/main2d input2d \
 \end{itemize}
 \end{column}
 \end{columns}
-\vspace{1mm}
-\small Restart with the same number of processes as the original run. With 2 instead of 4, the restart stops with \code{Unable to open HDF5 file restart\_IB2d/restore.001000/nodes.00002/proc.00000}.
+\end{frame}
+
+% 26b
+\begin{frame}{Restarting a run (2): two rules that stop a restart}
+\label{fr:restart2}
+\small
+\begin{itemize}\setlength{\itemsep}{6pt}
+  \item \al{Restart with the same number of processes} as the original run. With 2 instead of 4, the restart stops with \code{Unable to open HDF5 file restart\_IB2d/restore.001000/nodes.00002/proc.00000}.
+  \item \al{Restart from a dump written at a step without a regrid.} With IBFE runs (this series' IBFE/01 with IBAMR 0.16.0 and 0.19.0; IBAMR 0.19.0's own \code{examples/IBFE/explicit/ex2}), a restart from a dump written at a step where a regrid was due crashes at its first step: \code{Caught signal number 11 SEGV} in the job's output, and \code{IB2d.log} ends with \code{regridding the patch hierarchy}. Before restarting from step $N$, look for \code{regridding prior to timestep N} in the first run's \code{IB2d.log}; if it is there, restart from another dump. If $N$ is the step at which the first run stopped, its log cannot show this (that run never began step $N$); if the restart then crashes this way, use an earlier dump that passes the same check.
+  \item The second rule was found in this series' restart tests (October 2026), with IBFE runs; restarts of IB-only runs were not tested for it.
+\end{itemize}
 \end{frame}
 
 % 27

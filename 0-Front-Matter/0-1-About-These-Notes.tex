@@ -34,8 +34,8 @@
   \foreach \x/\y in {0/2012,1.5/2015,3/2018,4.5/2021,6/2024,7/2026}{
     \draw[DarkGray] (\x,-1mm) -- (\x,1mm);
     \node[font=\tiny,text=DarkGray,below=1mm] at (\x,0) {\y};}
-  \node[font=\tiny,above=2mm,align=center] at (1.7,0) {UNC Chapel Hill\\lab notes, MATH 768/769/762/60};
-  \node[font=\tiny,above=2mm,align=center] at (5.4,0) {University of Arizona\\MATH 481, tutorials, workshops};
+  \node[font=\tiny,above=2mm,align=center] at (1.7,0) {UNC Chapel Hill\\lab notes,\\MATH 768/769/762/60};
+  \node[font=\tiny,above=2mm,align=center] at (5.4,0) {University of Arizona\\MATH 481,\\tutorials, workshops};
   \node[draw=RubineRed,rounded corners=1pt,fill=RubineRed!8,font=\tiny,align=center,inner sep=2pt,text width=40mm] at (3.6,-9mm) {83 lecture families, 13 examples and 88 videos, merged into one series in 2026};
 \end{tikzpicture}}
 \end{frame}
@@ -66,6 +66,7 @@ The companion series \textbf{Fluid Dynamics and IBM Theory} holds the equations,
 % 3
 \begin{frame}{Where the material came from}
 \scriptsize
+\renewcommand{\arraystretch}{0.87}
 \begin{tabular}{@{}L{0.12\textwidth}L{0.82\textwidth}@{}}
 \toprule
 2012--2013 & Miller lab IBAMR notes and ``Read Me'' decks at UNC Chapel Hill; MATH 769 (Spring 2013): IBAMR input files, boundary conditions, springs and targets, beams, forces, 3D, VisIt\\
@@ -73,10 +74,10 @@ The companion series \textbf{Fluid Dynamics and IBM Theory} holds the equations,
 2015 & MATH 769 (Spring 2015): changing parameters, VisIt in 3D; the VisIt data-analysis guide; meshing notes (CAD to STL to mesher)\\
 2016--2017 & MATH 768 (2016) and MATH 60 (2017): IB2d and VisIt basics; gmsh 2D meshes from scratch; the IBFE series edited and extended (two meshes, 3D flow tank, advection--diffusion)\\
 2018 & MATH 769 (Spring 2018): IBAMR part 1, IBFE, visualization and data analysis, shell scripting, all recorded; the two-coral target-point example in 3D\\
-2019 & MATH 762: meshing, 3D scanning and finite elements; VisIt lectures re-recorded; the 2019 install notes\\
-2020 & The Zoom lecture series (IBAMR 1--8, IBFE 1--8, VisIt 1--5): ConstraintIB, adding mass, Boyce's examples, main files; the move to the University of Arizona\\
-2021--2022 & UA cluster notes (Ocelote, Puma); ib2d and IBAMR tutorials; the CFD course (MATH 481, Spring 2022: ANSYS, CAD, scanning); the IBFE summer meetings (autoibamr, Coreform Cubit)\\
-2023--2024 & MATH 481 (ib2d, VisIt, validation); the 2023 VisIt tutorial videos; ``Write your own IBM code''; the 2024 summer tutorials; the AIMEC--NSF Cassiopea workshop (choosing software, building geometries); the Planktos decks\\
+2019 & MATH 762: meshing, 3D scanning and finite elements; the 2018 VisIt lectures (2D and 3D, decks and videos) copied into a 2019 folder; the 2019 install notes\\
+2020 & The Zoom lecture series (lecture files IBAMR 1--8, IBFE 1--9, VisIt 1--5; recorded: IBAMR 1--8, IBFE 1--5, 7 and 8, VisIt 1 and 5): ConstraintIB, adding mass, Boyce's examples, main files; the move to the University of Arizona\\
+2021--2022 & UA cluster notes (Ocelote, Puma); the summer 2021 ib2d and IBAMR tutorials and the MeshmerizeMe and Planktos decks; MATH 481 (Fall 2021: IB2d, ANSYS Fluent, CAD, scanning; Fall 2022: ANSYS Fluent and CAD); the Spring 2022 tutorials (ANSYS, CAD, scanning, IB2d and IBAMR; the decks give no course number); the IBFE summer meetings (autoibamr, Coreform Cubit)\\
+2023--2024 & MATH 481 (Fall 2023: ANSYS Fluent and CAD, no IB software); the 2023 lab tutorials (``Write your own IBM code'', a lab meeting on validating code, VisIt tutorial videos); the 2024 IB2d decks; the 2024 summer tutorials; the AIMEC--NSF Cassiopea workshop (choosing software, building geometries)\\
 2025--2026 & IBAMR 0.16.0 installed on Puma with autoibamr; IBAMR 0.19.0 released; this consolidated series, with every example rebuilt and rerun\\
 \bottomrule
 \end{tabular}

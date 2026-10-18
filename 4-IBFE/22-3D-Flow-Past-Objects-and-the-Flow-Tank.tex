@@ -565,7 +565,6 @@ mpirun -np 4 ./build/main3d input3d restart_IB3d 5000
 \end{lstlisting}
 \begin{itemize}
   \item On Puma the modules load only on compute nodes: build and run inside an interactive session or the batch job (\code{job.slurm}: 4 cores, the \code{standard} partition); chapter 31.
-  \item The restart line continues from step $5000$ with the finite element data of the plate reloaded and \code{output.ex2} appended (chapter 21's rule).
 \end{itemize}
 \column{0.48\textwidth}
 \begin{tabular}{@{}L{0.5\textwidth}L{0.44\textwidth}@{}}
@@ -577,6 +576,9 @@ restart files at the end & $10$ MB; the folder $115$ MB \\
 0.16.0 and 0.19.0 & the same tether force to all six digits at $t = 0.5$ \\
 \bottomrule
 \end{tabular}
+
+\vspace{2mm}
+The restart line continues from step $5000$ with the finite element data of the plate reloaded and \code{output.ex2} appended (chapter 21's rule). Step $5000$ is the run's last and only dump: if a regrid was due there, the restart stops at its first step with \code{Caught signal number 11 SEGV} (chapter 3, ``Restarting a run (2)'').
 \end{columns}
 \end{frame}
 

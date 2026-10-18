@@ -523,9 +523,10 @@ observed order (rms; max) & $1.31$, then $1.41$ & $1.35$, then $1.42$ & & \\
 % 21
 \begin{frame}{A debugging routine}
 \label{fr:routine}
+\vspace{-1.5mm}
 \footnotesize When a run misbehaves, in this order; most problems are found before step 5.
-\begin{enumerate}\footnotesize
-  \item \al{Read the end of the log} and the screen output: an \code{Error message} block names the class and the reason (slides \ref{fr:table1}, \ref{fr:table2}); no message plus a segmentation fault means a null pointer or a missing writer (slide \ref{fr:silent}).
+\begin{enumerate}\footnotesize\setlength{\itemsep}{0pt}
+  \item \al{Read the end of the log} and the screen output: an \code{Error message} block names the class and the reason (slides \ref{fr:table1}, \ref{fr:table1b}, \ref{fr:table2}); no message plus a segmentation fault means a null pointer or a missing writer (slide \ref{fr:silent}), or, at the first step of a restart, a dump written where a regrid was due (slide \ref{fr:table1b}).
   \item \al{Shorten the run} to 40 steps with viz every step and look at the first frames in VisIt (chapter 26): a structure that explodes at step 1 is a file or stiffness problem; one that drifts for hundreds of steps and then goes is a boundary-condition or contact problem.
   \item \al{Halve \code{DT}.} If the failure moves later or vanishes, it was the step. Then decide whether the stiffness or the step was wrong (slide \ref{fr:ramp}).
   \item \al{Remove things} until it works: one structure at a time, the forcing function, the update function, the boundary conditions (all periodic), the extra levels (\code{MAX\_LEVELS = 1}). What you put back last is the cause.
@@ -551,10 +552,24 @@ message & cause & chapter\\
 \code{Update methods supported are CONSTRAINT\_VELOCITY, ...} & a bad \code{lag\_position\_update\_method} & 14\\
 \code{frequency of cylinder does not exist in the InputDatabase} & a kinematics class's required key missing & 14\\
 \code{incomplete beam curvature specification} & a \code{.beam} line with some but not \code{NDIM} curvature columns & 10\\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+% 31b
+\begin{frame}{What can go wrong (1): the messages, collected (2)}
+\label{fr:table1b}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.38\textwidth}L{0.36\textwidth}L{0.22\textwidth}@{}}
+\toprule
+message & cause & chapter\\
+\midrule
 \code{muParserRobinBcCoefs::} \code{setDataOnPatch()} error at step 1 & an expression muParser cannot read & 3, 7\\
 a parse error with a line number & CRLF endings, curly quotes, \code{\%} comments, a missing brace & 3, 14; slide \ref{fr:parse}\\
 \code{Example ... requires libMesh - skipping} & an IBFE or IIM example on an IBAMR without libMesh & 15\\
 \code{physical domain must be a single box} & \code{domain\_boxes} with more than one box & 7\\
+\code{Caught signal number 11 SEGV} at the first step of a restart, just after \code{regridding the patch hierarchy} & the dump was written at a step where a regrid was due (an IBAMR fault, seen in IBFE runs with 0.16.0 and 0.19.0): restart from another dump & 3, 17, 21\\
 \bottomrule
 \end{tabular}
 \end{frame}

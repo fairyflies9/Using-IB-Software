@@ -69,7 +69,7 @@ The files in `examples/` must keep Unix line endings: IBAMR stops with `Illegal 
 
 Material in these tutorials was developed with many students and colleagues over the years; individual decks credit their contributors and sources.
 
-Claude (Anthropic) was used to organize, combine, and format more than twelve years (2013–2026) of the instructor's tutorial notes from courses and workshops at several universities.
+Claude (Anthropic) was used to organize, combine, and format more than fourteen years (2012–2026) of the instructor's tutorial notes from courses and workshops at several universities.
 
 ## License
 

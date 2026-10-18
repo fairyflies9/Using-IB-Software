@@ -1096,7 +1096,7 @@ fprintf(fid,'%d 2 0 0\n', Npts);   % nodes, dimension 2, no attributes, no bound
 % 35
 \begin{frame}{What can go wrong}
 \label{fr:wrong}
-\scriptsize\renewcommand{\arraystretch}{1.0}
+\footnotesize\renewcommand{\arraystretch}{0.93}
 \begin{tabular}{@{}L{0.36\textwidth}L{0.56\textwidth}@{}}
 \toprule
 symptom & cause and fix \\
@@ -1107,9 +1107,23 @@ symptom & cause and fix \\
 no \code{output.ex2} & \code{viz\_dump\_interval = 0}, or the run never reached its first dump; the \code{"ExodusII"} word is not the switch (chapter 28) \\
 the mesh does not move in VisIt & no Displace operator, or its variable is not \code{dX}; ``Apply operators to all plots'' was on and the operator landed on the fluid plot too \\
 ``mesh is 3D'' in VisIt, plate invisible against the fluid & an old IBAMR's three-coordinate 2D output: \code{\{dX\_0, dX\_1, 0\}} and the Project operator \\
+\bottomrule
+\end{tabular}
+
+\end{frame}
+
+% 47b
+\begin{frame}{What can go wrong (2)}
+\label{fr:wrong2}
+\footnotesize\renewcommand{\arraystretch}{0.93}
+\begin{tabular}{@{}L{0.36\textwidth}L{0.56\textwidth}@{}}
+\toprule
+symptom & cause and fix \\
+\midrule
 \code{Time step size change encountered} & the plate is too soft for the flow it creates (\code{SHEAR\_MODULUS = 1}): a stiffer plate, a smaller \code{DT}, or accept it (chapter 16) \\
 fluid leaks through the plate & too few quadrature points: raise \code{IB\_point\_density}; or the mesh is much coarser than the grid \\
 a run restarted from \code{restart\_IB2d} starts \code{output.ex2} over & the writer was not told to append: \code{exodus\_io->append(from\_restart \&\& IBTK\_MPI::getRank() == 0)} before the first write \\
+a restart dies at its first step with \code{Caught signal number 11 SEGV} & the dump was written at a step where a regrid was due (an IBAMR fault in 0.16.0 and 0.19.0): restart from an earlier dump whose step $N$ has no \code{regridding prior to timestep N} in the first run's \code{IB2d.log} (the log cannot show it for the run's last step; chapter 3) \\
 \code{'AutoPtr' was not declared}, \code{libMeshEnums} & a course-era program against a current libMesh (slide \ref{fr:legacy}) \\
 \bottomrule
 \end{tabular}

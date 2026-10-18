@@ -451,7 +451,7 @@ static const double time_to_acc = 0.1; // time to accelerate from 0 to V (s)
 \tiny
 \begin{tabular}{@{}L{0.22\textwidth}L{0.32\textwidth}L{0.36\textwidth}@{}}
 \toprule
-What & 2009--2013 (Griffith's \code{moving\_plates}, the 2012 deck) & 2015--2020 courses $\rightarrow$ 0.19.0 (this series)\\
+What & 2009--2013 (Griffith's \code{moving\_plates}, the January 2013 deck) & 2015--2020 courses $\rightarrow$ 0.19.0 (this series)\\
 \midrule
 iterate over the points & \code{LNodeIndexData} on each patch: \code{for (PatchLevel::Iterator p(level); ...) ... idx\_data->lnode\_index\_begin(patch\_box)} & \code{mesh->getLocalNodes()} plus \code{getGhostNodes()} from \code{l\_data\_manager->getLMesh(ln)}\\
 the point & \code{const LNodeIndex\& node\_idx = *it} & \code{LNode* node}\\
@@ -471,7 +471,7 @@ source file & \code{update\_target\_point\_positions.C}, Makefile & \code{.cpp},
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.64\textwidth}
 \begin{lstlisting}[style=cppmicro]
-// Created on 06 Oct 2009 by Boyce Griffith; shown in the January 2012 tutorial
+// Created on 06 Oct 2009 by Boyce Griffith; shown in the January 2013 tutorial
 const int lag_node_index_idx = lag_manager->getLNodeIndexPatchDescriptorIndex();
 tbox::Pointer<hier::PatchLevel<NDIM> > level = hierarchy->getPatchLevel(finest_ln);
 for (SAMRAI::hier::PatchLevel<NDIM>::Iterator p(level); p; p++)
@@ -499,7 +499,7 @@ for (SAMRAI::hier::PatchLevel<NDIM>::Iterator p(level); p; p++)
 \scriptsize The same algorithm as slide \ref{fr:loop}: find the index ranges, visit every point, test for a target spec, shift the target. The differences are all in how the points are reached (patch by patch, through the \code{LNodeIndexData} patch data) and in the smart-pointer types.
 \vspace{1mm}
 
-\scriptsize The 2012 deck also quoted the file formats of chapter 6 as they then were: ``the rest length and force function index are optional; by default the rest length is 0.0'' was true then, and is not now (chapter 6: the rest length is required).
+\scriptsize The January 2013 deck also quoted the file formats of chapter 6 as they then were: ``the rest length and force function index are optional; by default the rest length is 0.0'' was true then, and is not now (chapter 6: the rest length is required).
 \end{column}
 \end{columns}
 \end{frame}
@@ -1050,8 +1050,8 @@ Recording & Date & Course\\
   \item IBAMR 0.19.0: \code{ibtk/include/ibtk/LDataManager.h} (the documented example of moving target points and of reading positions), \code{LMesh.h}, \code{LNode.h}, \code{LNodeIndex.h}; \code{include/ibamr/IBTargetPointForceSpec.h}, \code{IBSpringForceSpec.h}, \code{IBBeamForceSpec.h}; \code{src/IB/IBStandardInitializer.cpp} (structure numbering), \code{IBStandardForceGen.cpp} (the forces); \code{ibtk/include/ibtk/HierarchyIntegrator.h} (the preprocess callback). \url{https://github.com/IBAMR/IBAMR}
   \item IBAMR FAQ: \url{https://github.com/IBAMR/IBAMR/wiki/FAQ}; class documentation: \url{https://ibamr.github.io/docs}.
   \item The examples of this series: IB/04 moving cylinders, IB/06 growing springs, IB/07 moving plates (each with \code{update\_*.cpp}, \code{.h}, \code{main.cpp}, \code{CMakeLists.txt} and a README with the measured time steps and motions); \code{tools/ch9a\_figures.py} for the figures.
-  \item B. E. Griffith's \code{moving\_plates} example (2009), as reproduced in the January 2012 tutorial; now \code{examples/IB/explicit} in the IBAMR tree holds the current moving-structure examples (chapter 15).
-  \item Sources: \emph{Immersed boundary tutorial continued} (January 2012); \emph{Changing spring lengths, stiffnesses and target points} and \emph{IBAMR with multiple boundaries} (MATH 769, February 2013); \emph{MATH 769 Lecture 8} and \emph{Lecture 12} (2015); \emph{4 -- Changing Target Positions and Springs} and \emph{5 -- Multiple Boundaries} (public folder, 2014--2016); \emph{5 -- IBAMR Tutorial: Changing Target Positions and Springs} (MBI, 2017); \emph{Lecture 5 -- IBAMR Tutorial: Changing Target Positions and Springs} (2020, edited 2024).
+  \item B. E. Griffith's \code{moving\_plates} example (2009), as reproduced in the January 2013 tutorial (its title slide says 2012); now \code{examples/IB/explicit} in the IBAMR tree holds the current moving-structure examples (chapter 15).
+  \item Sources: \emph{Immersed boundary tutorial continued} (MATH 769, January 2013; the title slide says 2012); \emph{Changing spring lengths, stiffnesses and target points} and \emph{IBAMR with multiple boundaries} (MATH 769, February 2013); \emph{MATH 769 Lecture 8} and \emph{Lecture 12} (2015); \emph{4 -- Changing Target Positions and Springs} and \emph{5 -- Multiple Boundaries} (public folder, 2014--2016); \emph{5 -- IBAMR Tutorial: Changing Target Positions and Springs} (MBI, 2017); \emph{Lecture 5 -- IBAMR Tutorial: Changing Target Positions and Springs} (2020, edited 2024).
 \end{itemize}
 \end{frame}
 

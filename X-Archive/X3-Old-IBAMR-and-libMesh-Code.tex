@@ -61,7 +61,7 @@
 \begin{frame}[plain]
 \maketutorialtitlepanel{%
 \begin{tikzpicture}[every node/.style={font=\tiny}, era/.style={draw=DarkGray, fill=LightGray!40, rounded corners=1pt, align=left, inner sep=2pt, text width=2.3cm}]
-  \node[era] (a) at (0,0) {\textbf{2009--12}: Blitz; \code{getStashData}; \code{std::vector<double>\&} targets};
+  \node[era] (a) at (0,0) {\textbf{2009 code}: Blitz; \code{getStashData}; \code{std::vector<double>\&} targets};
   \node[era] (b) at (2.65,0) {\textbf{2013--14}: \code{getNodeDataItem}; Blitz to Boost/Eigen (Dec 2013); \code{Point\&}; module 3803};
   \node[era] (c) at (0,-1.1) {\textbf{2016-11}: \code{Mesh(init.comm(), NDIM)}; config headers everywhere};
   \node[era] (d) at (2.65,-1.1) {\textbf{2018-03}: \code{var\_data}; \code{initializeFE\allowbreak EquationSystems()}};
@@ -368,11 +368,11 @@ old (2014, 2016-11) & 2018-03 and now \\
 \end{frame}
 
 % 12
-\begin{frame}[fragile]{Reaching the Lagrangian data, 2009--2012: \code{getStashData}}
+\begin{frame}[fragile]{Reaching the Lagrangian data in the 2009 code: \code{getStashData}}
 \label{fr:stash}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{0.6\textwidth}
-\textbf{Old} (Boyce Griffith's 2009 \code{moving\_plates} example, shown in January 2012)
+\textbf{Old} (Boyce Griffith's 2009 \code{moving\_plates} example, shown in the course on 29 January 2013; its title slide says 2012)
 \begin{lstlisting}[style=cpptiny]
 const int lag_node_index_idx = lag_manager->getLNodeIndexPatchDescriptorIndex();
 tbox::Pointer<hier::PatchLevel<NDIM> > level = hierarchy->getPatchLevel(finest_ln);
@@ -399,7 +399,7 @@ for (SAMRAI::hier::PatchLevel<NDIM>::Iterator p(level); p; p++)
 \end{itemize}
 \end{column}
 \end{columns}
-\sourcecredit{The January 2012 tutorial (its e-mail header lines withheld); the 2013--2020 decks on target points.}
+\sourcecredit{The January 2013 tutorial (dated 2012 on its title slide; its e-mail header lines withheld); the 2013--2020 decks on target points.}
 \end{frame}
 
 % 13
@@ -436,7 +436,7 @@ for (LNode* const node : nodes)
 \end{column}
 \end{columns}
 \vspace{1mm}
-\footnotesize \al{Changed} between the January 2012 and February 2013 decks (no IBAMR version stated). Chapter 9a explains the loop.
+\footnotesize \al{Changed} between the 2009 code (as the January 2013 deck still showed it) and the February 2013 decks (no IBAMR version stated). Chapter 9a explains the loop.
 \sourcecredit{The February 2013 deck; the 2014 course code; \code{examples/IB/07-moving-plates}; IBAMR 0.19.0 headers.}
 \end{frame}
 
@@ -449,7 +449,7 @@ for (LNode* const node : nodes)
 \toprule
 era & the line that gets the target position \\
 \midrule
-2009 code, January 2012 deck & \code{std::vector<double>\& X\_target = force\_spec->getTargetPointPosition();} \\
+2009 code, January 2013 deck & \code{std::vector<double>\& X\_target = force\_spec->getTargetPointPosition();} \\
 February 2013 (Blitz era) & \code{TinyVector<double,NDIM>\& X\_target = force\_spec->getTargetPointPosition();} \\
 December 2013 -- March 2014 & ``comment out the following \ldots\ and add the last line'': \code{//TinyVector<double,NDIM>\& X\_target = ...;} \code{//IBTK::Vector<double,NDIM>\& X\_target = ...;} \code{Point\& X\_target = force\_spec->getTargetPointPosition();} \\
 2014--2024 course code & the two old lines commented (``Depending on the version of IBAMR, you need to select one of the ways \ldots''), \code{Point\& X\_target = ...} live \\
@@ -459,7 +459,7 @@ now (0.16, 0.19) & \code{Point\& X\_target = force\_spec->getTargetPointPosition
 
 \vspace{1mm}
 \footnotesize \al{Changed} with the move from Blitz to Boost and Eigen in December 2013: the notes say that IBAMR's developers ``now provide NDIM-dimensional Matrix, Vector, and Point classes that are based on Eigen \ldots\ Vector and Point are interchangeable''. Unchanged from 0.16 to 0.19.
-\sourcecredit{The 2012 and 2013 decks; Boyce Griffith's December 2013 notes (in the instructor's install notes); the March 2014 module slides; IBAMR 0.19.0's \code{IBTargetPointForceSpec.h} and \code{ibtk\_utilities.h}.}
+\sourcecredit{The January and February 2013 decks; Boyce Griffith's December 2013 notes (in the instructor's install notes); the March 2014 module slides; IBAMR 0.19.0's \code{IBTargetPointForceSpec.h} and \code{ibtk\_utilities.h}.}
 \end{frame}
 
 % 15
@@ -940,7 +940,7 @@ no \code{module load} in any old script & -- & \code{module load gnu13 openmpi5}
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}L{0.16\textwidth}L{0.19\textwidth}L{0.19\textwidth}L{0.19\textwidth}L{0.19\textwidth}@{}}
 \toprule
-change & up to 2012 & February 2013 & December 2013 & module 3803 (2014) \\
+change & 2009 code & February 2013 & December 2013 & module 3803 (2014) \\
 \midrule
 node access & \code{getStashData} & \code{getNodeDataItem} & = & = \\
 target point type & \code{std::vector<\allowbreak double>\&} & \code{TinyVector<\allowbreak double,NDIM>\&} & \code{Point\&} & \code{Point\&} (the two older lines commented out) \\
