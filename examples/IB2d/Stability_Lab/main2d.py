@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# This file is IB2d's (https://github.com/nickabattista/IB2d), GPL-3.0: it stays under the GNU General Public
+# License version 3 (https://www.gnu.org/licenses/gpl-3.0.html), not under this repository's LICENSE-CODE.
 
 '''-------------------------------------------------------------------------
 

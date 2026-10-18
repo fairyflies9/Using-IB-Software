@@ -4,6 +4,9 @@
     python3 calcium_activation.py          # writes calcium_activation.png and prints the peaks
     python3 calcium_activation.py --ib2d   # IB2d's own version (Calcium_Dynamics.m), line for line: calcium_ib2d.png
 
+The function ib2d_calcium ports IB2d's Calcium_Dynamics.m line for line, so this file is GPL-3.0
+(https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and not under the repository's LICENSE-CODE.
+
 Dimensionless variables (scaled by the number of filament binding sites): Ca = free calcium, Caf = calcium bound to
 the thin filaments (0 <= Caf <= 1); C = total calcium, S = SR binding sites. While the stimulus is ON the
 sarcoplasmic reticulum releases calcium; while it is OFF it takes calcium back up:

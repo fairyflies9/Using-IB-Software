@@ -791,7 +791,7 @@ matIB2d (1-based)          pyIB2d (0-based)
 \label{fr:index2}
 \small
 \begin{itemize}
-  \item IBAMR counts from 0, like Python (chapter 6, which has the same warning the other way round). MeshmerizeMe writes both (chapter 4f).
+  \item IBAMR counts from 0, like Python (chapter 6, which has the same warning the other way round). MeshmerizeMe writes only \code{.vertex} files, which carry no indices (chapter 4f), so the base matters in the files you add to them.
   \item When you port an example, convert the files, not the reader: \code{i - 1} on every index column (or \code{+ 1} the other way), in a script, and re-run the geometry checker (slide \ref{fr:check}).
   \item The count line and the value columns do not change; only the index columns do: 2 of them in \code{.spring} and \code{.d\_spring}, 3 in the beam files, 1 in \code{.target}, \code{.mass}, \code{.porous}, \code{.poroelastic}, 2 in \code{.muscle} and \code{.geo\_connect}.
   \item The output does not care: the VTK files number points from 0 in both versions (VTK's convention), which is one more reason to check the structure in the output's first dump rather than in the input files.
@@ -1039,7 +1039,7 @@ Chapter 6 has the full comparison table; the points that matter when you move a 
   \item \al{Domain}: IB2d's box starts at the origin and is periodic; IBAMR's goes anywhere, with wall and inflow conditions (chapter 7).
   \item \al{Units}: IB2d's examples are dimensionless in practice; IBAMR's examples mix. Chapter 8b.
 \end{itemize}
-Lecture 2's rubber-band generator writes both kinds from one script (a flag for the index base); MeshmerizeMe does the same from a drawing (chapter 4f).
+Lecture 2's rubber-band generator writes both kinds from one script (a flag for the index base); MeshmerizeMe writes the \code{.vertex} file from a drawing, and the other files ``must be manually created'' (its paper; chapter 4f).
 \end{frame}
 
 % ---------------------------------------------------------------- generator and checks
@@ -1137,7 +1137,7 @@ hier_IB2d_data/           # with save_hier = 1
 \label{fr:output2}
 \small
 \begin{itemize}
-  \item All files are \al{VTK legacy text}. The Python writer with the \code{vtk} module (the runs here) writes ``\# vtk DataFile Version 5.1'' with the \code{OFFSETS}/\code{CONNECTIVITY} cell layout; MATLAB's writers and Python's fallback writer (no \code{vtk} module) write ``Version 2.0'' with the classic \code{CELLS} block. Either way: the fields as \code{STRUCTURED\_POINTS} with \code{DIMENSIONS Nx Ny 1}, \code{SPACING dx dy 1}, \code{ORIGIN 0 0 0} and \code{POINT\_DATA} (\code{SCALARS Omega double}, \code{VECTORS u double}); the points as \code{UNSTRUCTURED\_GRID} with vertex cells (\code{lagsPts}) or line cells (\code{lagPtsConnect}, following the springs); the forces as scalars on those points.
+  \item All files are \al{VTK legacy text}. The Python writer with the \code{vtk} module (the runs here) writes ``\# vtk DataFile Version 5.1'' with the \code{OFFSETS}/\code{CONNECTIVITY} cell layout; MATLAB's writers and Python's fallback writer (no \code{vtk} module) write ``Version 2.0'' with the classic \code{CELLS} block. Either way: the fields as \code{STRUCTURED\_POINTS} with \code{DIMENSIONS Nx Ny 1} (except some velocity dumps, written $N_y\ N_x$: dump 0 of \code{u}, \code{uX}, \code{uY} with the \code{vtk} module, the later \code{u} dumps with the fallback writer; chapter 4f), \code{SPACING dx dy 1}, \code{ORIGIN 0 0 0} and \code{POINT\_DATA} (\code{SCALARS Omega double}, \code{VECTORS u double}); the points as \code{UNSTRUCTURED\_GRID} with vertex cells (\code{lagsPts}) or line cells (\code{lagPtsConnect}, following the springs); the forces as scalars on those points.
   \item The grid values are on the lattice $x_i = i\,\Delta x$, $i = 0 \ldots N_x - 1$ (no $x = L_x$ column: periodic).
   \item VisIt and ParaView open them directly (chapter 4b: group as \code{Omega.*.vtk}); chapter 33's \code{read\_vtk\_legacy.py/.m} reads them in Python and MATLAB/Octave (it reads both cell layouts); the repository's \code{data\_analysis} folder has IB2d's own readers.
   \item The Python writer uses the \code{vtk} module when it is installed, its own text writer otherwise, with the same layout; the MATLAB writer is its own.

@@ -54,7 +54,8 @@ tube itself.)
 ## Sources
 
 The 2015 lecture "Quick introduction to muscle models" and the "Muscle Activation Tutorial" (L. A. Miller); the
-2016 talk by N. A. Battista and L. A. Miller; IB2d (https://github.com/nickabattista/IB2d, GPL-3.0; the activation
+2016 talk by N. A. Battista and L. A. Miller; IB2d (https://github.com/nickabattista/IB2d, GPL-3.0, which is why `activation_wave.py` and `calcium_activation.py`
+are GPL-3.0 too; the activation
 function in `activation_wave.py` and IB2d's calcium model in `calcium_activation.py --ib2d` are copied from it with
 credit). The crossbridge derivation is the 2015 lecture's: A. F. Huxley's (1957) model, simplified to attachment at one
 point and detachment at a constant rate (the lecture gives no source for this form; J. Keener and J. Sneyd,

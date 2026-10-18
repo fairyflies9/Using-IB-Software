@@ -7,6 +7,9 @@ activation af(x, t) of its leader point's x: a square pulse of width L_AR/10 tha
 (25 % buffer at each end) once per period 1/freq, then starts again at the left. This script copies that function
 line for line (give_Traveling_Triggering_Coefficient) and draws af over x and t without any fluid, as the example's
 test_Activation_Wave.py does; with the example's .vertex file it uses the real point positions.
+
+Because it contains IB2d's function, this file is GPL-3.0 (https://www.gnu.org/licenses/gpl-3.0.html), like IB2d, and
+not under the repository's LICENSE-CODE.
 """
 import sys
 import numpy as np

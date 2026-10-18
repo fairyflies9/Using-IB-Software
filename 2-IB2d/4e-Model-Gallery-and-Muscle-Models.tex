@@ -376,12 +376,12 @@ fx[j,i] = fx[j,i] - kStiff*( uX[j,i] - uX_Tar )
 \includegraphics[width=\textwidth]{ch4e-talk-artery.png}
 \sourcecredit{The 2016 talk, page 53: \code{Example\_Tracers/Tracers\_In\_Bifurcating\_Artery}.}
 \column{0.52\textwidth}
-\footnotesize
+\scriptsize
 \al{Bifurcating artery with tracers:} pulsatile flow into the parent artery from an external force, passive tracers that move with the flow, colour the speed; ``not highly resolved''.
 
 \al{\code{Example\_Channel\_Flow}:} the same forcing makes every channel flow of IB2d: around a cylinder between two walls or next to one, through a hole in the wall, in the middle of the domain, in an empty channel, in an aneurysm, past a cylinder with a flag (Turek--Hron, next slide), through a Brinkman medium, past a poroelastic obstacle, carrying a concentration (the bifurcating artery of \code{Example\_Concentration\_Gradients}; its other two are not forced).
 
-Three things to know: the walls are target points (there are no wall boundary conditions in a periodic code); what leaves the right edge comes back in at the left, so the forcing box also has to remove the wake; and the force is a penalty, so the velocity in the box only approaches the target, as closely as the stiffness $k$ allows.
+Three things to know: the walls are target points (there are no wall boundary conditions in a periodic code); what leaves the right edge comes back in at the left, so the forcing box also has to remove the wake; and the force is a penalty, so the velocity in the box only approaches the target, as closely as the stiffness $k$ and the box's size allow (the fluid is incompressible, so the box has to drive all the fluid between the walls: chapter 4f).
 \end{columns}
 \end{frame}
 
