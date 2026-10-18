@@ -4,11 +4,11 @@ Hands-on tutorials for immersed boundary software, with **IB2d**, **IBAMR** (inc
 
 The theory behind these tools is in the companion series **[Fluid Dynamics and IBM Theory](https://github.com/fairyflies9/Fluid-Dynamics-and-IBM-Theory)**.
 
-> **This is the `master-tutorial` branch, a work in progress.** It holds the new, consolidated version of the tutorials while it is being written. The `main` branch keeps the original lectures until this version is finished and reviewed.
+> **Release, October 2026.** Every part of the plan is written and fact-checked, and `master` holds this release. New work happens on the `master-tutorial` branch and is merged into `master` with each release. The original lectures are kept in [originals/](originals/) and the original course examples in [examples/legacy/](examples/legacy/).
 
-## Status (October 2026): being rewritten
+## Status (October 2026): written and fact-checked
 
-The consolidated LaTeX version covers the software landscape and the path from an organism to a mesh, installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. The examples and the build commands were tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). Example IB/01 has also been built and run on Puma with the commands in chapters 1-3 (4 min 14 s on 4 cores); the other job scripts follow the same pattern. Chapters are added here as they are drafted. Part X, the archive, keeps what the course used before: the retired clusters, the hand-built installs of 2011-2019, the old course code mapped to current IBAMR, and the course logistics of 2013-2024, each slide labelled legacy.
+The consolidated LaTeX version covers the software landscape and the path from an organism to a mesh, installing IBAMR with autoibamr, building examples with CMake, and current IBAMR releases. The examples and the build commands were tested with IBAMR 0.16.0 (the version on the UA cluster) and 0.19.0 (the latest release). Example IB/01 has also been built and run on Puma with the commands in chapters 1-3 (4 min 14 s on 4 cores); the other job scripts follow the same pattern. Every chapter of the plan is now written and fact-checked; new VisIt screenshots and new lecture videos are still to come. Part X, the archive, keeps what the course used before: the retired clusters, the hand-built installs of 2011-2019, the old course code mapped to current IBAMR, and the course logistics of 2013-2024, each slide labelled legacy.
 
 | Part | Chapters | State |
 |---|---|---|
