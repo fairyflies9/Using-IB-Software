@@ -23,7 +23,7 @@ The consolidated LaTeX version covers the software landscape and the path from a
 | X · Archive (legacy) | [X1 Retired clusters and workflows](X-Archive/X1-Retired-Clusters-and-Workflows.pdf), [X2 Historical install recipes](X-Archive/X2-Historical-Install-Recipes.pdf), [X3 Old IBAMR and libMesh code, mapped to current code](X-Archive/X3-Old-IBAMR-and-libMesh-Code.pdf), [X4 Course logistics](X-Archive/X4-Course-Logistics.pdf) | drafted |
 | Appendices | [A MATLAB and Python helper codes](8-Appendices/A-MATLAB-and-Python-Helper-Codes.pdf), [B Glossary, references and credits](8-Appendices/B-Glossary-References-and-Credits.pdf), [C Exercise and homework bank](8-Appendices/C-Exercise-and-Homework-Bank.pdf) | drafted |
 
-**Videos.** The recordings that the original lectures refer to were class recordings on the course site and were never public; chapter 0.1 lists what they covered, and new recordings will follow the new chapters. The four IB2d video tutorials by Nick Battista are public: [1 the IB method and IB2d](https://youtu.be/PJyQA0vwbgU), [2 what comes with IB2d](https://youtu.be/jSwCKq0v84s), [3 building a geometry and its input files](https://youtu.be/I3TLpyEBXfE), [4 visualizing the output in VisIt](https://youtu.be/4D4ruXbeCiQ).
+**Videos.** New lecture videos will follow the new chapters. The four IB2d video tutorials by Nick Battista are public: [1 the IB method and IB2d](https://youtu.be/PJyQA0vwbgU), [2 what comes with IB2d](https://youtu.be/jSwCKq0v84s), [3 building a geometry and its input files](https://youtu.be/I3TLpyEBXfE), [4 visualizing the output in VisIt](https://youtu.be/4D4ruXbeCiQ).
 
 ## Contents
 
@@ -47,7 +47,7 @@ The consolidated LaTeX version covers the software landscape and the path from a
 | [examples/Planktos/](examples/Planktos/) | Planktos on this series' flows (chapters 34 and 35): chapter 4f's IB2d starfish (density estimates, capture, FTLE maps, Vicsek alignment), IBFE/10's flow tank with a plate through VisIt, and the first run of chapter 35 |
 | [examples/support/](examples/support/) | The course's MATLAB exercises (the heat equation, a stiff equation, checking and plotting structure files) beside their Python versions, with the rubber band they were run on (Appendix A) |
 | [examples/legacy/](examples/legacy/) | The course example codes as they were, from UNC and the University of Arizona. They use the old Makefile build; the folders above replace them one by one. |
-| [originals/](originals/) | The original lectures (IBAMR, IBFE, VisIt, IB2d), the MATLAB exercises, and older files, kept unchanged for reference |
+| [originals/](originals/) | The original lectures (IBAMR, IBFE, VisIt, IB2d), the MATLAB exercises, and older files, kept as they were for reference (in October 2026 a few links to course file storage were taken out of three old decks) |
 | [pictures/](pictures/) | Figures used by the LaTeX decks |
 | [papers/](papers/) | Open-access papers referred to in the tutorials |
 | `ib-tutorials.sty` | The shared slide style |

@@ -1340,7 +1340,7 @@ From the 2018 and 2020 courses:
 \scriptsize\setlength{\leftmargini}{5em}
 \al{\code{examples/IBFE/10-flow-tank-plate-3d}}
 \begin{itemize}\setlength{\itemsep}{1pt}
-  \item[IBFE/10.1] Run the course's full 2 time units: set \code{END\_TIME = 2.0}, or continue a finished run from its restart files with \code{mpirun -np 4 ./build/main3d input3d restart\_IB3d 5000}. The stream reaches 96\% of U by t = 1.
+  \item[IBFE/10.1] Run the course's full 2 time units: set \code{END\_TIME = 2.0}, or continue a finished run from its restart files with \code{mpirun -np 4 ./build/main3d input3d restart\_IB3d 5000}. Step 5000 is the run's last and only restart dump; if a regrid was due there, the restart stops at its first step with ``Caught signal number 11 SEGV'' (chapter 3). The stream reaches 96\% of U by t = 1.
   \item[IBFE/10.2] Make the plate softer or stiffer by changing \code{E\_LEAF}: with \code{TWO\_MATERIALS = FALSE} the plate's shear modulus is \code{MU\_STEM}, which the input computes from \code{E\_LEAF}, as the course version did (changing \code{E\_STEM} changes only \code{BETA\_STEM}; see the note on \code{MU\_STEM} above).
   \item[IBFE/10.3] Widen the tethered band with \code{TETHER\_HALF\_WIDTH}, or move it: the tether is applied where the reference z-coordinate is within \code{TETHER\_HALF\_WIDTH} of 0, in \code{target\_force\_function()} in \code{main.cpp}.
   \item[IBFE/10.4] Turn on the 2017 options above.
