@@ -331,7 +331,7 @@ INSStaggeredHierarchyIntegrator {
 % 14
 \begin{frame}{On the cluster: the 2019 debugging tips, for Puma}
 \label{fr:cluster}
-\footnotesize The 2019 \emph{Debugging tips} (four slides, UNC's Dogwood, repeated in the 2020 Dogwood deck) covered three complaints:
+\footnotesize The 2019 \emph{Debugging tips} (four slides, UNC's Dogwood, also slides 13--16 of the 2018--20 Dogwood deck) covered three complaints:
 \begin{itemize}\footnotesize
   \item \al{``The number of nodes requested can freeze your job'':} a request the queue cannot satisfy sits forever with a QOS message. On Puma: ask for one node and \code{--ntasks} ranks within it for every example of this series; \code{squeue -u \$USER} shows the reason column (chapter 1).
   \item \al{``My job randomly stopped'':} read the \code{.out} file and \code{IB2d.log}; the usual causes are the time limit (\code{--time}), memory (\code{--mem-per-cpu}, 4 GB each in this series' scripts; an 8-rank 3D run can need more), and a disk quota filled by viz dumps (chapters 9b, 14, 15). The 2019 slide's ``PETSc errors mean too little memory'' is one case of several: a PETSc error is also a solver that did not converge, which is slide \ref{fr:tol}.
@@ -658,7 +658,7 @@ the band drifts from its generator's shape at step 0 & the generator's \code{N} 
   \item IBAMR 0.19.0: \code{src/IB/IBHierarchyIntegrator.cpp} (the dt-change check and keys), \code{src/navier\_stokes/INSHierarchyIntegrator.cpp} (vorticity thresholds), \code{src/navier\_stokes/INSStaggeredHierarchyIntegrator.cpp} (the Stokes solver and its prefix), \code{ibtk/src/lagrangian/LDataManager.cpp} (the escaped point), \code{ibtk/src/solvers/impls/PETScKrylovLinearSolver.cpp} (tolerance keys), \code{examples/IB/explicit/ex1}, \code{examples/adv\_diff/ex0/converg2d}, \code{examples/navier\_stokes/ex1/convergence\_tester.cpp}. \url{https://github.com/IBAMR/IBAMR}
   \item C. S. Peskin, \emph{The immersed boundary method}, Acta Numerica 11 (2002) 479--517 (accuracy of the method); B. E. Griffith and C. S. Peskin, \emph{On the order of accuracy of the immersed boundary method: higher order convergence rates for sufficiently smooth problems}, J.\ Comput.\ Phys.\ 208 (2005) 75--105.
   \item This series: \code{examples/support/matlab-exercises} (\code{stiff\_ode\_example}, \code{heat\_equation}, MATLAB and Python), \code{tools/ch16\_conv.py}, IB/01's README (the time-step table), chapter 3's error table.
-  \item Sources: \emph{11-IBAMR Tutorial: What can go wrong} (2014, 14 slides); \emph{MATH 481 Lecture 19: Stability and convergence} (2021, edited 2023, 40 slides); the lab ReadMe deck (2012), slide 5; \emph{Debugging tips} (2019, 4 slides, repeated in the 2020 Dogwood deck).
+  \item Sources: \emph{11-IBAMR Tutorial: What can go wrong} (2014, 14 slides); \emph{MATH 481 Lecture 19: Stability and convergence} (2021, edited 2023, 40 slides); the lab ReadMe deck (2012), slide 5; \emph{Debugging tips} (2019, 4 slides, also slides 13--16 of the 2018--20 Dogwood deck).
 \end{itemize}
 \end{frame}
 

@@ -133,7 +133,7 @@ The UNC versions (2014–2018) were developed with Alex Hoover, Julian Wag and N
 - The three folders became one program with the `MOTION` setting.
 - `ROTATE` uses an exact rotation. The course version used x′ = x cos θ, y′ = y + x sin θ, which is exact only on the plate's center line.
 - The input files of the half-plate and rotate versions ended with a stray `\\`, which stopped the run with an input parse error. They are fixed.
-- Restarted runs now save and reload the plate's finite element data and append to `output.ex2`, as IBAMR's own examples do.
+- Restarted runs now save and reload the plate's finite element data and append to `output.ex2`, as IBAMR's own examples do. Unlike those examples, only processor 0 reopens `output.ex2`: when every process reopens it, a restart on more than one process leaves a file that can no longer be read (tested with IBAMR 0.16.0 and 0.19.0).
 - The input file has Unix line endings, so it no longer needs `//` at the end of every line.
 
 The original files are in `examples/legacy/`.

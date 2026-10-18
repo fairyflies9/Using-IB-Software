@@ -48,7 +48,7 @@ update_springs(
 	//std::vector<double>& resting_length = spring_spec->getRestingLengths();
 	//The above is the old way of doing this.
 
-	//Change 2-14 Thomas
+	//Change 2-14
 	//double resting_length = spring_spec->getParameters()[0][1];
 
 	//spring[0] = spring_stiffness
@@ -58,7 +58,7 @@ update_springs(
 
 	//Note that you can also getStiffnesses
 	
-	//Change 2-14 Thomas
+	//Change 2-14
 	//double spring_stiffness = spring_spec->getParameters()[0][0];
 	//resting_length+=0.01*dt;
 

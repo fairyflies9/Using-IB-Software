@@ -126,6 +126,7 @@ The flow tank was a UNC course example in 2017. That version moved the plate 7 u
 - The 2017 options are back as input settings, tested with IBAMR 0.16.0 and 0.19.0: `TRANSLATE_X` (the coordinate mapping) and `TWO_MATERIALS` (stem and leaf). `TETHER_HALF_WIDTH` replaces the 0.1 written into the code.
 - The obsolete input keys `use_IB_spread_operator` and `use_IB_interp_operator` (and `USE_IB_DELTA_FUNCTIONS`, which only fed them) are removed.
 - `END_TIME` is 0.5 instead of 2.0, the output intervals scale with it, and restart files are written every 0.5 time units and at the end.
+- Restarted runs now save and reload the plate's finite element data and append to `output.ex2`, as IBAMR's own examples do. Unlike those examples, only processor 0 reopens `output.ex2`: when every process reopens it, a restart on more than one process leaves a file that can no longer be read (tested with IBAMR 0.16.0 and 0.19.0).
 - The flow speed is the input variable `U_FLOW`; the course version wrote 0.1 into each of the six boundary conditions.
 - The input file has Unix line endings, so it no longer needs `//` at the end of every line.
 

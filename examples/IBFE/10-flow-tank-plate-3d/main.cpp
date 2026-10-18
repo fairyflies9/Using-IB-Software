@@ -54,7 +54,9 @@
 //     stiffer "stem" band and softer "leaf" parts. The tether band width is
 //     TETHER_HALF_WIDTH. The defaults give the course version's plate.
 //   * Restarted runs save and reload the plate's finite element data and
-//     append to the ExodusII file, as in IBAMR's own examples.
+//     append to the ExodusII file, as in IBAMR's own examples. Unlike those
+//     examples, only processor 0 reopens the ExodusII file; otherwise a
+//     restart on more than one process leaves a file that cannot be read.
 // Tested with IBAMR 0.16.0 and 0.19.0.
 
 // Config files
@@ -435,10 +437,14 @@ main(int argc, char* argv[])
         std::unique_ptr<ExodusII_IO> exodus_io = uses_exodus ? std::make_unique<ExodusII_IO>(mesh) : nullptr;
 
         // A restarted run adds its time steps to the existing ExodusII file.
+        // Only processor 0 writes the file, so only processor 0 reopens it:
+        // libMesh 1.7.8 reopens it on every processor when told to append,
+        // and with more than one process the file is then damaged (it can no
+        // longer be read).
         if (uses_exodus)
         {
             const bool from_restart = RestartManager::getManager()->isFromRestart();
-            exodus_io->append(from_restart);
+            exodus_io->append(from_restart && IBTK_MPI::getRank() == 0);
         }
 
         // Initialize hierarchy configuration and data on all patches.

@@ -757,6 +757,7 @@ if (uses_exodus)
 \begin{itemize}
   \item The VisIt writer comes from the initializer (it read \code{viz\_dump\_dirname}); the integrator registers its fields with it (\code{output\_U}, \code{output\_P}, \ldots in the solver block decide which). One ExodusII writer per part, on that part's mesh; \code{append} on restart (chapter 21: rank $0$ only, which \code{ex7} does not do).
   \item ``Visualization file writers'' was the 2020 slide 26, a screenshot with that title and nothing else; the \code{unique\_ptr} line was then \code{std::unique\_ptr<ExodusII\_IO> lower\_exodus\_io(uses\_exodus ? new ExodusII\_IO(lower\_mesh) : NULL)}.
+  \item On a restart this code has every process reopen both files, and with more than one process the restarted files cannot be opened; the series' examples let only processor 0 reopen them (chapter 21).
 \end{itemize}
 \end{frame}
 

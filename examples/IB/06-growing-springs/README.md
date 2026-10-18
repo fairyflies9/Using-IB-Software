@@ -103,7 +103,7 @@ This example comes from the UNC course version (`5-Example_2DSprings`, 2018). It
 
 - A CMake build replaces the Makefile, and `update_springs.C` became `.cpp`.
 - `main.cpp` starts IBAMR with `IBTKInit` and no longer includes the old configuration headers. It is the rubber band's program (IB/01) with the spring update added.
-- The course's `update_springs.C` already changed the rest length through a reference (a 2014 edit marked "Change 2-14"), but it kept the older code as comments, and the lecture slides show that older code: `double resting_length = spring_spec->getParameters()[0][1]; resting_length += 0.01*dt;`. That changes only a local copy, so the springs never grow. The comments in `update_springs.cpp` explain this.
+- The course's `update_springs.C` already changed the rest length through a reference (an edit marked "Change 2-14"; it first appears in the 2018 course copy), but it kept the older code as comments, and the lecture slides show that older code: `double resting_length = spring_spec->getParameters()[0][1]; resting_length += 0.01*dt;`. That changes only a local copy, so the springs never grow. The comments in `update_springs.cpp` explain this.
 - `update_springs()` now changes every spring of each master point, not only the first one (`getParameters()[0]`). In this fiber every point is the master of at most one spring, so the result is the same.
 - The time step is 1.0e-4 s instead of 1.0e-6 s, and the run stops at 0.5 s instead of 2 s. By 0.5 s the rest lengths add up to 0.61 m; by 2 s they would add up to 2 m, twice the width of the periodic box.
 - The input file has Unix line endings, so it no longer needs `//` at the end of every line.

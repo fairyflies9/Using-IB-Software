@@ -834,7 +834,7 @@ line & what it does \\
 \code{new IBExplicitHierarchyIntegrator(...,}\newline\code{ib\_method\_ops, navier\_stokes\_integrator)} & the same time integrator as the IB examples; it does not care which \code{IBStrategy} it drives \\
 \code{initializeFEEquationSystems();}\newline\code{getFEDataManager()->getEquationSystems()} & create the FE systems (position, velocity, force) on the mesh; the \code{EquationSystems} pointer is what the ExodusII writer writes \\
 \code{std::unique\_ptr<ExodusII\_IO> exodus\_io =}\newline\code{uses\_exodus ? std::make\_unique<ExodusII\_IO>(mesh)}\newline\code{: nullptr;} & the plate's output file writer (libMesh); the course used \code{AutoPtr}, removed from libMesh in 2017 \\
-\code{exodus\_io->append(from\_restart);} & a restarted run adds its steps to the existing \code{output.ex2} instead of starting it over \\
+\code{exodus\_io->append(from\_restart}\newline\code{\ \ \&\& IBTK\_MPI::getRank() == 0);} & a restarted run adds its steps to the existing \code{output.ex2} instead of starting it over; only processor 0 reopens the file, since with every process reopening it a restart on more than one process damages it (chapter 21) \\
 \bottomrule
 \end{tabular}
 
@@ -1096,7 +1096,7 @@ fprintf(fid,'%d 2 0 0\n', Npts);   % nodes, dimension 2, no attributes, no bound
 % 35
 \begin{frame}{What can go wrong}
 \label{fr:wrong}
-\footnotesize\renewcommand{\arraystretch}{0.93}
+\scriptsize\renewcommand{\arraystretch}{1.0}
 \begin{tabular}{@{}L{0.36\textwidth}L{0.56\textwidth}@{}}
 \toprule
 symptom & cause and fix \\
@@ -1109,7 +1109,7 @@ the mesh does not move in VisIt & no Displace operator, or its variable is not \
 ``mesh is 3D'' in VisIt, plate invisible against the fluid & an old IBAMR's three-coordinate 2D output: \code{\{dX\_0, dX\_1, 0\}} and the Project operator \\
 \code{Time step size change encountered} & the plate is too soft for the flow it creates (\code{SHEAR\_MODULUS = 1}): a stiffer plate, a smaller \code{DT}, or accept it (chapter 16) \\
 fluid leaks through the plate & too few quadrature points: raise \code{IB\_point\_density}; or the mesh is much coarser than the grid \\
-a run restarted from \code{restart\_IB2d} starts \code{output.ex2} over & the writer was not told to append: \code{exodus\_io->append(from\_restart)} before the first write \\
+a run restarted from \code{restart\_IB2d} starts \code{output.ex2} over & the writer was not told to append: \code{exodus\_io->append(from\_restart \&\& IBTK\_MPI::getRank() == 0)} before the first write \\
 \code{'AutoPtr' was not declared}, \code{libMeshEnums} & a course-era program against a current libMesh (slide \ref{fr:legacy}) \\
 \bottomrule
 \end{tabular}

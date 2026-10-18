@@ -131,7 +131,7 @@ make: *** No rule to make target '/contrib/lauram9/ibamr/IBAMR-0.7.1/config/make
 \end{lstlisting}
 \begin{itemize}\small
   \item autoibamr builds IBAMR with CMake, which creates no \code{make.inc}.
-  \item IBAMR 0.20 removes Makefile builds of IBAMR altogether.
+  \item The next release, IBAMR 0.20 (in development in 2026), removes Makefile builds of IBAMR altogether.
   \item So every example in this tutorial now builds with CMake. The Makefiles are kept in \code{examples/legacy/} and in Part X.
 \end{itemize}
 \end{frame}
@@ -700,7 +700,7 @@ Compiling unmodified course programs against IBAMR 0.19.0 with the new \code{CMa
 \begin{lstlisting}[style=tiny]
 main.cpp:31:10: fatal error: IBAMR_config.h: No such file or directory
 \end{lstlisting}
-\small Every course program stops here first. After deleting the two old configuration includes, the IB programs build. The UNC IBFE programs then stop at
+\small Almost every course program stops here first (the 2014 IB programs and the three UA fiber-stress programs do not include these headers). After deleting the two old configuration includes, the IB programs build. The UNC IBFE programs then stop at
 \begin{lstlisting}[style=tiny]
 main.cpp:368:9: error: 'AutoPtr' was not declared in this scope
 \end{lstlisting}
