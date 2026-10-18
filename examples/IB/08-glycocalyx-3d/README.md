@@ -7,7 +7,7 @@ One glycocalyx fiber, a cylinder made of 13,600 target points, stands on the flo
 | Method | Immersed boundary (IB), target points only |
 | Dimension | 3D |
 | Chapters | 12 (3D simulations), 7 (boundary conditions), 9 (moving target points), 27 (3D visualization) |
-| Run time | about 20 minutes on 4 cores (0.052 s per step on a laptop; 20,000 steps) |
+| Run time | about 20 minutes on 4 cores (0.052 s per step on a desktop PC under WSL; 20,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex7` in IBAMR (3D posts held by target points and moved by changing the target positions) |
 
@@ -95,7 +95,7 @@ The grid does not change during the run: 161,280 cells, with the finest level on
 
 ## Starting from the steady shear flow
 
-With `SHEAR_START = 1` the fluid starts in the steady shear flow and the lid moves at V from the first step, so the flow pushes on the fiber at once. The first number of each `integral{F}` line is then the force in x that the target points exert to hold the fiber against the flow, so minus it is the drag on the fiber: −0.47 N at t = 0.01 s, −0.40 N at 0.02 s, −0.37 N at 0.04 s and −0.31 N at 0.11 s (IBAMR 0.19.0; 0.16.0 gives the same curve, −0.397 N at 0.02 s and −0.373 N at 0.04 s). The drag falls slowly because the fiber slows the fluid around it: in a box that is periodic in x and y the fiber is one of an endless array, and together they slow the flow near the floor. The very first value, at t = 0.004 s, is larger (about 1 N) because the flow starts impulsively.
+With `SHEAR_START = 1` the fluid starts in the steady shear flow and the lid moves at V from the first step, so the flow pushes on the fiber at once (the run of chapter 27 took 727 s on 4 cores of the same desktop PC). The first number of each `integral{F}` line is then the force in x that the target points exert to hold the fiber against the flow, so minus it is the drag on the fiber: −0.47 N at t = 0.01 s, −0.40 N at 0.02 s, −0.37 N at 0.04 s and −0.31 N at 0.11 s (IBAMR 0.19.0; 0.16.0 gives the same curve, −0.397 N at 0.02 s and −0.373 N at 0.04 s). The drag falls slowly because the fiber slows the fluid around it: in a box that is periodic in x and y the fiber is one of an endless array, and together they slow the flow near the floor. The very first value, at t = 0.004 s, is larger (about 1 N) because the flow starts impulsively.
 
 ## Looking at it in VisIt
 

@@ -305,7 +305,7 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \scriptsize
 \begin{itemize}
   \item \gui{Add $\to$ Vector $\to$ U}, \gui{Draw}: one arrow per cell, coloured by magnitude, scaled automatically: a hedgehog (left, on the IB2d rubber band at its first frame). Its attribute window fixes it (next slide).
-  \item In 3.x the Vector window has the \gui{Vectors}, \gui{Data} and \gui{Glyphs} tabs; the 2020 deck's \gui{Location}, \gui{Form} and \gui{Rendering} are the 2.5.2 names of the same controls.
+  \item From VisIt 3.2 on the Vector window has the \gui{Sampling}, \gui{Data} and \gui{Geometry} tabs (3.0--3.1: \gui{Vectors}, \gui{Data}, \gui{Glyphs}); the 2020 deck's \gui{Location}, \gui{Form} and \gui{Rendering} are the 2.5.2 names of the same controls.
   \item \gui{Placement}: uniform throughout the mesh (not one per cell, which crowds the fine AMR levels) and a \gui{Fixed number}: the 2020 deck said 8000, the 2014 one 12000; 3000--5000 reads at slide size.
   \item \gui{Scale}: untick \gui{Auto scale}, set \gui{Scale} so the longest arrow spans a few cells; tick \gui{Scale by magnitude} so arrow length means speed (the 2018 correction of the 2014 deck's scale, 0.4 for 0.04, is this knob). \gui{Head size} about 0.25.
   \item \gui{Color}: \gui{Constant} (black or dark grey) when the arrows sit on a colour map, so that ``the colours of the two plots do not fight'' (2020). The plot's own \gui{Legend} tick turns its colour bar off.
@@ -326,8 +326,8 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \toprule
 2.5.2 tab (above) & what it holds & 3.5 tab \\
 \midrule
-\gui{Location} & placement (adapted to the mesh / uniform), fixed number or stride & \gui{Vectors} \\
-\gui{Form} & scale, scale by magnitude, auto scale, glyph type, line width, head size, origin & \gui{Glyphs} \\
+\gui{Location} & placement (adapted to the mesh / uniform), fixed number or stride & \gui{Sampling} \\
+\gui{Form} & scale, scale by magnitude, auto scale, glyph type, line width, head size, origin & \gui{Geometry} \\
 \gui{Rendering} & colour by magnitude or constant, limits, legend & \gui{Data} \\
 \bottomrule
 \end{tabular}
@@ -377,12 +377,12 @@ omega_abs scalar   abs(Omega)
 dX        vector   {dX_0, dX_1}           # IBFE only: the Exodus file's displacement (ch. 28)
 \end{lstlisting}
 \begin{center}
-\includegraphics[height=0.26\textheight]{ch26-v2-pc-menu.png}
+\includegraphics[height=0.2\textheight]{ch26-v2-pc-menu.png}
 \end{center}
 \sourcecredit{VisIt 2.5.2 (2020 deck, slide 11): the Pseudocolor menu then listed \code{Omega}, \code{P}, \code{U\_magnitude}, \code{U\_x}, \code{U\_y}; 0.19 writes the vector \code{U} and leaves the rest to expressions.}
 \column{0.48\textwidth}
 \scriptsize
-\begin{itemize}
+\begin{itemize}\setlength{\itemsep}{0pt}
   \item An expression is a new variable, computed from the others when a plot asks for it; it appears in the \gui{Add} menus under its type. \code{U[0]} and \code{U[1]} are the components, \code{magnitude(U)} the speed; the Vector plot takes \code{U} itself.
   \item \code{Omega} is a scalar in 2D and a vector in 3D (\code{Omega[2]} for the spanwise component, chapter 27).
   \item \code{P} is the pressure with the mean removed when \code{normalize\_pressure = TRUE}, and relative to the outflow when it is \code{FALSE} (IB/13): a Pseudocolor of \code{P} has no absolute meaning in the first case.
@@ -498,7 +498,7 @@ fixed, symmetric limits & Pseudocolor \gui{Data}: about a quarter of the automat
 nodal centering & Pseudocolor \gui{Data} \gui{Centering}; smooth instead of blocky \\
 a diverging table for a signed field & \code{difference}; \code{viridis} for a magnitude \\
 opacity under vectors & 70\%; fully opaque otherwise \\
-vectors: uniform, fixed number, constant colour, scaled by magnitude & Vector \gui{Vectors}/\gui{Glyphs}/\gui{Data}; 3000--5000 at slide size \\
+vectors: uniform, fixed number, constant colour, scaled by magnitude & Vector \gui{Sampling}/\gui{Geometry}/\gui{Data}; 3000--5000 at slide size \\
 the boundary visible and continuous & Mesh \gui{Line width} 2--4 on \code{<name>\_mesh}, or \gui{Point size} 4--8 px; black \\
 the Subset plot VisIt added & deleted \\
 no database name, no user name & Annotation \gui{General} \\
@@ -566,7 +566,7 @@ a popup at every frame while saving & \gui{Options $\to$ Preferences}, untick \g
 a saved picture is the window's size, not the one asked & \gui{Screen capture} is ticked, or \gui{1:1 aspect ratio} is on in \gui{Set save options} \\
 a restored session finds no data & absolute paths inside it: \gui{Restore session with sources} \\
 the legend's numbers are unreadable & \gui{Annotation $\to$ Objects}, the legend's font and \gui{Draw min/max} \\
-2.x instructions name tabs that do not exist & \gui{Location}, \gui{Form}, \gui{Rendering} became \gui{Vectors}, \gui{Glyphs}, \gui{Data}; the controls are the same \\
+2.x instructions name tabs that do not exist & \gui{Location}, \gui{Form}, \gui{Rendering} became \gui{Sampling}, \gui{Geometry}, \gui{Data} (in 3.0--3.1 \gui{Vectors}, \gui{Glyphs}, \gui{Data}); the controls are the same \\
 \bottomrule
 \end{tabular}
 \end{frame}
@@ -582,7 +582,7 @@ the legend's numbers are unreadable & \gui{Annotation $\to$ Objects}, the legend
 VisIt 2.5.2 from \code{wci.llnl.gov}; screenshots of a 2014 cluster session on a Mac & VisIt 3.5.0 from \code{visit-dav.github.io}; plot pictures from a run of this series, window screenshots from the 2024 practical (3.4.1) until re-shot \\
 sample data on a Google Drive (``flow past a triangle'') & IB/13 or IB/01, made by the reader \\
 \code{U\_x}, \code{U\_y} in the variable list & the vector \code{U} and expressions \\
-\gui{Location}, \gui{Form}, \gui{Rendering} tabs of the Vector window & \gui{Vectors}, \gui{Glyphs}, \gui{Data} \\
+\gui{Location}, \gui{Form}, \gui{Rendering} tabs of the Vector window & \gui{Sampling}, \gui{Geometry}, \gui{Data} \\
 Hide/Show the coloured boxes & delete the Subset plot \\
 Save movie as MPEG, then ``MPEG is not the best option'': PNG frames + VirtualDub or QuickTime Pro & PNG frames + \code{ffmpeg} (chapter 30), or the CLI \\
 ``2D or 3D to modify axes'' & the Annotation window's \gui{2D} tab; chapter 27 for 3D \\
