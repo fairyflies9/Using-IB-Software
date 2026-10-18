@@ -59,14 +59,14 @@
 \begin{frame}[plain]
 \maketutorialtitlepanel{%
 \begin{tikzpicture}[scale=0.55, every node/.style={font=\tiny}]
-  \node[draw=NavyBlue,fill=NavyBlue!10,rounded corners=2pt,minimum width=2.4cm,minimum height=0.5cm,align=center] (a) at (0,0.9) {\code{visit\_dump.*} (HDF5)\\\code{output.ex2} (netCDF)};
-  \node[draw=NavyBlue,fill=NavyBlue!10,rounded corners=2pt,minimum width=2.4cm,minimum height=0.5cm,align=center] (b) at (0,-0.9) {\code{lag\_data.*} (Silo)\\\code{X.*}, \code{.curve} (text)};
+  \node[draw=NavyBlue,fill=NavyBlue!10,rounded corners=2pt,minimum width=2.2cm,minimum height=0.5cm,align=center] (a) at (0,0.9) {\code{visit\_dump.*} (HDF5)\\\code{output.ex2} (netCDF)};
+  \node[draw=NavyBlue,fill=NavyBlue!10,rounded corners=2pt,minimum width=2.2cm,minimum height=0.5cm,align=center] (b) at (0,-0.9) {\code{lag\_data.*} (Silo)\\\code{X.*}, \code{.curve} (text)};
   \node[draw=OliveGreen,fill=OliveGreen!10,rounded corners=2pt,minimum width=2.2cm,minimum height=0.5cm,align=center] (p) at (3.6,0.9) {h5py, netCDF4\\\code{samrai\_dumps.py}};
   \node[draw=OliveGreen,fill=OliveGreen!10,rounded corners=2pt,minimum width=2.2cm,minimum height=0.5cm,align=center] (v) at (3.6,-0.9) {VisIt: Resample,\\Export Database};
-  \node[draw=orange!70!black,fill=orange!10,rounded corners=2pt,minimum width=2.2cm,minimum height=0.5cm,align=center] (f) at (7.0,0) {NumPy, MATLAB\\VTK, ParaView};
+  \node[draw=orange!70!black,fill=orange!10,rounded corners=2pt,minimum width=2.0cm,minimum height=0.5cm,align=center] (f) at (6.6,0) {NumPy, MATLAB\\VTK, ParaView};
   \draw[-{Latex[length=1.5mm]}] (a) -- (p); \draw[-{Latex[length=1.5mm]}] (b) -- (v); \draw[-{Latex[length=1.5mm]}] (a) -- (v);
   \draw[-{Latex[length=1.5mm]}] (p) -- (f); \draw[-{Latex[length=1.5mm]}] (v) -- (f);
-  \node[text=DarkGray,align=center,text width=5.6cm] at (3.5,-2.5) {every reader on these slides was run on this series' data; the 2013--2020 decks and scripts credited where they are quoted};
+  \node[text=DarkGray,align=center,text width=5.3cm] at (3.5,-2.5) {every reader on these slides was run on this series' data; the 2013--2020 decks and scripts credited where they are quoted};
 \end{tikzpicture}}
 \end{frame}
 
@@ -105,7 +105,7 @@
 \label{fr:map}
 \scriptsize
 \renewcommand{\arraystretch}{0.95}
-\begin{tabular}{@{}L{0.24\textwidth}L{0.17\textwidth}L{0.16\textwidth}L{0.35\textwidth}@{}}
+\begin{tabular}{@{}L{0.24\textwidth}L{0.17\textwidth}L{0.18\textwidth}L{0.31\textwidth}@{}}
 \toprule
 file & written by & container & readers \\
 \midrule
@@ -122,7 +122,7 @@ file & written by & container & readers \\
 \label{fr:map2}
 \scriptsize
 \renewcommand{\arraystretch}{0.95}
-\begin{tabular}{@{}L{0.24\textwidth}L{0.17\textwidth}L{0.16\textwidth}L{0.35\textwidth}@{}}
+\begin{tabular}{@{}L{0.24\textwidth}L{0.17\textwidth}L{0.18\textwidth}L{0.31\textwidth}@{}}
 \toprule
 file & written by & container & readers \\
 \midrule
@@ -805,7 +805,7 @@ time,x=-1.5,x=0,x=1.5
 \footnotesize
 \begin{itemize}
   \item The two lines give the same curve (means $6.64$ and $6.65 \times 10^{-4}$ m$^2$/s): the flux along the tube is one number at each instant.
-  \item The mean, $6.6 \times 10^{-4}$ m$^2$/s per unit depth through a $0.1$ m tube, is a mean speed of $6.6$ mm/s in the $+x$ direction along the top, so the loop turns clockwise and the flow along the elastic section is in $-x$ (chapter 29 finds the same flux on both bends and across the whole pericardium), pumped by a squeeze that never closes the tube: Liebau's valveless pumping, measured as a flux. Chapter 9b's README measured the markers' drift in the elastic section, $+1.2$ and $+1.0$ cm per period: against the net flow there. A drift of marker points is not a flux.
+  \item The mean, $6.6 \times 10^{-4}$ m$^2$/s per unit depth through a $0.1$ m tube, is a mean speed of $6.6$ mm/s in the $+x$ direction along the top, so the loop turns clockwise and the flow along the elastic section is in $-x$ (chapter 29 finds the same flux on both bends and across the whole pericardium), pumped by a squeeze that never closes the tube: Liebau's valveless pumping, measured as a flux. Chapter 9b's README measured the markers' drift in the elastic section, $+1.1$ and $+1.0$ cm per period: against the net flow there. A drift of marker points is not a flux.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -814,7 +814,7 @@ time,x=-1.5,x=0,x=1.5
 \label{fr:pump2}
 \footnotesize
 \begin{itemize}
-  \item A line across the lower, elastic section at $x = -0.15$, between the walls' rest positions, gave almost nothing: the tube moves, bulging past such a line in places and narrowing inside it in others, so the line crosses part of the tube and part of the gap between tube and pericardium. Across the whole pericardium ($y$ from $-0.245$ to $-0.055$) the flux is the loop's again, $6.6 \times 10^{-4}$ m$^2$/s in $-x$ (chapter 29); check the geometry before trusting a line (chapter 9b's figures show where the tube is).
+  \item A line across the lower, elastic section at $x = -0.15$, between the walls' rest positions, gave almost nothing, probably because the tube moves, bulging past such a line in places and narrowing inside it in others, so the line crosses part of the tube and part of the gap between tube and pericardium. Across the whole pericardium ($y$ from $-0.245$ to $-0.055$) the flux is the loop's again, $6.6 \times 10^{-4}$ m$^2$/s in $-x$ (chapter 29); check the geometry before trusting a line (chapter 9b's figures show where the tube is).
   \item The same loop over \code{sd.frames} gives any other quantity: the maximum speed on the line, the mean pressure drop between two lines, the kinetic energy in a box.
 \end{itemize}
 \end{frame}

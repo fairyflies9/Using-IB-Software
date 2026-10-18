@@ -765,7 +765,7 @@ mode & driving structure & what is set each step & force law & what is prescribe
 \begin{itemize}
   \item the suction modes (1, 2) pinch one spot a quarter of the way along; the elastic walls around the pinch bulge;
   \item the peristaltic modes (3, 4, 5) show the travelling constriction and, ahead of it, the bulge of fluid it pushes;
-  \item the markers' positions show where the fluid has gone since $t = 0$; compare the panels with the curves of slide \ref{fr:transport}.
+  \item the markers' positions show where those 121 parcels have gone since $t = 0$ (not the net flow, chapter 29); compare the panels with the curves of slide \ref{fr:transport}.
 \end{itemize}
 \scriptsize The 2014 slides showed the same two pictures from VisIt (``VP with applied force'', ``Results from peristalsis''), with velocity vectors; chapter 26's recipe reproduces them from \code{viz\_IB2d}, and the README has one.
 \end{column}
@@ -797,17 +797,17 @@ mode & driving structure & what is set each step & force law & what is prescribe
 % 23c
 \begin{frame}{Tuning the applied force: the numbers}
 \label{fr:fmag2}
-\scriptsize Every applied-force run of the chapter, from the saved positions. ``Closes'': the walls come within two grid cells ($0.4$ cm; $\Delta x = 0.195$ cm), share cells and stick. Transport: the markers' mean displacement over $0$--$1$ s and over $1$--$2$ s. Opening: the smallest wall-to-wall distance in each period.
-\par\smallskip{\centering\scriptsize
+\scriptsize Every applied-force run of the chapter, from the saved positions. ``Closes'': the walls come within two grid cells ($0.4$ cm; $\Delta x = 0.195$ cm), share cells and stick. Drift: the markers' mean displacement over $0$--$1$ s and over $1$--$2$ s (not the net flow, chapter 29). Opening: the smallest wall-to-wall distance in each period.
+\par\smallskip{\centering\scriptsize\renewcommand{\arraystretch}{0.96}
 \begin{tabular}{@{}llllll@{}}
 \toprule
-run & tube & closes at & run ends & transport (cm) & opening (cm)\\
+run & tube & closes at & run ends & markers' drift (cm) & opening (cm)\\
 \midrule
 suction, $F_{\mathrm{mag}} = 4$ (2014) & 2014 & $0.24$ s & abort, $1.16$ s & $-1.4$ & $0.05$\\
 suction, $2$ & 2014 & $0.32$ s & abort, $0.72$ s & -- & $0.07$\\
 suction, $1$ & 2014 & $0.44$ s & $2$ s & $-0.5$, $-3.6$ & $0.09$, $0.06$\\
 suction, $0.5$ & 2014 & $1.44$ s & $2$ s & $+1.0$, $-1.0$ & $1.0$, $0.17$\\
-suction, $0.25$ (shipped) & 2014 & never & $2$ s & $+1.2$, $+1.0$ & $5.0$, $1.5$\\
+suction, $0.25$ (shipped) & 2014 & never & $2$ s & $+1.1$, $+1.0$ & $5.0$, $1.5$\\
 peristalsis, $5$ mm, $4$ (2014) & 2014 & $0.36$ s & abort, $0.64$ s & -- & crossed\\
 peristalsis, $25$ mm, $1$ & 2014 & $0.32$ s & abort, $0.68$ s & -- & $0.13$\\
 peristalsis, $25$ mm, $1$ (shipped) & $10\times EI$ & never & $2$ s & $+0.8$, $-2.6$ & $3.1$, $4.7$\\
@@ -816,8 +816,8 @@ target points, suction & 2014 & never & $2$ s & $-0.8$, $-1.6$ & $1.9$, $1.3$\\
 target points, peristalsis & 2014 & $0.76$ s, reopens & $2$ s & $+3.1$, $+2.4$ & $0.07$, $0.09$\\
 stiffness wave, $25$ mm, rest $5$ cm & 2014 & $0.56$ s & abort, $0.64$ s & -- & crossed\\
 \bottomrule
-\end{tabular}\par}\smallskip
-\scriptsize Two things to read off. The shipped suction force pumps steadily (its net flow never reverses) and turns the loop the same way as the target-driven pump, though its markers drift the other way (chapter 29): its squeeze is shallower and lags the force by half a period ($5.0$ cm at $t = 1.0$ s for a force that peaked at $0.5$ s). The force-driven wave on the stiff tube runs but sloshes: the fluid it pushes ahead flows back when the packet leaves the piece, and two periods do not settle its direction; a larger $F_{\mathrm{mag}}$ on the stiff tube is the first thing to try (slide \ref{fr:hw}).
+\end{tabular}\par}\vspace{1pt}
+\scriptsize Two things to read off. The shipped suction force pumps steadily (its net flow never reverses) and turns the loop the same way as the target-driven pump, though its markers drift the other way (chapter 29). Its squeeze is shallower and lags the force by half a period ($5.0$ cm at $t = 1.0$ s for a force that peaked at $0.5$ s). The force-driven wave on the stiff tube runs but sloshes: the fluid it pushes ahead flows back when the packet leaves the piece, and two periods do not settle its direction; a larger $F_{\mathrm{mag}}$ on the stiff tube is the first thing to try (slide \ref{fr:hw}).
 \sourcecredit{Same runs; \code{tools/ch9b\_figures.py} prints these numbers.}
 \end{frame}
 
@@ -827,7 +827,7 @@ stiffness wave, $25$ mm, rest $5$ cm & 2014 & $0.56$ s & abort, $0.64$ s & -- & 
 \small From the 2014 lecture, ``Analysis -- pump coefficient'': ``The pump coefficient is given by $C_{\mathrm{pump}} = m\,U_a^2/W$, where $m$ is the total mass of fluid in the loop, $U_a$ is the average fluid velocity in the direction of the loop, and $W$ is the total work done by the pump over a set period of time. Note that work is $F\cdot d$, and we calculate each of these in IBM.''
 \begin{itemize}
   \item $m = \rho\,A_{\mathrm{loop}}$ per unit depth, from the geometry;
-  \item $U_a$ from the velocity field integrated across the tube: the flux divided by the diameter (chapter 29); not from the markers' displacement, which can differ even in sign (slide \ref{fr:transport});
+  \item $U_a$ from the velocity field integrated across the tube: the flux divided by the diameter (chapter 29); not from the markers' displacement, which can differ even in sign (slide \ref{fr:lookfor});
   \item $W = \sum_{\text{steps}}\sum_{\text{driven points}} \mathbf{F}_k\cdot\Delta\mathbf{X}_k$: the force on each driven point times its displacement, summed over a period, from the \code{F.*} and \code{X.*} files (chapter 11). For the target modes the force is the tether force; for the force modes it is $F_{\mathrm{mag}}\cdot$phase on each spring, which \code{F.*} also contains.
 \end{itemize}
 \vspace{1mm}
@@ -991,17 +991,17 @@ the two walls driven into the same grid cell & they stick: the IB method cannot 
 \begin{frame}{Homework}
 \label{fr:hw}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.55\textwidth}
+\begin{column}{0.6\textwidth}
 \footnotesize From the 2013--2015 courses and this chapter (Appendix C collects the full set):
 \begin{enumerate}
-  \item IB/11: run \code{TARGET\_VP} and \code{FORCE\_VP}, and find the $F_{\mathrm{mag}}$ at which the applied force gives the same squeeze as the targets. Compare the transport per period.
-  \item IB/11: halve $\mathrm{Wo}$ (the viscosity doubles) and halve the frequency, one at a time; say which changes the transport more and why (chapter 8b).
+  \item IB/11: run \code{TARGET\_VP} and \code{FORCE\_VP}, and find the $F_{\mathrm{mag}}$ at which the applied force gives the same squeeze as the targets. Compare the net flow per period (chapter 29) and the markers' drift.
+  \item IB/11: halve $\mathrm{Wo}$ (the viscosity doubles) and halve the frequency, one at a time; say which changes the net flow per period more, which the markers' drift, and why (chapter 8b).
   \item Move the actuator to the middle of the elastic section (\code{Ca} in the generator). What happens to the net flow, and what does that say about valveless pumping?
   \item Write a cable (tension-only) law, register it under index 3, and give it to the springs of IB/01's rubber band. What does the band do when it is compressed?
   \item Write a muscle law with an active tension that the update function raises and lowers at 1 Hz on half of IB/06's fibre.
 \end{enumerate}
 \end{column}
-\begin{column}{0.43\textwidth}
+\begin{column}{0.38\textwidth}
 \begin{punchbox}
 \scriptsize What to hand in: the force function and its registration line, the generator loop that writes the index, the \code{integral\{F\}} or marker check that shows the force acts, and one VisIt frame per run.
 \end{punchbox}
