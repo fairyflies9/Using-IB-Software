@@ -20,7 +20,7 @@ Run it
 ```bash
 # put this folder under pyIB2d/Examples/ of an IB2d clone (main2d.py finds ../../IBM_Blackbox there)
 python3 Rubberband.py        # 64 points; ds = 0.63 dx
-python3 main2d.py            # about 3 s on a laptop; 100 dumps in viz_IB2d/
+python3 main2d.py            # about 3 s on a desktop PC; 100 dumps in viz_IB2d/
 ```
 
 What to look at: `lagsPts.NNNN.vtk` in VisIt (chapter 4b) or with `examples/analysis/read_vtk_legacy.py`: the band's

@@ -7,7 +7,7 @@ Two flexible plates start side by side, 5 mm apart, and are pulled apart by movi
 | Method | Immersed boundary (IB): springs, beams and moving target points; two structures |
 | Dimension | 2D |
 | Chapters | 9 (target points, springs and multiple structures), 6 (structure files), 11 (forces) |
-| Run time | about 5 to 8 minutes on 4 cores (0.03 to 0.05 s per step on a laptop; 10,000 steps) |
+| Run time | about 5 to 8 minutes on 4 cores (0.03 to 0.05 s per step on a desktop PC under WSL; 10,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/ConstraintIB/moving_plate` in IBAMR moves a rigid plate with prescribed motion instead of target points |
 
@@ -84,7 +84,7 @@ The time step: `DT = 1.0e-4` runs; `DT = 5.0e-5` gives the same gap and forces t
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames, 16 MB).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames, 16 MB).
 - `viz_IB2d/lag_data.visit` holds both plates, as the two meshes `plate2d_left_512_mesh` and `plate2d_rght_512_mesh`.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the points' positions and forces as plain-text PETSc vectors, with x and y alternating, the left plate's 103 points first. Chapter 11 reads them in MATLAB.
 - `IB2d.log` is the log file.

@@ -7,7 +7,7 @@ A straight flexible beam lies in a box of still fluid, clamped at its left end b
 | Method | Immersed boundary (IB): springs, beams with a time-dependent preferred curvature, two target points |
 | Dimension | 2D |
 | Chapters | 10 (resting curvature and beams), 9a (update functions), 6 (structure files), 11 (forces) |
-| Run time | about 12 minutes on 3 cores (0.012 s per step on a laptop; 60,000 steps) |
+| Run time | about 12 minutes on 3 cores (0.012 s per step on a desktop PC under WSL; 60,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR (a filament of springs and beams, with zero preferred curvature) |
 
@@ -91,7 +91,7 @@ What to notice:
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames).
 - `viz_IB2d/lag_data.visit` holds the beam as the mesh `beam_512_mesh`.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the points' positions and forces as plain-text PETSc vectors, with x and y alternating. Chapter 11 reads them in MATLAB and Python.
 - `IB2d.log` is the log file.

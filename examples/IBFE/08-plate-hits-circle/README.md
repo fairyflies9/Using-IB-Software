@@ -7,7 +7,7 @@ Two structures, each with its own mesh, share a periodic box of fluid. An uprigh
 | Method | Immersed boundary finite element (IBFE), two parts |
 | Dimension | 2D |
 | Chapters | 21 (two or more meshes), 18 (meshes from Trelis and Cubit), 28 (finite element data in VisIt) |
-| Run time | about 2 minutes on 4 cores (115 s with IBAMR 0.16.0 and 132 s with 0.19.0 on a laptop) |
+| Run time | about 2 minutes on 4 cores (115 s with IBAMR 0.16.0 and 132 s with 0.19.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relatives | `examples/IBFE/explicit/ex6` (a block and a beam, two parts) and `ex8` (three parts) in IBAMR |
 
@@ -85,7 +85,7 @@ IBAMR 0.16.0 and 0.19.0 give the same numbers (the node positions agree to 2 × 
 
 The output folder `viz_IB2d/` holds
 
-- `dumps.visit`: the fluid on the adaptive grid (`U`, `P`, `Omega`, `F`, `Div_U`);
+- `dumps.visit`: the fluid on the adaptive grid (`U`, `P`, `Omega`, `F`, `Div U`);
 - `beam_output.ex2` (0.6 MB) and `circle_output.ex2` (5.2 MB): the two parts, each with `dX_0`, `dX_1`, `X_0`, `X_1`, `F_0`, `F_1`, `U_0`, `U_1`.
 
 The folder is 35 MB with IBAMR 0.19.0 and 48 MB with 0.16.0, which also writes `U_x`, `U_y`, `F_x` and `F_y`.

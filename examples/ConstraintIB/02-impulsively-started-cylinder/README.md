@@ -7,7 +7,7 @@ A rigid disc of diameter 1 m rests in a quiescent periodic box. For the first hu
 | Method | Constraint IB (`ConstraintIBMethod` with the `RigidBodyKinematics` class): free rigid-body motion from momentum conservation, a body-force impulse |
 | Dimension | 2D |
 | Chapters | 14 (constraint IB), 7 (boundary conditions, body forces), 11 (forces), 13 (mass), 15 (the upstream examples) |
-| Run time | two and a half minutes on 4 ranks of a laptop (2,000 steps of 0.002 s) |
+| Run time | two and a half minutes on 4 ranks of a desktop PC under WSL (2,000 steps of 0.002 s) |
 | Tested with | IBAMR 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/ConstraintIB/impulsively_started_cylinder` in IBAMR: this is that example, with the edits listed under "History" |
 

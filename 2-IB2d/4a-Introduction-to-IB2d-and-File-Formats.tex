@@ -83,7 +83,7 @@
 \footnotesize
 \begin{itemize}
   \item The force laws are transcribed from \code{please\_Find\_Lagrangian\_Forces\_On\_Eulerian\_grid.m}, the delta function from \code{give\_Delta\_Kernel.m}, the parser's rules from \code{please\_Read\_input2d\_File} and the initializer, the output names from the driver's \code{print\_vtk\_files}.
-  \item The runs: \code{Rubberband\_with\_Springs}, \code{\_with\_Beams}, \code{\_with\_Damped\_Springs} and \code{Wobbly\_Beam} from \code{pyIB2d/Examples}, in WSL (Ubuntu 24.04, Python 3.12, numba 0.68), plotting off; the MATLAB version was read, not run (no MATLAB on the laptop; the Octave attempt is on slide \ref{fr:octave}).
+  \item The runs: \code{Rubberband\_with\_Springs}, \code{\_with\_Beams}, \code{\_with\_Damped\_Springs} and \code{Wobbly\_Beam} from \code{pyIB2d/Examples}, in WSL (Ubuntu 24.04, Python 3.12, numba 0.68), plotting off; the MATLAB version was read, not run (no MATLAB on the computer used; the Octave attempt is on slide \ref{fr:octave}).
   \item The code read is the clone of 2024-03-06; the GitHub page and its news were checked in October 2026 and the repository has moved on since (973 commits), so a key name or an example may differ in detail from these slides. The checks are easy to repeat: the file names on slide \ref{fr:refs}.
 \end{itemize}
 \end{frame}
@@ -106,7 +106,7 @@
   \item \al{``ib2d part 2'' (Lecture 10, 2023):} MATLAB vs Python, the Anaconda route.
   \item \al{The IB2d repository} (\url{https://github.com/nickabattista/IB2d}; the code read here is the 2024-03-06 clone, the page checked October 2026): the README, \code{IB2d\_New\_Functionality.txt}, the example folders, and the readers in \code{IBM\_Blackbox}.
 \end{itemize}
-What is new here: the Python/MATLAB index difference, the input parser's rules (unknown keys, duplicates, defaults), the force laws as coded, the output file formats, timings on a laptop, and the beams-example trap (slide \ref{fr:trap}).
+What is new here: the Python/MATLAB index difference, the input parser's rules (unknown keys, duplicates, defaults), the force laws as coded, the output file formats, timings on a desktop PC, and the beams-example trap (slide \ref{fr:trap}).
 \end{frame}
 
 % ---------------------------------------------------------------- what IB2d is
@@ -399,7 +399,7 @@ MATLAB: open the folder and type \code{main2d}. Python:
 cd pyIB2d/Examples/Rubberband_with_Springs
 python3 main2d.py
 \end{lstlisting}
-What the four Python rubber-band examples took on a laptop (numba, output on, plotting off; numpy free to use several threads, which the $64^2$ run did):
+What the four Python rubber-band examples took on a desktop PC under WSL (numba, output on, plotting off; numpy free to use several threads, which the $64^2$ run did):
 
 \vspace{1mm}
 \scriptsize

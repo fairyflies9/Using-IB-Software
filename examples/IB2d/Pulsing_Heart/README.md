@@ -18,7 +18,7 @@ Files
 Run it
 
 ```bash
-python3 main2d.py            # about half a minute on a laptop; 200 dumps
+python3 main2d.py            # about half a minute on a desktop PC; 200 dumps
 ```
 
 The generator `Pulsing_Heart.m` of the MATLAB example builds the two shapes and `All_Positions.txt`; it is not ported

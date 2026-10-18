@@ -7,7 +7,7 @@ A free elastic plate in a periodic box of fluid contracts because of an active t
 | Method | Immersed boundary finite element (IBFE) |
 | Dimension | 2D |
 | Chapters | 20 (fiber tension and active stress), 19 (stress functions), 28 (finite element data in VisIt) |
-| Run time | under a minute on 4 cores (23 to 41 s on a laptop, depending on the mode and the IBAMR version) |
+| Run time | under a minute on 4 cores (23 to 41 s on a desktop PC under WSL, depending on the mode and the IBAMR version) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IBFE/explicit/ex2` in IBAMR (same passive stress model) |
 
@@ -97,7 +97,7 @@ In the fourth cycle the plate also starts to bend: at t = 3.8 its middle is 0.04
 
 IBAMR 0.16.0 and 0.19.0 give the same numbers.
 
-The output folder `viz_IB2d/` holds `dumps.visit` (the fluid: `U`, `P`, `Omega`, `F`, `Div_U`) and `output.ex2` (the plate: `dX_0`, `dX_1`, `X_0`, `X_1`, `F_0`, `F_1`, `U_0`, `U_1`). It is 12 to 13 MB with IBAMR 0.19.0 and 17 to 18 MB with 0.16.0, which also writes `U_x`, `U_y`, `F_x` and `F_y`.
+The output folder `viz_IB2d/` holds `dumps.visit` (the fluid: `U`, `P`, `Omega`, `F`, `Div U`) and `output.ex2` (the plate: `dX_0`, `dX_1`, `X_0`, `X_1`, `F_0`, `F_1`, `U_0`, `U_1`). It is 12 to 13 MB with IBAMR 0.19.0 and 17 to 18 MB with 0.16.0, which also writes `U_x`, `U_y`, `F_x` and `F_y`.
 
 ## Looking at it in VisIt
 

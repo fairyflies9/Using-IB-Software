@@ -7,7 +7,7 @@ A two-dimensional eel of length 1 m, filled with 2,932 Lagrangian points, bends 
 | Method | Constraint IB (`ConstraintIBMethod` with the `IBEELKinematics` class): prescribed deformation, free rigid motion; the control-volume force evaluator |
 | Dimension | 2D |
 | Chapters | 14 (constraint IB), 10 (prescribed shapes), 11 (forces), 15 (the upstream examples) |
-| Run time | 12 minutes on 8 ranks of a laptop (20,000 steps of 0.0001 s) |
+| Run time | 12 minutes on 8 ranks of a desktop PC under WSL (20,000 steps of 0.0001 s) |
 | Tested with | IBAMR 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/ConstraintIB/eel2d` in IBAMR: this is that example, with the edits listed under "History"; `eel3d` and `knifefish` are its 3D relatives |
 

@@ -30,7 +30,7 @@ behind you, or you in a few years, does not have to find the parameters in the c
 | run name (folder) | `TARGET_VP` |
 | what varies in this run | the actuation: target points moved in and out (suction) |
 | date run, by whom | 13 October 2026, for this tutorial |
-| machine, cores, wall time | a laptop (WSL2, Ubuntu 24.04), 3 cores (`mpirun -np 3`); 68 min, 07:52 to 09:01, with the other four modes running at the same time |
+| machine, cores, wall time | a desktop PC (Intel i9-12900KF; WSL2, Ubuntu 24.04), 3 cores (`mpirun -np 3`); 68 min, 07:52 to 09:01, with the other four modes running at the same time |
 | code | IBAMR 0.19.0, `examples/IB/11-heart-tube-pump`, input `input2d` as shipped |
 | input file | `input2d` as shipped (`ACTUATION = "TARGET_VP"`) |
 | structure files | `actuator_top_512`, `actuator_bot_512` (`.vertex`, `.target`); `heart_tube_512` (`.vertex`, `.spring`, `.beam`, `.target`); `heart_peri_512`, `heart_race_512` (`.vertex`, `.target`); `markers_512.vertex` |

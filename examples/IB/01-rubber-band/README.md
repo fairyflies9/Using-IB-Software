@@ -7,7 +7,7 @@ An elastic band made of 644 Lagrangian points joined by springs starts as an ell
 | Method | Immersed boundary (IB), springs only |
 | Dimension | 2D |
 | Chapters | 3 (building and running), 6 (structure files), 26 (VisIt) |
-| Run time | about 3 to 4 minutes on 4 cores for the full 2 s: 166 s with IBAMR 0.16.0 and 181 s with 0.19.0 on a laptop, and 4 min 14 s as a batch job on Puma |
+| Run time | about 3 to 4 minutes on 4 cores for the full 2 s: 166 s with IBAMR 0.16.0 and 181 s with 0.19.0 on a desktop PC under WSL, and 4 min 14 s as a batch job on Puma |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex1` in IBAMR, which this program is adapted from |
 
@@ -79,7 +79,7 @@ The ratio dips slightly below 1 around t = 0.4 s before settling, so the relaxat
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U`.
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (VisIt's name has a space: `<Div U>` in an expression).
 - `viz_IB2d/lag_data.visit` holds the band itself.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the band's positions and forces as plain-text PETSc vectors, with x and y alternating. Chapter 11 reads them in MATLAB.
 - `IB2d.log` is the log file.

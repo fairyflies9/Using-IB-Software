@@ -7,7 +7,7 @@ A right triangle, meshed with gmsh, is pulled through a periodic box of fluid by
 | Method | Immersed boundary finite element (IBFE) |
 | Dimension | 2D |
 | Chapters | 18 (creating meshes), 17 (getting started with IBFE), 28 (finite element data in VisIt) |
-| Run time | about 2 minutes on 4 cores (100 s with IBAMR 0.16.0 and 103 s with 0.19.0 on a laptop) |
+| Run time | about 2 minutes on 4 cores (100 s with IBAMR 0.16.0 and 103 s with 0.19.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04); gmsh 4.12.1 |
 | Upstream relatives | `examples/IBFE/explicit/ex2` (same stress model, mesh built in the program) and `examples/IBLevelSet/ex0` (reads a gmsh mesh) in IBAMR |
 
@@ -99,7 +99,7 @@ IBAMR 0.16.0 and 0.19.0 give identical results. The mesh made with `triangle.geo
 
 The output folder `viz_IB2d/` holds
 
-- `dumps.visit`: the fluid on the adaptive grid (velocity `U`, pressure `P`, vorticity `Omega`, force `F`, `Div_U`);
+- `dumps.visit`: the fluid on the adaptive grid (velocity `U`, pressure `P`, vorticity `Omega`, force `F`, `Div U`);
 - `output.ex2`: the triangle, as an ExodusII file with the nodal variables `dX_0`, `dX_1` (displacement), `X_0`, `X_1` (position), `F_0`, `F_1` (force) and `U_0`, `U_1` (velocity).
 
 The output folder is 32 MB with IBAMR 0.19.0 and 45 MB with 0.16.0, which also writes the velocity and force components separately (`U_x`, `U_y`, `F_x`, `F_y`).

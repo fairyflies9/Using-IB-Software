@@ -7,7 +7,7 @@ Blood pulses through the carotid artery of a horse, and, for comparison, through
 | Method | Immersed boundary (IB): target points |
 | Dimension | 2D |
 | Chapters | 7 (boundary conditions), 6 (structure files), 8a (choosing the target stiffness), 11 (forces), 25 (where the pulsatile inflow and the open outflow come from) |
-| Run time | human: 3.5 minutes for two cycles on 4 cores; horse: 44 minutes (IBAMR 0.19.0 on a laptop) |
+| Run time | human: 3.5 minutes for two cycles on 4 cores; horse: 44 minutes (IBAMR 0.19.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex2` in IBAMR (a body held by target points in a stream); this series' IB/02 is the same program with straight walls |
 

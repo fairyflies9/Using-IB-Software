@@ -32,7 +32,7 @@ The SVG is not copied into this repository: it is part of IB2d (GPL-3.0) and was
 `please_Compute_External_Forcing.py` (a port of IB2d's MATLAB file) are GPL-3.0 too, inside this repository whose own
 code is under `LICENSE-CODE`; each says so in its header.
 
-## What it gave (October 2026, laptop, WSL)
+## What it gave (October 2026, a desktop PC under WSL)
 
 See the chapter for the pictures. The starfish got 405 points (chords 1.006 ds, the closing one 1.13); the run took
 8000 steps in 223 s. The penalty force does not make the fluid follow its target: the centre-line speed

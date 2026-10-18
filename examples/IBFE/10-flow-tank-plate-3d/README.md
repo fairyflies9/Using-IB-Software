@@ -7,7 +7,7 @@ A thin elastic plate stands across a uniform stream in a 3D flow tank. A band ac
 | Method | Immersed boundary finite element (IBFE) |
 | Dimension | 3D |
 | Chapters | 22 (3D flow past objects; the flow tank), 18 (making meshes with gmsh), 19 (stress and body forces), 27 and 28 (VisIt in 3D and finite element data) |
-| Run time | about 30 to 50 minutes on 4 cores (0.3 s per step on a quiet laptop, up to 0.6 s with other jobs running; 5000 steps) |
+| Run time | about 30 to 50 minutes on 4 cores (0.3 s per step on a quiet desktop PC under WSL, up to 0.6 s with other jobs running; 5000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relatives | `examples/IBFE/explicit/ex4` (compressible neo-Hookean solid with a β log J term, 2D and 3D) and `ex5` (a body held in a flow by penalty springs, with drag output) in IBAMR |
 
@@ -71,7 +71,7 @@ The two flaps bend downstream slowly (the plate is 2 wide, so a displacement of 
 
 The output (IBAMR 0.19.0):
 
-- `viz_IB3d/dumps.visit`: 21 frames of the fluid (velocity `U`, pressure `P`, vorticity `Omega`, `Div_U` and the force density `F`), and `viz_IB3d/output.ex2`, the plate (7 MB); 95 MB in all. IBAMR 0.16.0 also writes the separate velocity and force components (`U_x`, ...), which makes its frames larger.
+- `viz_IB3d/dumps.visit`: 21 frames of the fluid (velocity `U`, pressure `P`, vorticity `Omega`, `Div U` and the force density `F`), and `viz_IB3d/output.ex2`, the plate (7 MB); 95 MB in all. IBAMR 0.16.0 also writes the separate velocity and force components (`U_x`, ...), which makes its frames larger.
 - `hier_data_IB3d/tether_force.txt`: the tether force at the 100 data steps.
 - `restart_IB3d/`: restart files at the end of the run (10 MB).
 - `IB3d.log`: the log file.
@@ -85,7 +85,7 @@ IBAMR 0.16.0 and 0.19.0 both run this input to the end and print the same final 
 3. Open `viz_IB3d/output.ex2`, choose **Add → Mesh** and pick the plate's mesh. It is drawn in its starting position.
 4. To move it with the plate, make a vector expression in **Controls → Expressions**: name `dX`, type *Vector*, definition `{dX_0, dX_1, dX_2}`. Then add **Operators → Transforms → Displace** to the mesh plot and set its variable to `dX`. A **Pseudocolor** plot of `dX_0` on the plate shows how far each part has bent downstream.
 
-`dumps.visit` also has the pressure `P`, the vorticity `Omega`, `Div_U` and the force density `F` that the plate puts on the fluid. `output.ex2` has, at each node, the displacement `dX_0`, `dX_1`, `dX_2`, the position `X_0`, `X_1`, `X_2`, the force `F_0`, `F_1`, `F_2` and the velocity `U_0`, `U_1`, `U_2`. Chapters 27 and 28 cover 3D plots and finite element data.
+`dumps.visit` also has the pressure `P`, the vorticity `Omega`, `Div U` and the force density `F` that the plate puts on the fluid. `output.ex2` has, at each node, the displacement `dX_0`, `dX_1`, `dX_2`, the position `X_0`, `X_1`, `X_2`, the force `F_0`, `F_1`, `F_2` and the velocity `U_0`, `U_1`, `U_2`. Chapters 27 and 28 cover 3D plots and finite element data.
 
 ## Options from the 2017 version
 

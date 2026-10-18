@@ -7,7 +7,7 @@ A flexible beam, the "leaf", stands upright in a box of fluid, held at its middl
 | Method | Immersed boundary (IB): springs, beams and two target points |
 | Dimension | 2D |
 | Chapters | 7 (boundary conditions), 6 (structure files), 10 (beams) |
-| Run time | about 7 minutes on 4 cores (0.02 s per step on a laptop; 20,000 steps) |
+| Run time | about 7 minutes on 4 cores (0.02 s per step on a desktop PC under WSL; 20,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR (a filament made of springs and beams); the program is adapted from `examples/IB/explicit/ex1` |
 
@@ -81,7 +81,7 @@ The time step: runs with `DT` from 2.0e-5 to 2.0e-4 agree closely (the tip posit
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames, 11 MB).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames, 11 MB).
 - `viz_IB2d/lag_data.visit` holds the leaf itself.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the leaf's positions and forces as plain-text PETSc vectors, with x and y alternating. Chapter 11 reads them in MATLAB.
 - `IB2d.log` is the log file.

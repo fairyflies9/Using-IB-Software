@@ -7,7 +7,7 @@ A rigid disc of diameter 1 m, filled with Lagrangian points, oscillates along x 
 | Method | Constraint IB (`ConstraintIBMethod` with a `ConstraintIBKinematics` subclass): prescribed kinematics, a rigid body |
 | Dimension | 2D |
 | Chapters | 14 (constraint IB), 7 (boundary conditions and domain), 11 (forces), 15 (the upstream examples) |
-| Run time | 11 minutes on 8 ranks of a laptop (6,667 steps of 0.0015 s; WSL, three examples running at once) |
+| Run time | 11 minutes on 8 ranks of a desktop PC (6,667 steps of 0.0015 s; WSL, three examples running at once) |
 | Tested with | IBAMR 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/ConstraintIB/oscillating_rigid_cylinder` in IBAMR: this is that example, with the edits listed under "History" |
 

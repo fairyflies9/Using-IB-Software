@@ -87,7 +87,7 @@ The IBAMR numbers come from the coarsest grid level in the VisIt files. The 1D s
 
 The grid does not change during the run: 161,280 cells, with the finest level only around the fiber. The output (IBAMR 0.19.0):
 
-- `viz_IB3d/dumps.visit`: 21 frames of the fluid (velocity `U`, pressure `P`, vorticity `Omega` and `Div_U`), 79 MB in all. IBAMR 0.16.0 also writes the separate components such as `U_x`, which makes its frames about 1.8 times larger.
+- `viz_IB3d/dumps.visit`: 21 frames of the fluid (velocity `U`, pressure `P`, vorticity `Omega` and `Div U`), 79 MB in all. IBAMR 0.16.0 also writes the separate components such as `U_x`, which makes its frames about 1.8 times larger.
 - `viz_IB3d/lag_data.visit`: the fiber's points, 184 kB per frame.
 - `hier_data_IB3d/X.NNNNN` and `F.NNNNN`: the points' positions and forces every 400 steps (50 of each, 27 MB).
 - `restart_IB3d/`: restart files at steps 0 and 20,000 (12 MB and 22 MB).

@@ -7,7 +7,7 @@ A straight fiber made of springs lies in a box of very viscous fluid, and a shor
 | Method | Immersed boundary (IB): springs whose rest lengths change during the run |
 | Dimension | 2D |
 | Chapters | 9 (target points and springs), 6 (structure files), 10 (beams) |
-| Run time | about 3 minutes on 4 cores (0.035 s per step on a laptop; 5000 steps) |
+| Run time | about 3 minutes on 4 cores (0.035 s per step on a desktop PC under WSL; 5000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex1` in IBAMR, which the program is adapted from; IBAMR's `IBSpringForceSpec` class documentation describes the spring parameters |
 
@@ -77,7 +77,7 @@ For about the first 0.12 s the fiber stays straight and lengthens almost as fast
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames, 18 MB).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames, 18 MB).
 - `viz_IB2d/lag_data.visit` holds the fiber itself.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the fiber's positions and forces as plain-text PETSc vectors, with x and y alternating. Chapter 11 reads them in MATLAB.
 - `IB2d.log` is the log file.

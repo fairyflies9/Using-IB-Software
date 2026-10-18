@@ -7,7 +7,7 @@ An elastic tube in a closed loop (a "racetrack") inside a rigid pericardium, wit
 | Method | Immersed boundary (IB): springs, beams, target points, custom spring force functions, five actuation modes |
 | Dimension | 2D |
 | Chapters | 9b (custom spring forces and active pumping), 9a (target points and update functions), 6 (structure files), 11 (forces), 36 (two-point pump) |
-| Run time | about 55 to 65 minutes per mode on 3 cores (0.08 s per step on a laptop; 40,000 steps); the five modes can run at the same time |
+| Run time | about 55 to 65 minutes per mode on 3 cores (0.08 s per step on a desktop PC under WSL; 40,000 steps); the five modes can run at the same time |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR registers its own spring force function (under index 0, replacing the default) |
 
@@ -119,7 +119,7 @@ Things to notice:
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames).
 - `viz_IB2d/lag_data.visit` holds every structure as `<name>_vertices` (its points), and a structure with springs also as `<name>_mesh` (the points joined by the springs): `heart_tube_512_mesh`, `markers_512_vertices`, ....
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the points' positions and forces as plain-text PETSc vectors, with x and y alternating, in the order of `structure_names`. Chapter 11 reads them in MATLAB and Python.
 - `IB2d.log` is the log file.

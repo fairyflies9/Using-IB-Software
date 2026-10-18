@@ -616,7 +616,7 @@ Elastic modulus: try leaving it the same. Scale mu and beta with e'' (2020, slid
 \column{0.5\textwidth}
 In VisIt (the README's recipe):
 \begin{enumerate}
-  \item Open \code{viz\_IB2d/dumps.visit}; \textbf{Add $\to$ Pseudocolor $\to$ T}; \textbf{Draw}. \code{T} is there by its program name, next to \code{U}, \code{P}, \code{Omega}, \code{Div\_U} and \code{F}.
+  \item Open \code{viz\_IB2d/dumps.visit}; \textbf{Add $\to$ Pseudocolor $\to$ T}; \textbf{Draw}. \code{T} is there by its program name, next to \code{U}, \code{P}, \code{Omega}, \code{Div U} and \code{F}.
   \item Open \code{viz\_IB2d/output.ex2}; \textbf{Add $\to$ Mesh}; the expression \code{dX = \{dX\_0, dX\_1\}}; \textbf{Operators $\to$ Transforms $\to$ Displace} with \code{dX}.
   \item Fix the colour range to $0$--$1$ (\textbf{Pseudocolor $\to$ Min/Max}), or the overshoots and the jump of slide \ref{fr:jump} rescale every frame.
 \end{enumerate}

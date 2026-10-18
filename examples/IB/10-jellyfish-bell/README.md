@@ -7,7 +7,7 @@ A two-dimensional jellyfish bell, a single curve of springs and beams with no te
 | Method | Immersed boundary (IB): springs, beams with a time-dependent preferred curvature; a free (untethered) body |
 | Dimension | 2D |
 | Chapters | 10 (resting curvature and beams), 9a (update functions), 6 (structure files), 8b (dimensionless parameters), 11 (forces) |
-| Run time | about 15 minutes on 2 cores (0.02 s per step on a laptop; 40,000 steps) |
+| Run time | about 15 minutes on 2 cores (0.02 s per step on a desktop PC under WSL; 40,000 steps) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex3` in IBAMR (a filament of springs and beams); the bell is that of Herschlag and Miller, *J. Theor. Biol.* 285 (2011) 84–95 |
 
@@ -91,7 +91,7 @@ What to notice:
 
 The output folders:
 
-- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div_U` (51 frames).
+- `viz_IB2d/dumps.visit` holds the fluid data on the adaptive grid: velocity `U`, pressure `P`, vorticity `Omega` and `Div U` (51 frames).
 - `viz_IB2d/lag_data.visit` holds the bell as the mesh `bell_256_mesh`.
 - `hier_data_IB2d/X.NNNNN` and `F.NNNNN` are the points' positions and forces as plain-text PETSc vectors, with x and y alternating. Chapter 11 reads them in MATLAB and Python.
 - `IB2d.log` is the log file.

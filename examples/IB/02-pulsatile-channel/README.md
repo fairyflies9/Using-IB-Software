@@ -7,7 +7,7 @@ Fluid pulses through a straight channel whose walls are rows of Lagrangian point
 | Method | Immersed boundary (IB): target points, plus springs and beams that do nothing |
 | Dimension | 2D |
 | Chapters | 7 (boundary conditions), 6 (structure files), 3 (input-file errors) |
-| Run time | about 5 to 6 minutes on 4 cores (318 s with IBAMR 0.16.0 on a laptop) |
+| Run time | about 5 to 6 minutes on 4 cores (318 s with IBAMR 0.16.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relative | `examples/IB/explicit/ex2` in IBAMR (flow past a cylinder held by target points, with an inflow condition) |
 

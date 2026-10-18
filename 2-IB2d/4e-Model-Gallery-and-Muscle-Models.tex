@@ -92,7 +92,7 @@
   \item Write an activation function for IB2d's muscles, and know what the code does that the textbook model does not.
 \end{itemize}
 \begin{punchbox}
-\small Nine Python examples and seven variants ran on a laptop in October 2026 (WSL, Python IB2d, clone of 2024-03-06; 3--32 s each, the two big ones 21 and 29 minutes for a fraction of their shipped end times); the muscle laws are plotted and checked by three new scripts in \code{examples/IB2d/Muscle\_Models}. Every measured number on these slides comes from those runs and scripts; the parameters are read from the examples' files and the biology from the lectures.
+\small Nine Python examples and seven variants ran on a desktop PC in October 2026 (WSL, Python IB2d, clone of 2024-03-06; 3--32 s each, the two big ones 21 and 29 minutes for a fraction of their shipped end times); the muscle laws are plotted and checked by three new scripts in \code{examples/IB2d/Muscle\_Models}. Every measured number on these slides comes from those runs and scripts; the parameters are read from the examples' files and the biology from the lectures.
 \end{punchbox}
 \end{frame}
 
@@ -133,7 +133,7 @@ What is new here: nine Python examples and seven variants run and measured (with
 \end{columns}
 \vspace{2mm}
 \begin{punchbox}
-\small Still true in 2026. IB2d is a uniform-grid, periodic, single-process code: everything in this chapter runs in seconds at $32^2$--$128^2$, while the two examples at $128 \times 256$ and $1024 \times 128$ take 2--3 hours each to their shipped end times on a laptop. IBAMR (Part III) adds adaptive refinement, MPI, 3D and walls without target points. Prototype here, then port (chapter 6 has the file-format differences).
+\small Still true in 2026. IB2d is a uniform-grid, periodic, single-process code: everything in this chapter runs in seconds at $32^2$--$128^2$, while the two examples at $128 \times 256$ and $1024 \times 128$ take 2--3 hours each to their shipped end times on the desktop PC used here. IBAMR (Part III) adds adaptive refinement, MPI, 3D and walls without target points. Prototype here, then port (chapter 6 has the file-format differences).
 \end{punchbox}
 \sourcecredit{The 2016 talk, page 2.}
 \end{frame}
@@ -1024,7 +1024,7 @@ calcium and an excitable medium & MATLAB: FitzHugh--Nagumo heart tubes whose sti
 \label{fr:summary}
 \footnotesize
 \begin{itemize}
-  \item IB2d's models are forces between points (springs, beams, targets, masses, muscles, your own law), velocities added to points (porous, poroelastic), forces on the grid (external forcing, Boussinesq), and fields carried by the flow (concentration, tracers). Each has a file, a flag and an example; the Python examples run in seconds on a laptop (the two big ones in minutes, and hours to their shipped end times).
+  \item IB2d's models are forces between points (springs, beams, targets, masses, muscles, your own law), velocities added to points (porous, poroelastic), forces on the grid (external forcing, Boussinesq), and fields carried by the flow (concentration, tracers). Each has a file, a flag and an example; the Python examples run in seconds on a desktop PC (the two big ones in minutes, and hours to their shipped end times).
   \item Masses are per unit length and their weight reaches the fluid times $\Delta s$; in a periodic box nothing holds it up, so the whole fluid falls with them (momentum checked to 0.5\,\%, 1\,\% at the last dump). A concentration is conserved to $10^{-12}$ when the fluid is at rest; the upwind advection gains 0.36\,\% in the Rayleigh--Taylor run. A user-defined spring reproduces the built-in one exactly.
   \item The shipped porous bands collapse to a point just after their end time, whatever the step; the cause is the model (zero resting length plus slip), not the time step.
   \item Muscle force in IB2d is activation $\times$ length--tension $\times$ force--velocity along the line of two points. The code uses the speed without its sign and Hill's $a$ in force units; the three-element model is not the textbook arrangement in MATLAB and does not run in Python.

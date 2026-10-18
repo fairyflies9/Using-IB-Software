@@ -30,7 +30,7 @@ Put the folder under `pyIB2d/Examples/` of an IB2d clone and run from inside it.
 | `grid3` | two points per cell with k x 4 | a band twice as tense (first minimum at t = 0.06-0.08): the driver's spreading weight is `Lx/(2 Nx)`, not the file's spacing, so adding points needs k x 2, not x 4 |
 | `grid4` | two points per cell with k x 2 | the same band as `grid2` with twice the points; the same area loss to within one percent: the loss is the method's volume error (Peskin and Printz 1993), not fluid between the points |
 
-`sweep.py all` runs everything (73 cases; the 256 x 256 runs take 3-8 minutes each on a laptop; the rest seconds).
+`sweep.py all` runs everything (73 cases; the 256 x 256 runs take 3-8 minutes each on a desktop PC under WSL; the rest seconds).
 
 ## Results at a glance
 

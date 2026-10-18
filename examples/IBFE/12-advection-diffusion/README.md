@@ -7,7 +7,7 @@ The half-tethered plate of example IBFE/01 stirs a passive scalar T, for example
 | Method | Immersed boundary finite element (IBFE) with an advected and diffused scalar |
 | Dimension | 2D |
 | Chapters | 24 (IBFE with advection–diffusion), 7 (boundary conditions), 28 (finite element data in VisIt) |
-| Run time | about a minute and a half on 4 cores (69 s with IBAMR 0.16.0 and 91 s with 0.19.0 on a laptop) |
+| Run time | about a minute and a half on 4 cores (69 s with IBAMR 0.16.0 and 91 s with 0.19.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relatives | `examples/IB/explicit/ex7` (an IB structure with a dye concentration, set up the same way) and the stand-alone solvers in `examples/adv_diff/` in IBAMR |
 
@@ -104,7 +104,7 @@ With `ADV_DIFF_SOLVER_TYPE = "PREDICTOR_CORRECTOR"` (and the extra line above), 
 
 The output folder `viz_IB2d/` holds
 
-- `dumps.visit`: the fluid and T on the adaptive grid (`U`, `P`, `Omega`, `F`, `Div_U` and `T`);
+- `dumps.visit`: the fluid and T on the adaptive grid (`U`, `P`, `Omega`, `F`, `Div U` and `T`);
 - `output.ex2`: the plate (`dX_0`, `dX_1`, `X_0`, `X_1`, `F_0`, `F_1`, `U_0`, `U_1`).
 
 It is 17 MB with IBAMR 0.19.0 and 23 MB with 0.16.0, which also writes `U_x`, `U_y`, `F_x` and `F_y`.

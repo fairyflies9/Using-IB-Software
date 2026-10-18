@@ -7,7 +7,7 @@ A thin elastic plate, meshed with triangles, is pulled through a periodic box of
 | Method | Immersed boundary finite element (IBFE) |
 | Dimension | 2D |
 | Chapters | 17 (getting started with IBFE), 19 (stress and body forces), 28 (finite element data in VisIt) |
-| Run time | under a minute on 4 cores (26 s with IBAMR 0.16.0 on a laptop) |
+| Run time | under a minute on 4 cores (26 s with IBAMR 0.16.0 on a desktop PC under WSL) |
 | Tested with | IBAMR 0.16.0 and 0.19.0 (autoibamr; GCC 13.3, Open MPI 4.1.6, Ubuntu 24.04) |
 | Upstream relatives | `examples/IBFE/explicit/ex2` (elastic block, same stress model) and `ex1` (thin shell) in IBAMR |
 
@@ -87,7 +87,7 @@ IBAMR 0.16.0 and 0.19.0 give the same numbers.
 
 The output folder `viz_IB2d/` holds
 
-- `dumps.visit`: the fluid on the adaptive grid (velocity `U`, pressure `P`, vorticity `Omega`, force `F`, `Div_U`);
+- `dumps.visit`: the fluid on the adaptive grid (velocity `U`, pressure `P`, vorticity `Omega`, force `F`, `Div U`);
 - `output.ex2`: the plate, as an ExodusII file with the nodal variables `dX_0`, `dX_1` (displacement), `X_0`, `X_1` (position), `F_0`, `F_1` (force) and `U_0`, `U_1` (velocity).
 
 ## Looking at it in VisIt

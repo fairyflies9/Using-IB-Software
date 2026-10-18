@@ -872,7 +872,7 @@ mpirun -np 4 ./build/main2d input2d              # or: sbatch job.slurm
 \end{lstlisting}
 \begin{itemize}
   \item \code{CMakeLists.txt} is the six-line file of chapter 3 (\code{find\_package(IBAMR 0.16.0 REQUIRED)}, \code{target\_link\_libraries(main2d PRIVATE IBAMR::IBAMR2d)}); libMesh comes with IBAMR's targets, nothing to add. The 2014 Makefile needed \code{LIBSNEW = \$(LIBS) -lnetcdf -lcurl} by hand (slide \ref{fr:legacy}).
-  \item $4000$ steps of \code{DT = 1e-3} to $t = 4$; $41$ visualization dumps; $26$ s on four laptop cores with 0.16.0, about the same with 0.19.0. The two versions give the same positions to three digits.
+  \item $4000$ steps of \code{DT = 1e-3} to $t = 4$; $41$ visualization dumps; $26$ s on four cores of a desktop PC with 0.16.0, about the same with 0.19.0. The two versions give the same positions to three digits.
   \item A misspelled \code{MOTION} stops the run at once:
 \end{itemize}
 \begin{lstlisting}[style=data]
@@ -890,7 +890,7 @@ Valid options are: FULL, HALF, ROTATE
 \footnotesize
 \begin{tabular}{@{}L{0.26\textwidth}L{0.66\textwidth}@{}}
 \toprule
-\code{viz\_IB2d/dumps.visit} & the fluid on the adaptive grid, as in Part III: \code{U}, \code{P}, \code{Omega}, \code{F} (the spread force), \code{Div\_U}, one \code{visit\_dump.NNNNN} folder per dump \\
+\code{viz\_IB2d/dumps.visit} & the fluid on the adaptive grid, as in Part III: \code{U}, \code{P}, \code{Omega}, \code{F} (the spread force), \code{Div U}, one \code{visit\_dump.NNNNN} folder per dump \\
 \code{viz\_IB2d/output.ex2} & the plate, one ExodusII file with all $41$ time states: the mesh (\code{Mesh}, one element block, node numbers) and the nodal variables \code{dX\_0}, \code{dX\_1} (displacement from the reference position), \code{X\_0}, \code{X\_1} (current position), \code{F\_0}, \code{F\_1} (force) and \code{U\_0}, \code{U\_1} (velocity) \\
 \code{IB.log}, \code{IB2d.log} & the log (\code{AppInitializer}'s name in the program; \code{log\_file\_name} in \code{Main}) \\
 \code{restart\_IB2d/} & only with \code{restart\_dump\_interval > 0}: SAMRAI's files and \code{writeFEDataToRestartFile}'s \\

@@ -377,7 +377,7 @@ gcoef_function_0 = "(tanh((t-t_half)/tau)+tanh(t_half/tau))/(1+tanh(t_half/tau))
 \scriptsize 2013, slides 6--9: ``Inspired from an experiment. Mass was necessary to induce flapping. This simulation should flap at higher Re or higher mass.'' ``2D flow over a fiber with mass that resists bending and stretching and is tethered at the top. Boundary conditions allow flow in the y-direction. U1 is fixed on all sides to zero. U2 is set to Neumann B.C.'s. Flow is generated due to the effect of gravity. This comes from a `forcing function' in the input file.'' ``The boundary mass is added in an older way (no .mass files are used).'' ``Penalty IB method. This specific application is described in Zhu and Peskin. A `.mass' file is used to specify any additional mass associated with the IB points. For such files to have any effect, it is necessary that the IB solver be run in `penalty-IB' mode.''
 \end{column}
 \begin{column}{0.52\textwidth}
-\begin{lstlisting}[style=inputtiny]
+\begin{lstlisting}[style=inputtiny,belowskip=0pt]
 // input2d (0.19.0): the lines the 2013 deck quoted, still there
 ForcingFunction {
    function_0 = "0.0"
@@ -396,7 +396,7 @@ IBStandardInitializer {
    }
 }
 \end{lstlisting}
-\scriptsize \code{example.cpp} creates \code{PenaltyIBMethod} (chapter 13): the ``older way'' of 2013 is the \code{uniform\_bdry\_mass} keys, which give every point a massive copy without a \code{.mass} file. The fluid is a gas ($\rho = 3\times10^{-4}$, $\mu = 1.2\times10^{-3}$, ``Re=210''), gravity $980$ cm/s$^2$ ramps up through the forcing function, and five levels refined by 2 from $N = 16$ in a $9$ cm box. \code{DT = 0.128/NFINEST\^{}2} is $2\times10^{-6}$ s: the $1.2$ s run is $600{,}000$ steps, a cluster job; two minutes on a laptop gave slide \ref{fr:ran}'s count. Files for $256$, $512$ and $1024$ points.
+\scriptsize \code{example.cpp} creates \code{PenaltyIBMethod} (chapter 13): the ``older way'' of 2013 is the \code{uniform\_bdry\_mass} keys, which give every point a massive copy without a \code{.mass} file. The fluid is a gas ($\rho = 3\times10^{-4}$, $\mu = 1.2\times10^{-3}$, ``Re=210''), gravity $980$ cm/s$^2$ ramps up through the forcing function, and five levels refined by 2 from $N = 16$ in a $9$ cm box. \code{DT = 0.128/NFINEST\^{}2} is $2\times10^{-6}$ s: the $1.2$ s run is $600{,}000$ steps, a cluster job; two minutes on a desktop PC gave slide \ref{fr:ran}'s count. Files for $256$, $512$ and $1024$ points.
 \end{column}
 \end{columns}
 \end{frame}

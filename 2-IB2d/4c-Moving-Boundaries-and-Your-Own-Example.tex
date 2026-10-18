@@ -304,7 +304,7 @@ def update_Target_Point_Positions(dt, current_time, targets):
 \label{fr:sawrun}
 \scriptsize\setlength{\itemsep}{1pt}
 \begin{itemize}
-  \item The MATLAB example is a $1024 \times 256$ grid for 400\,000 steps: hours. The Python port takes the grid as an argument; at $256 \times 64$ (1656 points) a step takes 0.01--0.04 s on a laptop, so one pumping cycle ($T = 0.5$, 20\,000 steps) would be a run of 4--14 minutes. None of the runs reached it.
+  \item The MATLAB example is a $1024 \times 256$ grid for 400\,000 steps: hours. The Python port takes the grid as an argument; at $256 \times 64$ (1656 points) a step takes 0.01--0.04 s on a desktop PC, so one pumping cycle ($T = 0.5$, 20\,000 steps) would be a run of 4--14 minutes. None of the runs reached it.
   \item \al{As shipped it blows up}: with $k_t = 10^{11}$ and $\Delta t = 2.5 \cdot 10^{-5}$ the coarse run produces \code{NaN} positions at $t = 0.02$ (an \code{IndexError} from the delta-function indices is how Python reports it). The same $\Delta t$ with $k_t = 10^9$ fails at $t = 0.03$, with $10^8$ at $t = 0.065$ (and at $t = 0.068$ with $\Delta t = 10^{-5}$: not a time-step limit); $10^7$ survives the longest, past $t = 0.12$, with the top row near the centreline; shorter strokes ($a = 0.25$, $0.30$) with $10^7$ fail at $t = 0.15$ and $0.13$ (all times are those of the last dump before the failure).
   \item \al{Softer is not the answer either}: with $k_t = 10^7$ the worst point of the moving row is 0.09, two cells, from its target at $t = 0.1$ (the tooth tips are dragged sideways; the row's mean lag is a fifth of a cell), and the bottom row's tips have begun to shed points (next slide): the tether no longer holds the wall against the flow it drives.
   \item \al{Nor is a shorter channel at the original resolution}: four teeth in a $4 \times 2$ box on $384 \times 192$ ($\Delta x = 0.0104$, the original's $0.0117$) with $k_t = 10^{11}$ ran past $t = 0.21$ and failed on the up-stroke; with $10^{10}$ at $t = 0.02$.
@@ -440,7 +440,7 @@ def update_Target_Point_Positions(dt, current_time, targets):
 \includegraphics[width=\textwidth]{ch4c-pulsing-heart.png}
 \footnotesize
 \begin{itemize}
-  \item 10\,000 steps in 24 s on a laptop; 201 dumps. The area inside the heart's outline (right) goes from 0.27 to 0.13 at the end of each contraction and back: the targets are followed exactly, beat after beat, because the motion is a function of time.
+  \item 10\,000 steps in 24 s on a desktop PC; 201 dumps. The area inside the heart's outline (right) goes from 0.27 to 0.13 at the end of each contraction and back: the targets are followed exactly, beat after beat, because the motion is a function of time.
   \item The fluid is pushed out through the opening at the top during the contraction and drawn in during the expansion; at $32^2$ the vorticity at the opening's tips reaches $7 \cdot 10^3$ (the colour scale), the kind of number that says ``refine'' (chapter 4d). The example's $512 \times 512$ folder is a different model (6829 points, springs as well, its own update function), not a refinement of this one.
   \item The whole example is the data file, the blend and forty lines: the recipe of slide \ref{fr:phases} for any motion traced from images.
 \end{itemize}
