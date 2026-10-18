@@ -34,7 +34,7 @@ PERI_SPEED = 1.3                          // its speed, in lengths of the driven
 RHO = 1000.0                              // fluid mass density (kg / m^3)
 WO = 10.0                                 // desired Womersley number
 PI = 4.0*atan(1)                          // calculate PI
-MU = 2.0*PI*FRE*RHO*D*D/(4.0*WO*WO)       // fluid dynamic viscosity (N s / m^2) to yield the desired Wo: 1.57
+MU = 2.0*PI*FRE*RHO*D*D/(4.0*WO*WO)       // fluid dynamic viscosity (N s / m^2) to yield the desired Wo: 0.157
 
 // grid spacing parameters
 MAX_LEVELS = 4                            // maximum number of levels in locally refined grid

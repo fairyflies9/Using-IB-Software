@@ -46,7 +46,7 @@ Point numbers start at 0 in each structure's files. IBAMR numbers the points of 
 ## The physics
 
 - **Domain:** 1 m by 1 m, periodic in both directions, with the loop well inside it.
-- **Fluid:** density 1000 kg/m³ and viscosity 1.57 N s/m², set in the input from the Womersley number: `MU = 2πf ρ D² / (4 Wo²)` with `WO = 10`, `FRE = 1` Hz and `D = 0.1` m.
+- **Fluid:** density 1000 kg/m³ and viscosity 0.157 N s/m², set in the input from the Womersley number: `MU = 2πf ρ D² / (4 Wo²)` with `WO = 10`, `FRE = 1` Hz and `D = 0.1` m.
 - **Grid:** 4 levels of adaptive refinement with ratio 4 and 8 cells on the coarsest level, so the finest grid has 512 cells across and Δx = 1/512 m ≈ 2 mm. Cells are tagged for refinement around the structures and where the vorticity exceeds 0.1 s⁻¹.
 - **The loop:** a tube of diameter 0.1 m; the straight sections are 0.42 m long and the bends have inner radius 0.1 m, so the loop's centre lines are at y = ±0.15 m. The bottom straight section is the elastic part (springs, beams, and rigid ends); everything else is target points. The pericardium is a rigid box 0.2 m across around the elastic section. Points are ds = 1/1024 m apart, half a grid cell.
 - **Springs:** stiffness K = 2 (tension per unit strain, chapter 6); the `.spring` file holds K/ds = 2048, rest length ds.

@@ -451,7 +451,7 @@ inline double frequency_spring_force_deriv(double R, const double* params, int l
 ACTUATION = "TARGET_VP"
 FRE = 1.0                      // pumping frequency (Hz)
 WO  = 10.0                     // Womersley number
-MU  = 2.0*PI*FRE*RHO*D*D/(4.0*WO*WO)   // 1.57 N s/m^2
+MU  = 2.0*PI*FRE*RHO*D*D/(4.0*WO*WO)   // 0.157 N s/m^2
 ...
 IBStandardInitializer {
    max_levels = MAX_LEVELS
@@ -467,7 +467,7 @@ IBStandardInitializer {
 \footnotesize The driven points of the actuators are \al{copies} of points of the tube: each actuator structure holds its own vertices at the same places, and the tube's points there stay ordinary elastic points. A tether or an applied force on the copy moves the fluid of those grid cells, and the tube's wall goes with it. This is why the counts of the tube (860) do not change between modes, and why the input lists the driving pieces as separate structures.
 \vspace{1mm}
 
-\footnotesize Stiffnesses: $K = 2$, $EI = 10^{-2}$, $\kappa = 2$ (file values $2048$, $1.07\times10^7$, $2048$); $F_{\mathrm{mag}} = 0.25$ for the suction force and $1$ for the travelling one (the 2014 code's $4$, ``my best guess at a reasonable applied force'', closes the tube: slide \ref{fr:fmag}). The fluid: $\rho = 1000$, $\mu = 1.57$ from $\mathrm{Wo} = 10$ at $f = 1$ Hz.
+\footnotesize Stiffnesses: $K = 2$, $EI = 10^{-2}$, $\kappa = 2$ (file values $2048$, $1.07\times10^7$, $2048$); $F_{\mathrm{mag}} = 0.25$ for the suction force and $1$ for the travelling one (the 2014 code's $4$, ``my best guess at a reasonable applied force'', closes the tube: slide \ref{fr:fmag}). The fluid: $\rho = 1000$, $\mu = 0.157$ from $\mathrm{Wo} = 10$ at $f = 1$ Hz.
 \end{column}
 \end{columns}
 \end{frame}
