@@ -156,7 +156,7 @@ INSStaggeredHierarchyIntegrator {
 \label{fr:main}
 \begin{columns}[T]
 \column{0.42\textwidth}
-\includegraphics[height=0.78\textheight]{ch26-gui-main.png}
+\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{ch26-gui-main.png}
 \column{0.56\textwidth}
 \footnotesize
 \begin{itemize}
@@ -256,8 +256,8 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \label{fr:pcattr}
 \begin{columns}[T]
 \column{0.44\textwidth}
-\includegraphics[height=0.46\textheight]{ch26-gui-pc-attr.png}\hspace{1mm}
-\includegraphics[height=0.46\textheight]{ch26-v2-pc-attr.png}
+\includegraphics[width=0.48\linewidth,height=0.66\textheight,keepaspectratio]{ch26-gui-pc-attr.png}\hfill
+\includegraphics[width=0.48\linewidth,height=0.66\textheight,keepaspectratio]{ch26-v2-pc-attr.png}
 \column{0.54\textwidth}
 \scriptsize
 \begin{itemize}
@@ -289,7 +289,7 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \begin{itemize}
   \item The prompt appears when a second time-varying database is opened (or, in the 2024 practical, when the first plot of it is added): say \gui{Yes}. The \gui{Time} panel then shows \gui{Active time slider: Correlation01}, and \gui{Play}, the single-step arrows and the slider move both sources together, because they have the same number of frames.
   \item If you said \gui{No}, each source has its own slider and the points stay at frame 0 while the fluid moves: the classic ``the boundary doesn't move'' question. \gui{Controls $\to$ Database correlations} makes or edits a correlation later, by index or by time.
-  \item The frame index is not the time: \gui{Controls $\to$ Annotation $\to$ General} turns on the time annotation (\code{Time = ...}) or the cycle number, taken from the dumps.
+  \item The frame index is not the time: \gui{Controls $\to$ Annotation $\to$ General} shows the cycle and time taken from the dumps, but only on the database's line (``Cycle: 32000 Time: 1.6'' under ``DB: \dots''); for the time alone, a text annotation with \code{\$time} (chapter 30).
   \item A correlation by index assumes equal intervals. If the two \code{*\_dump\_interval} values differ, correlate by time, or fix the input. Rendering every frame is what makes a movie (chapter 30); for a figure, stop at the frame you want and save the window.
 \end{itemize}
 \sourcecredit{VisIt 3.4.1 (2024 practical, slide 18; the IB2d paths).}
@@ -299,9 +299,9 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \begin{frame}{Vectors}
 \label{fr:vectors}
 \begin{columns}[T]
-\column{0.5\textwidth}
+\column{0.42\textwidth}
 \includegraphics[width=\textwidth]{ch26-gui-vectors-ib2d.png}
-\column{0.48\textwidth}
+\column{0.56\textwidth}
 \scriptsize
 \begin{itemize}
   \item \gui{Add $\to$ Vector $\to$ U}, \gui{Draw}: one arrow per cell, coloured by magnitude, scaled automatically: a hedgehog (left, on the IB2d rubber band at its first frame). Its attribute window fixes it (next slide).
@@ -318,11 +318,11 @@ Left: the Mesh plot of \code{human\_vertices} as VisIt first draws it, with the 
 \begin{frame}{The Vector window, then and now}
 \label{fr:vectabs}
 \centering
-\includegraphics[height=0.38\textheight]{ch26-v2-vec-location.png}\hspace{1mm}
-\includegraphics[height=0.38\textheight]{ch26-v2-vec-form.png}\hspace{1mm}
+\includegraphics[height=0.38\textheight]{ch26-v2-vec-location.png}\hfill
+\includegraphics[height=0.38\textheight]{ch26-v2-vec-form.png}\hfill
 \includegraphics[height=0.38\textheight]{ch26-v2-vec-rendering.png}\\[1mm]
 \scriptsize\raggedright
-\begin{tabular}{@{}L{0.22\textwidth}L{0.33\textwidth}L{0.4\textwidth}@{}}
+\begin{tabular}{@{}L{0.22\textwidth}L{0.42\textwidth}L{0.26\textwidth}@{}}
 \toprule
 2.5.2 tab (above) & what it holds & 3.5 tab \\
 \midrule
@@ -382,7 +382,7 @@ dX        vector   {dX_0, dX_1}           # IBFE only: the Exodus file's displac
 \sourcecredit{VisIt 2.5.2 (2020 deck, slide 11): the Pseudocolor menu then listed \code{Omega}, \code{P}, \code{U\_magnitude}, \code{U\_x}, \code{U\_y}; 0.19 writes the vector \code{U} and leaves the rest to expressions.}
 \column{0.48\textwidth}
 \scriptsize
-\begin{itemize}\setlength{\itemsep}{0pt}
+\begin{itemize}\setlength{\itemsep}{-0.5pt}
   \item An expression is a new variable, computed from the others when a plot asks for it; it appears in the \gui{Add} menus under its type. \code{U[0]} and \code{U[1]} are the components, \code{magnitude(U)} the speed; the Vector plot takes \code{U} itself.
   \item \code{Omega} is a scalar in 2D and a vector in 3D (\code{Omega[2]} for the spanwise component, chapter 27).
   \item \code{P} is the pressure with the mean removed when \code{normalize\_pressure = TRUE}, and relative to the outflow when it is \code{FALSE} (IB/13): a Pseudocolor of \code{P} has no absolute meaning in the first case.
@@ -415,7 +415,7 @@ dX        vector   {dX_0, dX_1}           # IBFE only: the Exodus file's displac
 \column{0.56\textwidth}
 \footnotesize
 \begin{itemize}
-  \item \gui{Controls $\to$ Annotation}. \gui{General} tab: untick \gui{User information} and \gui{Database}; tick \gui{Time} if the frame's time belongs in the picture; the \gui{Legend} tick here hides all legends at once.
+  \item \gui{Controls $\to$ Annotation}. \gui{General} tab: untick \gui{User information} and \gui{Database} (the time is shown only on the database's line, so it goes too: for the frame's time add a text annotation \code{t = \$time s} in the \gui{Objects} tab, chapter 30); the \gui{Legend} tick here hides all legends at once.
   \item \gui{2D} tab: axes on or off, \gui{Custom title} and font sizes for each axis (the 2020 ``axes'' slide), tick marks and their labels, the grid lines (the 2020 ``hide the grid'').
   \item \gui{Objects} tab: the legends are objects; select one, \gui{Appearance}: untick \gui{Draw title} and \gui{Draw min/max}, set the font; \gui{Position} drags it. \gui{Create new $\to$ Text} adds a text box (the panel label, the Reynolds number), \gui{Time slider} a bar, \gui{Image} a logo.
   \item \gui{Colors} tab: background and foreground colours; a white background for print.
@@ -505,7 +505,7 @@ no database name, no user name & Annotation \gui{General} \\
 axes titled in units, or off & Annotation \gui{2D} \\
 one legend, without title and min/max, placed & Annotation \gui{Objects} \\
 white background for print & Annotation \gui{Colors} \\
-the frame's time, if it matters & Annotation \gui{General} \gui{Time} \\
+the frame's time, if it matters & a text annotation with \code{\$time} (Annotation \gui{Objects}; chapter 30) \\
 saved at a chosen size & \gui{Set save options}; the session saved next to it \\
 \bottomrule
 \end{tabular}
