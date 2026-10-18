@@ -800,12 +800,12 @@ time,x=-1.5,x=0,x=1.5
 \begin{columns}[T]
 \column{0.5\textwidth}\centering
 \includegraphics[width=0.95\textwidth]{ch33-flux-pump.png}\\
-\scriptsize IB/11 \code{FORCE\_VP\_F025} (chapter 9b's shipped suction run): the flow rate across the elastic section at $x = -0.15$ and $x = 0.15$ m, $y \in [0.1, 0.2]$, over two periods (51 frames).
+\scriptsize IB/11 \code{FORCE\_VP\_F025} (chapter 9b's shipped suction run): the flow rate across the loop's top straight (the rigid side opposite the elastic section) at $x = -0.15$ and $x = 0.15$ m, $y \in [0.1, 0.2]$, over two periods (51 frames).
 \column{0.48\textwidth}
 \footnotesize
 \begin{itemize}
   \item The two lines give the same curve (means $6.64$ and $6.65 \times 10^{-4}$ m$^2$/s): the flux along the tube is one number at each instant.
-  \item The mean, $6.6 \times 10^{-4}$ m$^2$/s per unit depth through a $0.1$ m tube, is a mean speed of $6.6$ mm/s in the $+x$ direction, pumped by a squeeze that never closes the tube: Liebau's valveless pumping, measured as a flux. Chapter 9b's README measured the same run by the markers' mean displacement, $+1.2$ and $+1.0$ cm per period: parcels on the centre line move faster than the mean.
+  \item The mean, $6.6 \times 10^{-4}$ m$^2$/s per unit depth through a $0.1$ m tube, is a mean speed of $6.6$ mm/s in the $+x$ direction along the top, so the loop turns clockwise and the flow along the elastic section is in $-x$ (chapter 29 finds the same flux on both bends and across the whole pericardium), pumped by a squeeze that never closes the tube: Liebau's valveless pumping, measured as a flux. Chapter 9b's README measured the markers' drift in the elastic section, $+1.2$ and $+1.0$ cm per period: against the net flow there. A drift of marker points is not a flux.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -814,7 +814,7 @@ time,x=-1.5,x=0,x=1.5
 \label{fr:pump2}
 \footnotesize
 \begin{itemize}
-  \item A line across the lower, stiff section at $x = -0.15$ gave almost nothing, because the pericardium's box leaves fluid outside the tube there: the line crossed tube and gap; check the geometry before trusting a line (chapter 9b's figures show where the tube is).
+  \item A line across the lower, elastic section at $x = -0.15$, between the walls' rest positions, gave almost nothing: the tube moves, bulging past such a line in places and narrowing inside it in others, so the line crosses part of the tube and part of the gap between tube and pericardium. Across the whole pericardium ($y$ from $-0.245$ to $-0.055$) the flux is the loop's again, $6.6 \times 10^{-4}$ m$^2$/s in $-x$ (chapter 29); check the geometry before trusting a line (chapter 9b's figures show where the tube is).
   \item The same loop over \code{sd.frames} gives any other quantity: the maximum speed on the line, the mean pressure drop between two lines, the kinetic energy in a box.
 \end{itemize}
 \end{frame}

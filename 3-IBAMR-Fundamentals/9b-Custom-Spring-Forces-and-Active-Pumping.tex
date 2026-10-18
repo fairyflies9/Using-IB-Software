@@ -432,10 +432,10 @@ inline double frequency_spring_force_deriv(double R, const double* params, int l
   \node[font=\tiny,text=NavyBlue] at (0,-0.29) {pericardium (rigid)};
   \node[font=\tiny,text=RubineRed] at (-0.105,-0.03) {actuator};
   \node[font=\tiny] at (0.1,-0.03) {elastic tube};
-  \draw[-{Stealth[length=1.2mm]},DarkGray] (0.05,-0.15) -- (0.15,-0.15); \node[font=\tiny,text=DarkGray] at (0.1,-0.17) {net flow};
+  \draw[-{Stealth[length=1.2mm]},DarkGray] (0.15,-0.15) -- (0.05,-0.15); \node[font=\tiny,text=DarkGray] at (0.1,-0.17) {net flow};
 \end{tikzpicture}
 
-\scriptsize The loop, redrawn from the 2014 slide: a $1$ m box; tube diameter $0.1$ m; inner radius of the bends $0.1$ m; pericardium $0.2$ m across; actuator $0.04$ m long, centred a quarter of the way along the elastic section. Chapter 36 derives the geometry for the two-point pump.
+\scriptsize The loop, redrawn from the 2014 slide: a $1$ m box; tube diameter $0.1$ m; inner radius of the bends $0.1$ m; pericardium $0.2$ m across; actuator $0.04$ m long, centred a quarter of the way along the elastic section. Chapter 36 derives the geometry for the two-point pump. The arrow is the net flow along the elastic section measured in both suction modes (chapter 29).
 \end{column}
 \end{columns}
 \end{frame}
@@ -730,7 +730,7 @@ mode & driving structure & what is set each step & force law & what is prescribe
 \includegraphics[width=\textwidth]{ch9b-pump-transport}
 \end{column}
 \begin{column}{0.38\textwidth}
-\footnotesize Left: the mean $x$-position of the 121 markers, which start inside the elastic section, against time: the net transport of fluid along the tube. Right: the smallest opening of the elastic section against time: how hard each mode squeezes (the diameter is $10$ cm; the suction targets close to $2$ cm by construction, and the 2014 target wave closes the tube and reopens it).
+\footnotesize Left: the mean $x$-position of the 121 markers, which start inside the elastic section, against time: how far those parcels drift along the tube, which is not always the direction of the net flow round the loop (next slide). Right: the smallest opening of the elastic section against time: how hard each mode squeezes (the diameter is $10$ cm; the suction targets close to $2$ cm by construction, and the 2014 target wave closes the tube and reopens it).
 \vspace{1mm}
 
 \footnotesize The numbers are in the README and on slide \ref{fr:fmag2} (two periods, shipped parameters; a curve that ends early ends where its run stopped). What to look for: next slide.
@@ -746,9 +746,9 @@ mode & driving structure & what is set each step & force law & what is prescribe
 \begin{itemize}
   \item The target-driven modes squeeze as told, and the elastic walls between the tethered copies go a little further.
   \item The applied-force modes squeeze as far as $F_{\mathrm{mag}}$ can push against the tube and the fluid, and nothing tells them when to stop (slide \ref{fr:fmag}).
-  \item The net transport has a direction, and it depends on the squeeze: the target-driven suction pump sends the markers toward the nearer end of the elastic section ($-2.4$ cm in two periods); the force-driven one, which squeezes less and later, sends them the other way ($+2.1$ cm); the target wave sends them with the wave ($+5.6$ cm); the force-driven wave on the stiff tube sloshes them back and forth ($+0.8$, then $-2.6$ cm).
+  \item The markers' drift has a direction, and it depends on the squeeze: the target-driven suction pump sends the markers toward the nearer end of the elastic section ($-2.4$ cm in two periods); the force-driven one, which squeezes less and later, sends them the other way ($+2.1$ cm); the target wave sends them with the wave ($+5.6$ cm); the force-driven wave on the stiff tube sloshes them back and forth ($+0.8$, then $-2.6$ cm). The net flow round the loop, integrated across the tube from the velocity (chapter 29), turns the same way in both suction modes: clockwise, $-x$ along the elastic section, $1.6 \times 10^{-3}$ m$^2$/s with the targets and $6.7 \times 10^{-4}$ with the applied force (two-period means); the force-driven markers drift against it.
   \item The target-driven suction pump's smallest opening in its second period ($1.3$ cm at $t = 2$ s) is beside the actuator, not in it: the actuator has reopened and sucks the neighbouring elastic wall in, which is what ``dynamic suction'' means (slide \ref{fr:shapes}, top right).
-  \item The transport per period is the figure of merit of a pump. It depends on the wall motion achieved and its timing, not on how the motion was produced: the same wall motion gives the same flow, and the five modes achieve five different motions (slide \ref{fr:fmag2}).
+  \item The net flow per period is the figure of merit of a pump; measure it from the velocity across the tube (chapter 29). It depends on the wall motion achieved and its timing, not on how the motion was produced: the same wall motion gives the same flow, and the five modes achieve five different motions (slide \ref{fr:fmag2}).
 \end{itemize}
 \end{frame}
 
@@ -798,8 +798,7 @@ mode & driving structure & what is set each step & force law & what is prescribe
 \begin{frame}{Tuning the applied force: the numbers}
 \label{fr:fmag2}
 \scriptsize Every applied-force run of the chapter, from the saved positions. ``Closes'': the walls come within two grid cells ($0.4$ cm; $\Delta x = 0.195$ cm), share cells and stick. Transport: the markers' mean displacement over $0$--$1$ s and over $1$--$2$ s. Opening: the smallest wall-to-wall distance in each period.
-\begin{center}
-\scriptsize
+\par\smallskip{\centering\scriptsize
 \begin{tabular}{@{}llllll@{}}
 \toprule
 run & tube & closes at & run ends & transport (cm) & opening (cm)\\
@@ -817,9 +816,8 @@ target points, suction & 2014 & never & $2$ s & $-0.8$, $-1.6$ & $1.9$, $1.3$\\
 target points, peristalsis & 2014 & $0.76$ s, reopens & $2$ s & $+3.1$, $+2.4$ & $0.07$, $0.09$\\
 stiffness wave, $25$ mm, rest $5$ cm & 2014 & $0.56$ s & abort, $0.64$ s & -- & crossed\\
 \bottomrule
-\end{tabular}
-\end{center}
-\scriptsize Two things to read off. The shipped suction force pumps steadily, but the other way from the target-driven pump: its squeeze is shallower and lags the force by half a period ($5.0$ cm at $t = 1.0$ s for a force that peaked at $0.5$ s). The force-driven wave on the stiff tube runs but sloshes: the fluid it pushes ahead flows back when the packet leaves the piece, and two periods do not settle its direction; a larger $F_{\mathrm{mag}}$ on the stiff tube is the first thing to try (slide \ref{fr:hw}).
+\end{tabular}\par}\smallskip
+\scriptsize Two things to read off. The shipped suction force pumps steadily (its net flow never reverses) and turns the loop the same way as the target-driven pump, though its markers drift the other way (chapter 29): its squeeze is shallower and lags the force by half a period ($5.0$ cm at $t = 1.0$ s for a force that peaked at $0.5$ s). The force-driven wave on the stiff tube runs but sloshes: the fluid it pushes ahead flows back when the packet leaves the piece, and two periods do not settle its direction; a larger $F_{\mathrm{mag}}$ on the stiff tube is the first thing to try (slide \ref{fr:hw}).
 \sourcecredit{Same runs; \code{tools/ch9b\_figures.py} prints these numbers.}
 \end{frame}
 
@@ -829,7 +827,7 @@ stiffness wave, $25$ mm, rest $5$ cm & 2014 & $0.56$ s & abort, $0.64$ s & -- & 
 \small From the 2014 lecture, ``Analysis -- pump coefficient'': ``The pump coefficient is given by $C_{\mathrm{pump}} = m\,U_a^2/W$, where $m$ is the total mass of fluid in the loop, $U_a$ is the average fluid velocity in the direction of the loop, and $W$ is the total work done by the pump over a set period of time. Note that work is $F\cdot d$, and we calculate each of these in IBM.''
 \begin{itemize}
   \item $m = \rho\,A_{\mathrm{loop}}$ per unit depth, from the geometry;
-  \item $U_a$ from the markers (slide \ref{fr:transport}): their mean displacement per period divided by the period, or from the velocity field integrated across the tube (chapter 26);
+  \item $U_a$ from the velocity field integrated across the tube: the flux divided by the diameter (chapter 29); not from the markers' displacement, which can differ even in sign (slide \ref{fr:transport});
   \item $W = \sum_{\text{steps}}\sum_{\text{driven points}} \mathbf{F}_k\cdot\Delta\mathbf{X}_k$: the force on each driven point times its displacement, summed over a period, from the \code{F.*} and \code{X.*} files (chapter 11). For the target modes the force is the tether force; for the force modes it is $F_{\mathrm{mag}}\cdot$phase on each spring, which \code{F.*} also contains.
 \end{itemize}
 \vspace{1mm}
