@@ -60,7 +60,7 @@
 \maketutorialtitlepanel{%
 \begin{tikzpicture}[node distance=4mm]
   \node[box,text width=16mm] (me) {your\\computer};
-  \node[box,right=6mm of me,text width=22mm] (bast) {bastion\\\code{hpc.arizona.edu}};
+  \node[box,right=6mm of me,text width=24mm] (bast) {bastion\\\code{hpc.arizona.edu}};
   \node[box,below=6mm of bast,text width=16mm] (login) {login node};
   \node[hot,below=6mm of login,text width=28mm] (comp) {Puma compute nodes};
   \draw[arr] (me) -- node[lab,above]{ssh} (bast);
@@ -393,7 +393,7 @@ Ctrl-K / Ctrl-U & cut / paste a line \\
 % 16
 \begin{frame}[fragile]{Editing files with vi}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.50\textwidth}
+\begin{column}{0.46\textwidth}
 vi is on every Linux system. It has two modes:
 \begin{itemize}\small
   \item \textbf{Normal mode}, where you start: keys are commands.
@@ -402,7 +402,7 @@ vi is on every Linux system. It has two modes:
 \vspace{2mm}
 \small Older course notes said to press Esc to start typing. That is backwards: \code{i} starts typing, Esc stops.
 \end{column}
-\begin{column}{0.47\textwidth}
+\begin{column}{0.52\textwidth}
 \small
 \begin{tabular}{@{}ll@{}}
 \toprule

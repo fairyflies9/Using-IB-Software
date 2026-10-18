@@ -98,7 +98,7 @@ What is new here: the three Python ports and their runs, the two prescription st
 \begin{frame}{Four ways to move a boundary, one mechanism}
 \label{fr:four}
 \scriptsize
-\begin{tabular}{@{}L{0.17\textwidth}L{0.22\textwidth}L{0.33\textwidth}L{0.20\textwidth}@{}}
+{\setlength{\tabcolsep}{4pt}\begin{tabular}{@{}L{0.17\textwidth}L{0.22\textwidth}L{0.33\textwidth}L{0.20\textwidth}@{}}
 \toprule
 Move it by & \code{input2d} & the function the driver calls every step & the table it edits \\
 \midrule
@@ -108,7 +108,7 @@ beams whose rest curvature changes & \code{beams = 1}, \code{update\_beams = 1} 
 damped springs & \code{damped\_springs = 1}, \code{update\_damp\_springs = 1} & \code{update\_Damped\_Springs(dt, current\_time, d\_springs)} & $i$, $j$, $k$, $L$, $b$ \\
 muscles & \code{FV\_LT\_muscle = 1} & an activation function you write (chapter 4e) & \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{frame}
 
 \begin{frame}{How the driver uses the update functions}
@@ -126,7 +126,7 @@ muscles & \code{FV\_LT\_muscle = 1} & an activation function you write (chapter 
 \small
 \begin{columns}[T]
 \column{0.5\textwidth}
-\begin{tabular}{@{}L{0.14\textwidth}L{0.76\textwidth}@{}}
+\begin{tabular}{@{}L{0.15\textwidth}L{0.75\textwidth}@{}}
 \toprule
 column & MATLAB (1-based) / Python (0-based) \\
 \midrule

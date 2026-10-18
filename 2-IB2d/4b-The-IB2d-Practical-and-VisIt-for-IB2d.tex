@@ -66,7 +66,7 @@
 \begin{frame}{What you will be able to do after this chapter}
 \label{fr:goals}
 \footnotesize
-\begin{itemize}
+\begin{itemize}\setlength{\itemsep}{0pt}
   \item Run the rubber-band example in MATLAB (and watch its figure) or in Python, and know what each run leaves behind.
   \item Open IB2d's output in VisIt from scratch: the points, the velocity vectors, the vorticity, all three together, advancing in time; make them look right (point size, limits, nodal, opacity); zoom; save a picture and a movie.
   \item Know the two ways IB2d's files differ from IBAMR's in VisIt (one file per dump and per variable, grouped as a ``database''; MATLAB's files carry a time stamp, Python's do not), and what VisIt asks because of it (the ``Index'' correlation).
@@ -74,7 +74,7 @@
   \item Run four more Python examples (porous band, heart tube with muscles, the impedance pump with tracers, a beam with target points) and read two MATLAB ones (the swimmer, the leaf) that use the update functions of chapter 4c.
 \end{itemize}
 \begin{punchbox}
-\small Every VisIt step was repeated headlessly in VisIt 3.5.0 on the Python run's output (\code{wsl/final/visit\_ch4b.sh}); most windows shown are the 2024 practical's (VisIt 3.4.1 on Windows), which look the same in 3.5; four are older VisIt 2.5.2 windows on a Mac that the practical reused (the first File open window, the zoom and the Save-movie screens). The extra examples were run in October 2026 (Python 3.12, numba 0.68); the MATLAB-only ones are described from their files and the 2024 pictures.
+\footnotesize Every VisIt step was repeated headlessly in VisIt 3.5.0 on the Python run's output (\code{wsl/final/visit\_ch4b.sh}); most windows shown are the 2024 practical's (VisIt 3.4.1 on Windows), which look the same in 3.5; four are older VisIt 2.5.2 windows on a Mac that the practical reused (the first File open window, the zoom and the Save-movie screens). The extra examples were run in October 2026 (Python 3.12, numba 0.68); the MATLAB-only ones are described from their files and the 2024 pictures.
 \end{punchbox}
 \end{frame}
 
@@ -158,14 +158,14 @@ The steps below are the 2024 practical's, checked in VisIt 3.5.0.
 \begin{frame}{Step 0: install VisIt, set one preference}
 \label{fr:install}
 \begin{columns}[T]
-\column{0.5\textwidth}
+\column{0.56\textwidth}
 \small
-\begin{itemize}
+\begin{itemize}\setlength{\itemsep}{0pt}
   \item VisIt is free (Lawrence Livermore): \url{https://visit-dav.github.io/visit-website/}; installers for Windows, macOS and Linux. Part V uses 3.5.0; the 2024 practical used 3.4.1 and the windows are the same.
   \item On a Mac with a recent macOS, VisIt may refuse to list files (``The MetaData server running on localhost could not get the file list for the current directory''): start it from the terminal, from the folder you want to open, with \code{/Applications/VisIt.app/Contents/}\allowbreak\code{Resources/bin/visit -gui} (the IB2d README's workaround).
   \item \gui{Options $\to$ Preferences}: untick \gui{Enable warning message popups}. The practical's reason: ``when we start saving movies, a pop-up will spring up every time-step''.
 \end{itemize}
-\column{0.48\textwidth}
+\column{0.42\textwidth}
 \includegraphics[width=0.88\textwidth]{ch4b-ibp-s12-preferences.png}
 \scriptsize The Preferences window (3.4.1); the box to untick is the last one of the General tab.
 \end{columns}
@@ -253,7 +253,7 @@ The steps below are the 2024 practical's, checked in VisIt 3.5.0.
 \end{columns}
 \end{frame}
 
-\begin{frame}{Step 5: make the vorticity readable}
+\begin{frame}{Step 5: make the vorticity readable (1/2)}
 \label{fr:custom}
 \begin{columns}[T]
 \column{0.5\textwidth}
@@ -262,6 +262,19 @@ Double-click the Pseudocolor entry (or \gui{PlotAtts $\to$ Pseudocolor}):
 \begin{itemize}
   \item \gui{Limits}: \gui{Minimum} $-50$, \gui{Maximum} $50$. The practical: ``these are just approximate values''. They clip the peaks (129 at dump 1; above 50 in 57 of the 76 dumps) and show the shear layers at one scale, which is what makes frames comparable (chapter 26); the extremes at states 15 and 75 are $\pm 52$ and $\pm 58$ (the \gui{MinMax} query, slide \ref{fr:query}).
   \item \gui{Centering}: \gui{Nodal}. Harmless here: IB2d writes its fields as point data, which VisIt already treats as nodal (a headless render with and without the setting is pixel-identical); the step matters for IBAMR's zone-centred vorticity, where it came from (chapter 26).
+\end{itemize}
+\column{0.48\textwidth}
+\includegraphics[width=0.52\textwidth]{ch4b-ibp-s22-pseudocolor-attr.png}
+\scriptsize The Pseudocolor attributes window (3.4.1): limits, centering, opacity.
+\end{columns}
+\end{frame}
+
+\begin{frame}{Step 5: make the vorticity readable (2/2)}
+\label{fr:custom2}
+\begin{columns}[T]
+\column{0.5\textwidth}
+\footnotesize
+\begin{itemize}
   \item \gui{Opacity}: \gui{Constant}, then 70\,\% on the slider (the 3.4.1 window shows the drop-down at \gui{Fully opaque}), so that the vectors and points show through.
   \item A diverging colour table (\code{difference}, blue--white--red) reads better than \code{hot} for a signed field; chapter 26's advice.
   \item \gui{Apply}; then \gui{Hide/Show} the vectors again, and press \gui{Play}: ``the rubberband bounding [sic] with the formation of new vortices during each bounce''.
@@ -430,7 +443,7 @@ for k in (0, 5, 15, 75):
 % ---------------------------------------------------------------- forces
 \begin{frame}{The forces on the structure: \code{hier\_IB2d\_data}}
 \label{fr:forces}
-\begin{center}\includegraphics[width=0.68\textwidth]{ch4b-forces.png}\end{center}
+\begin{center}\includegraphics[width=0.62\textwidth]{ch4b-forces.png}\end{center}
 \footnotesize
 \begin{itemize}
   \item \code{fMag.NNNN.vtk} in \code{hier\_IB2d\_data} is the magnitude of the force each point exerts on the fluid, as a scalar on the points; \code{fX\_Lag}, \code{fY\_Lag} are its components. Left: dump 5 ($t = 0.1$), when the force peaks (154 at the sides of the band, where the springs are most stretched); right: its maximum and mean over the points against time (the mean is 71 at the first dump, 76 at its peak and 62 at the end, as the band relaxes).
@@ -465,7 +478,7 @@ example (\code{pyIB2d/Examples}) & models (\code{input2d}) & grid, $\Delta t$, $
 
 \begin{frame}{The porous band}
 \label{fr:porous}
-\begin{center}\includegraphics[width=0.8\textwidth]{ch4b-porous-frames.png}\end{center}
+\begin{center}\includegraphics[width=0.78\textwidth]{ch4b-porous-frames.png}\end{center}
 \footnotesize
 \begin{itemize}
   \item \code{Single\_Porous\_Rubberband}: a 64-point band with a \code{.porous} file (a porosity coefficient per point) and springs 400 times stiffer than the springs example's ($k = 10^7$). Each point slips through the fluid in proportion to the force on it (\code{please\_Compute\_Porous\_Slip\_Velocity}), so the band leaks and shrinks fast ($x$ half-width 0.09 by $t = 0.1$). Do not compare it with the springs run of chapter 4a (different stiffness); the MATLAB folder \code{Example\_Porous\_Rubberbands} has the side-by-side comparison with a sealed band at the same $k$.
@@ -485,7 +498,7 @@ example (\code{pyIB2d/Examples}) & models (\code{input2d}) & grid, $\Delta t$, $
 
 \begin{frame}{The impedance pump with tracers}
 \label{fr:pump}
-\includegraphics[width=\textwidth]{ch4b-pump-tracers.png}
+{\centering\includegraphics[width=0.88\textwidth]{ch4b-pump-tracers.png}\par}
 \footnotesize
 \begin{itemize}
   \item \code{Tracers\_In\_Impedance\_Pump}: a tube of 156 points whose springs change their resting lengths in time (\code{update\_Springs.py}, chapter 4c) to pinch one section periodically; 110 passive tracers (\code{HeartTube.tracer}) ride the flow and show the net transport: their mean $x$ moves from 1.80 to 2.81 in 2 s, and that understates the transport, because tracers that reach the right edge re-enter at the left (the periodic box; visible in the last frame). The tube is 3 long in a box of 5. An impedance pump moves fluid without valves by pinching off-centre (chapter 4e; the IBAMR heart-tube pump is IB/11, chapter 9b; the two-point valveless pump is chapter 36).
@@ -512,7 +525,7 @@ The fix, in \code{pyIB2d/IBM\_Blackbox/IBM\_Driver.py} at that line (the tracers
 xT, yT = please_Move_Lagrangian_Point_Positions(mu, Uh, Vh, xT, yT, xT, yT,
     x, y, dt, grid_Info, 0, 0, 0, 0)
 \end{lstlisting}
-\begin{itemize}
+\begin{itemize}\setlength{\itemsep}{0pt}
   \item With it the example runs to the end (53 s) and the tracers move as on the previous slide.
   \item Like the \code{nonInv\_beams} key of chapter 4a and the \code{fNorm}/\code{fTan} test, this is worth a note to the IB2d repository; the MATLAB version has no such problem (its driver passes the full argument list).
   \item The lesson is chapter 4a's: a run that starts is not a run that finished. Count the dumps.

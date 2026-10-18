@@ -247,7 +247,7 @@ become (the 2018 slide's own picture, retyped)
 \begin{frame}{The Reynolds number and the flow regimes}
 \label{fr:re}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.44\textwidth}
+\begin{column}{0.62\textwidth}
 \footnotesize $\mathrm{Re} = \rho UL/\mu = UL/\nu$: inertial forces over viscous forces, or the ratio of the viscous time $L^2/\nu$ to the advective time $L/U$.
 \begin{itemize}
   \item $\mathrm{Re} \ll 1$: creeping (Stokes) flow; symmetric fore and aft, no wake, reversible; forces $\propto \mu U L$.
@@ -257,7 +257,7 @@ become (the 2018 slide's own picture, retyped)
   \item $\mathrm{Re} > 10^5$--$10^6$: the boundary layer itself becomes turbulent and the wake narrows (the drag crisis).
 \end{itemize}
 \end{column}
-\begin{column}{0.54\textwidth}
+\begin{column}{0.36\textwidth}
 \centering
 \begin{tikzpicture}[scale=0.41,every node/.style={font=\tiny}]
   \foreach \y/\lab in {8/{$\mathrm{Re} \ll 1$},6/{$\mathrm{Re} \sim 10$},4/{$\mathrm{Re} \sim 100$},2/{$\mathrm{Re} \sim 10^4$--$10^5$},0/{$\mathrm{Re} > 10^5$}}{
@@ -349,7 +349,7 @@ a large ship & $5\times10^9$\\
 % 13
 \begin{frame}{The Strouhal number}
 \label{fr:strouhal}
-\small Two definitions, both in use; say which one you mean.
+\small\setlength{\abovedisplayskip}{3pt}\setlength{\belowdisplayskip}{3pt} Two definitions, both in use; say which one you mean.
 \[
   \mathrm{St}_L = \frac{fL}{U}, \qquad \mathrm{St}_A = \frac{fA}{U}.
 \]
@@ -384,19 +384,19 @@ $\mathrm{St}_L$ is frequency times length over speed, the dimensionless frequenc
 \begin{frame}{The Womersley number}
 \label{fr:womersley}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.56\textwidth}
-\small For a flow that oscillates at angular frequency $\omega = 2\pi f$ in a vessel of radius $R$ (the 2018 slide quoted Wikipedia's definition and derivation):
-\[
-  \alpha = R\sqrt{\frac{\omega\rho}{\mu}} = R\sqrt{\frac{\omega}{\nu}} = \sqrt{2\pi\,\mathrm{Re}\,\mathrm{St}}, \qquad
+\begin{column}{0.6\textwidth}
+\small\setlength{\abovedisplayskip}{2pt}\setlength{\belowdisplayskip}{1pt} For a flow that oscillates at angular frequency $\omega = 2\pi f$ in a vessel of radius $R$ (the 2018 slide quoted Wikipedia's definition and derivation):
+\begin{gather*}
+  \alpha = R\sqrt{\frac{\omega\rho}{\mu}} = R\sqrt{\frac{\omega}{\nu}} = \sqrt{2\pi\,\mathrm{Re}\,\mathrm{St}},\\
   \alpha^2 = \frac{\text{transient inertial force}}{\text{viscous force}}.
-\]
-\begin{itemize}\footnotesize
+\end{gather*}
+\begin{itemize}\footnotesize\setlength{\itemsep}{0pt}
   \item $\alpha \lesssim 1$: the viscous (Stokes) layer $\sqrt{\nu/\omega}$ fills the vessel; the profile is a quasi-steady parabola that follows the pressure gradient in phase.
   \item $\alpha \gg 1$: the layer is thin; the core moves as a plug and lags the pressure by up to $90^\circ$, and the peak velocity sits near the wall (the annular effect).
   \item ``The Womersley number is important in keeping dynamic similarity when scaling an experiment'' and ``in determining the thickness of the boundary layer to see if entrance effects can be ignored.''
 \end{itemize}
 \end{column}
-\begin{column}{0.42\textwidth}
+\begin{column}{0.38\textwidth}
 \footnotesize The three regimes in a channel of half-width $R$, with the Stokes layer $\delta = \sqrt{\nu/\omega}$ shaded:
 \vspace{1mm}
 

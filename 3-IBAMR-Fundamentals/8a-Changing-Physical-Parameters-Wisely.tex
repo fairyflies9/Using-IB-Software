@@ -450,7 +450,7 @@ a stiffness ($K$, $EI$, $\kappa$) & how far the structure deforms or strays from
 \begin{frame}{The estimate applied to the examples}
 \label{fr:kspring2}
 \scriptsize
-\setlength{\tabcolsep}{3pt}
+\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{0.97}
 \begin{tabular}{@{}L{0.16\textwidth}L{0.3\textwidth}L{0.14\textwidth}L{0.1\textwidth}L{0.2\textwidth}@{}}
 \toprule
 example (points) & $F_b$ on one point & $x_s$ & estimate & in the file\\
@@ -696,7 +696,7 @@ a zero stiffness in a file & the element does nothing, and the log says so only 
 \begin{frame}{Homework}
 \label{fr:hw}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{0.55\textwidth}
+\begin{column}{0.6\textwidth}
 \footnotesize From the 2015--2018 courses and the READMEs (Appendix C collects the full set):
 \begin{enumerate}
   \item IB/01: run the viscosity sweep (\code{MU} = 100, 10, 1), plot the band's half-width and half-height against time, and measure the swing period at \code{MU = 1}. Then find the viscosity at which the band is critically damped (no overshoot, fastest approach).
@@ -705,7 +705,7 @@ a zero stiffness in a file & the element does nothing, and the log says so only 
   \item ``Imagine what this thing would be in reality'': pick one example and write its parameters as a real object with units (a jellyfish, a leaf in a stream, a glycocalyx fibre); then compute its Reynolds number and say whether the example's choice is realistic.
 \end{enumerate}
 \end{column}
-\begin{column}{0.43\textwidth}
+\begin{column}{0.38\textwidth}
 \begin{punchbox}
 \footnotesize What to hand in: the edited lines (input file or generator), the one number you compared (slide \ref{fr:procedure}), and one picture per run. For item 1, the plot; for item 2, the arithmetic.
 \end{punchbox}

@@ -403,7 +403,7 @@ What the four Python rubber-band examples took on a desktop PC under WSL (numba,
 
 \vspace{1mm}
 \scriptsize
-\begin{tabular}{@{}L{0.27\textwidth}L{0.07\textwidth}L{0.14\textwidth}L{0.08\textwidth}L{0.08\textwidth}L{0.11\textwidth}@{}}
+\begin{tabular}{@{}L{0.32\textwidth}L{0.07\textwidth}L{0.14\textwidth}L{0.08\textwidth}L{0.08\textwidth}L{0.11\textwidth}@{}}
 \toprule
 example & grid & $\Delta t$, $T$ & steps & points & wall time \\
 \midrule
@@ -689,7 +689,7 @@ zero beyond; $\delta_h(\mathbf{x}) = \phi(x/\Delta x)\,\phi(y/\Delta y)/(\Delta 
 \begin{frame}{The structure files: one name, many extensions (1/2)}
 \label{fr:family}
 \scriptsize
-\begin{tabular}{@{}L{0.13\textwidth}L{0.16\textwidth}L{0.38\textwidth}L{0.18\textwidth}@{}}
+\begin{tabular}{@{}L{0.13\textwidth}L{0.2\textwidth}L{0.34\textwidth}L{0.18\textwidth}@{}}
 \toprule
 File & Flag & Columns after the count line & Slide \\
 \midrule
@@ -817,7 +817,7 @@ The force on point $i$ from the spring to $j$, with $\mathbf{d} = \mathbf{X}_j -
 \[
 \mathbf{F}_i = \tfrac{1}{2}(\alpha + 1)\, k\, \big(|\mathbf{d}| - L\big)^{\alpha}\, \frac{\mathbf{d}}{|\mathbf{d}|},
 \]
-and $\mathbf{F}_j = -\mathbf{F}_i$; so $\alpha = 1$ is Hooke's law $k(|\mathbf{d}| - L)$ (\code{give\_Me\_Spring\_Lagrangian\_Force\_Densities}).
+and $\mathbf{F}_j = -\mathbf{F}_i$; so $\alpha = 1$ is Hooke's law $k(|\mathbf{d}| - L)$ (\code{give\_Me\_Spring\_}\allowbreak\code{Lagrangian\_Force\_Densities}).
 \column{0.52\textwidth}
 \small
 \begin{itemize}
@@ -919,7 +919,7 @@ i j k  k_b  Cx  Cy        # six columns
 \mathbf{F}_q &= 2 k_b\,(\mathbf{X}_r - 2\mathbf{X}_q + \mathbf{X}_p - \mathbf{C}),\\
 \mathbf{F}_p &= \mathbf{F}_r = -\tfrac{1}{2}\mathbf{F}_q ,
 \end{align*}
-the discrete fourth derivative of the 2024 deck's $\mathbf{F} = k_{NIB}\, \partial^4 (\mathbf{X} - \mathbf{X}_b)/\partial s^4$ assembled from second differences (\code{give\_Me\_nonInv\_Beam\_Lagrangian\_Force\_Densities}).
+the discrete fourth derivative of the 2024 deck's $\mathbf{F} = k_{NIB}\, \partial^4 (\mathbf{X} - \mathbf{X}_b)/\partial s^4$ assembled from second differences (\code{give\_Me\_nonInv\_Beam\_}\allowbreak\code{Lagrangian\_Force\_Densities}).
 \column{0.46\textwidth}
 \footnotesize
 \begin{itemize}
@@ -948,7 +948,7 @@ the discrete fourth derivative of the 2024 deck's $\mathbf{F} = k_{NIB}\, \parti
 \[
 \mathbf{F}_i = k_t\,\big(\mathbf{X}^{\mathrm{target}}_i - \mathbf{X}_i\big),
 \]
-a zero-rest-length spring to a position that is, by default, the point's initial position (\code{give\_Me\_Target\_Lagrangian\_Force\_Densities}).
+a zero-rest-length spring to a position that is, by default, the point's initial position (\code{give\_Me\_Target\_}\allowbreak\code{Lagrangian\_Force\_Densities}).
 \column{0.52\textwidth}
 \small
 \begin{itemize}
